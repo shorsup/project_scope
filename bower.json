@@ -8,14 +8,14 @@
   "main": "",
   "license": "MIT",
   "private": true,
+  "dependencies": {
+    "showdown": "^1.8.6"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ],
-  "dependencies": {
-    "showdown": "^1.8.6"
-  }
+  ]
 }
