@@ -1,22 +1,29 @@
 .wrapper-editor {
-    color: #fff;
-    background: #135589;
+    color: #717e83;
+    background: #0e1e25;
 }
 
-#textinput {
+.wrapper-preview, #textinput {
     color: inherit;
     background: inherit;
     border: none;
-    height: 90vh;
+    height: 100vh;
+}
+
+textarea {
+    resize: none;
+}
+
+.wrapper-preview {
+    background-color: #f4f7f8;
 }
 
 .form-control:focus {
     box-shadow: none;
 }
 
-.wrapper-preview {
-}
-
-.wrapper-summary {
-    height: 10vh;
+@media (max-width: 575px) {
+    .wrapper-preview, #textinput {
+        height: 50vh;
+    }
 }
