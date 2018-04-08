@@ -1,8 +1,10 @@
 $(document).ready(function() {
     calculateTotalHours();
+    milestones();
 
     $("#textinput").bind('input propertychange', function() {
         calculateTotalHours();
+        milestones();
       });
 });
 
@@ -67,4 +69,47 @@ function calculateTotalHours() {
     var price = sum * 160;
     $('.js-hours-total').text(sum);
     $('.js-price-total').text(price);
+    return sum;
+}
+
+function updateTotalHours() {
+    var totalHoursRegex = /\*\*XX\shours\*\*/;
+    var input = $('#textinput').val();
+    var sum = calculateTotalHours();
+
+    input.replace(totalHoursRegex, '**' + sum + ' hours**');
+}
+
+function milestones() {
+    var milestoneRegex = /\#+.+?(hr\))/g;
+    var milestoneRegex2 = /\#+.+?(m\))/g;
+    var graphic = /^.*\b(a wireframe|a photoshop mockup)\b.*$/g;
+    var input = $('#textinput').val();
+
+    var test = input.match(milestoneRegex);
+    var test2 = input.match(milestoneRegex2);
+    var test3 = input.match(graphic);
+
+    console.log(test3);
+
+    var x = '';
+
+    if (test) {
+        for (var i = 0; i < test.length; i++) {
+            // var removeTimeRegex = /(?:(?!\s\().)*/;
+
+            x += test[i] + '<br>';
+
+            // var match = test[i].match(removeTimeRegex);
+            // console.log(match);
+        }
+    }
+
+    if (test2) {
+        for (var i = 0; i < test2.length; i++) {
+            x += test2[i] + '<br>';
+        }
+    }
+
+    $('.js-milestones').html(x);
 }
