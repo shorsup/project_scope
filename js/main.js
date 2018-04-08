@@ -1,10 +1,12 @@
 $(document).ready(function() {
     calculateTotalHours();
     milestones();
+    run();
 
     $("#textinput").bind('input propertychange', function() {
         calculateTotalHours();
         milestones();
+        run();
       });
 });
 

@@ -1,0 +1,21 @@
+{
+  "name": "project_scope",
+  "homepage": "https://github.com/mmwoods/project_scope",
+  "authors": [
+    "Mitchell Woods <themitchwoods@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "showdown": "^1.8.6"
+  }
+}
