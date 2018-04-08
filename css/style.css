@@ -1,0 +1,22 @@
+.wrapper-editor {
+    color: #fff;
+    background: #135589;
+}
+
+#textinput {
+    color: inherit;
+    background: inherit;
+    border: none;
+    height: 90vh;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.wrapper-preview {
+}
+
+.wrapper-summary {
+    height: 10vh;
+}
