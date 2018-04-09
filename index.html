@@ -16,12 +16,16 @@
     <!-- Showdown -->
     <script src="js/showdown.min.js"></script>
     <script src="js/script.js"></script>
+    <!-- Ace -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js" integrity="sha256-NLPE2EQpOtxTAUB/jxjM97jsGmVQopiX8ceHySHhXs8=" crossorigin="anonymous"></script>
+    <script src="js/ace.js"></script>
+    <!-- <script src="js/theme-neto.js"></script> -->
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="wrapper-editor col-xs-12 col-sm-6">
-                <textarea id="textinput" rows="10" class="form-control">Instructions:
+            <!-- Ace -->
+            <div id="editor" class="col-xs-12 col-sm-6">Instructions:
 
 Will calculate the total hours if formatted as below: 
 **(1hr)**
@@ -31,17 +35,17 @@ Will calculate the total hours if formatted as below:
 Will display milestones if formatted as below:
 ## Homepage (1hr)
 ## Product Page (20hr)
-## Category Page (30m)</textarea>
-            </div>
+## Category Page (30m)</div>
 
-            <div id="targetDiv" class="wrapper-preview col-xs-12 col-sm-6"></div>
-        </div>
+            <div class="wrapper-preview col-xs-12 col-sm-6">
+                <div class="wrapper-summary text-center">
+                    <p>Implementation Milestones</p>
+                    <p class="js-milestones">Milestones</p>
+                    <p><span class="js-hours-total">0</span> Hours</p>
+                    <p></p>$<span class="js-price-total">0</span></p>
+                </div>
 
-        <div class="wrapper-summary row">
-            <div class="col-xs-12">
-                <p>Implementation Milestones</p>
-                <p class="js-milestones">Milestones</p>
-                <p><span class="js-hours-total">0</span> Hours, $<span class="js-price-total">0</span></p>
+                <div id="targetDiv"></div>
             </div>
         </div>
     </div><!-- /container -->

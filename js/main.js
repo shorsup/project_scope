@@ -3,16 +3,24 @@ $(document).ready(function() {
     milestones();
     run();
 
-    $("#textinput").bind('input propertychange', function() {
+    // $("#textinput").bind('input propertychange', function() {
+    //     calculateTotalHours();
+    //     milestones();
+    //     run();
+    // });
+    var editor = ace.edit("editor");
+    editor.session.on('change', function(delta) {
         calculateTotalHours();
         milestones();
         run();
-      });
+    });
 });
 
 function calculateTotalHours() {
     // Text Area
-    var input = $('#textinput').val();
+    var editor = ace.edit("editor");
+    var input = editor.getValue();
+    // var input = $('#textinput').val();
     // Regex
     var min = /\*\*\(\d\dm\)\*\*/g;
     // **(30m)**
@@ -76,7 +84,9 @@ function calculateTotalHours() {
 
 function updateTotalHours() {
     var totalHoursRegex = /\*\*XX\shours\*\*/;
-    var input = $('#textinput').val();
+    // var input = $('#textinput').val();
+    var editor = ace.edit("editor");
+    var input = editor.getValue();
     var sum = calculateTotalHours();
 
     input.replace(totalHoursRegex, '**' + sum + ' hours**');
@@ -86,7 +96,9 @@ function milestones() {
     var milestoneRegex = /\#+.+?(hr\))/g;
     var milestoneRegex2 = /\#+.+?(m\))/g;
     var graphic = /^.*\b(a wireframe|a photoshop mockup)\b.*$/g;
-    var input = $('#textinput').val();
+    // var input = $('#textinput').val();
+    var editor = ace.edit("editor");
+    var input = editor.getValue();
 
     var test = input.match(milestoneRegex);
     var test2 = input.match(milestoneRegex2);

@@ -7,7 +7,7 @@
     color: inherit;
     background: inherit;
     border: none;
-    height: 80vh;
+    height: 100vh;
 }
 
 .wrapper-summary {
@@ -22,6 +22,10 @@ textarea {
 .wrapper-preview {
     background-color: #f4f7f8;
     overflow-y: scroll;
+}
+
+body, .wrapper-summary {
+    background: #fff;
 }
 
 .form-control:focus {
