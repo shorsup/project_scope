@@ -17,8 +17,8 @@
     <script src="js/showdown.min.js"></script>
     <script src="js/script.js"></script>
     <!-- Ace -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js" integrity="sha256-NLPE2EQpOtxTAUB/jxjM97jsGmVQopiX8ceHySHhXs8=" crossorigin="anonymous"></script>
-    <script src="js/ace.js"></script>
+    <script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/aceSetup.js"></script>
     <!-- <script src="js/theme-neto.js"></script> -->
 </head>
 <body>
@@ -39,10 +39,11 @@ Will display milestones if formatted as below:
 
             <div class="wrapper-preview col-xs-12 col-sm-6">
                 <div class="wrapper-summary text-center">
-                    <p>Implementation Milestones</p>
-                    <p class="js-milestones">Milestones</p>
                     <p><span class="js-hours-total">0</span> Hours</p>
                     <p></p>$<span class="js-price-total">0</span></p>
+
+                    <p>Implementation Milestones</p>
+                    <p class="js-milestones">Milestones</p>
                 </div>
 
                 <div id="targetDiv"></div>
