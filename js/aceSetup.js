@@ -8,8 +8,7 @@ $(document).ready(function() {
         editor.setOptions({
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,
-            enableSnippets: true,
-            setUseWrapMode: true
+            enableSnippets: true
         })
     })
 
@@ -18,6 +17,16 @@ $(document).ready(function() {
         bindKey: {win: 'Ctrl-M',  mac: 'Command-M'},
         exec: function(editor) {
             editor.insert("Something cool");
+        },
+        readOnly: true // false if this command should not apply in readOnly mode
+    });
+
+    editor.commands.addCommand({
+        name: 'myCommand',
+        bindKey: {win: 'Ctrl-O',  mac: 'Command-O'},
+        exec: function(editor) {
+            editor.insert("Open Menu");
+            console.log('Open Menu');
         },
         readOnly: true // false if this command should not apply in readOnly mode
     });
