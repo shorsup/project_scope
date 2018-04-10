@@ -32,8 +32,27 @@ body, .wrapper-summary {
     box-shadow: none;
 }
 
+.ace_editor {
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    z-index: 999999;
+    right: 50%;
+    bottom: 0;
+}
+
 @media (max-width: 575px) {
-    .wrapper-preview, #textinput {
+    .wrapper-preview {
         height: 50vh;
+        margin-top: 50vh;
+    }
+
+    .ace_editor {
+        position: absolute !important;
+        left: 0;
+        right: 0;
+        z-index: 999999;
+        bottom: 50%;
+        top: 0;
     }
 }

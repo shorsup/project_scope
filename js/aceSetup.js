@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var editor = ace.edit("editor");
     editor.session.setMode("ace/mode/markdown");
-    editor.setTheme("ace/theme/solarized_dark");
+    editor.setTheme("ace/theme/tomorrow_night_eighties");
     editor.session.setUseWrapMode(true);
  
     ace.config.loadModule('ace/ext/language_tools', function () {
