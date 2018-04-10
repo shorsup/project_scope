@@ -16,6 +16,18 @@ $(document).ready(function() {
     });
 });
 
+function toggleSnippetMenu() {
+    $('.wrapper-snippet-menu').toggle('hide');
+}
+
+function insertSnippet(string) {
+    var editor = ace.edit("editor");
+    // editor.insert(string);
+    // Use below when making a proper snippet manager: 
+    var snippetManager = ace.require("ace/snippets").snippetManager;
+    snippetManager.insertSnippet(editor, '- The ${1:name} banners are set up as adverts and assigned to two separate advert groups, one for desktop and one for mobile: ${1:desktop_group} and ${2:mobile_group}');
+}
+
 function calculateTotalHours() {
     // Text Area
     var editor = ace.edit("editor");

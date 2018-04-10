@@ -24,8 +24,11 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Ace -->
+            <!-- Ace Editor -->
             <div id="editor"># Settings
+
+settings menu (mac): `[cmd] + [m]`
+settings menu (windows ew): `[ctrl] + [m]`
 
 settings menu (mac): `[cmd] + [,]`
 settings menu (windows ew): `[ctrl] + [,]`
@@ -70,7 +73,8 @@ n_cz
 n_ft_ad
 n_blg
 n_cpf</div>
-
+            
+            <!-- Preview -->
             <div class="wrapper-preview col-xs-12 col-sm-6 offset-sm-6">
                 <div class="wrapper-summary text-center">
                     <p><span class="js-hours-total">0</span> Hours</p>
@@ -81,6 +85,30 @@ n_cpf</div>
                 </div>
 
                 <div id="targetDiv"></div>
+            </div>
+
+            <!-- Snippets -->
+            <div class="wrapper-snippet-menu" style="display: none;">
+                <h3>Snippets</h3>
+                <div class="list-group">
+                <a href="#" class="list-group-item active">Banners</a>
+                <a onclick="insertSnippet('n_ban')" href="#" class="list-group-item list-group-item-action">Banner</a>
+                <a href="#" class="list-group-item list-group-item-action">Banner (Mobile &amp; Desktop)</a>
+                <a href="#" class="list-group-item active">Adverts</a>
+                <a href="#" class="list-group-item list-group-item-action">Advert</a>
+                <a href="#" class="list-group-item list-group-item-action">Multiple Adverts</a>
+                <a href="#" class="list-group-item list-group-item-action">Multiple Adverts with Example</a>
+                <a href="#" class="list-group-item list-group-item-action">Adverts with Image, Content, Link</a>
+                <a href="#" class="list-group-item list-group-item-action">Featured Products Adverts</a>
+                <a href="#" class="list-group-item active">Menus</a>
+                <a href="#" class="list-group-item list-group-item-action">Navigation Menu</a>
+                <a href="#" class="list-group-item list-group-item-action">Static Menu</a>
+                <a href="#" class="list-group-item active">Editable Zones</a>
+                <a href="#" class="list-group-item list-group-item-action">Content Zone</a>
+                <a href="#" class="list-group-item list-group-item-action">Custom Product Fields</a>
+                <a href="#" class="list-group-item active">Thumbnails</a>
+                <a href="#" class="list-group-item list-group-item-action">Blog Thumbnails</a>
+                </div>
             </div>
         </div>
     </div><!-- /container -->
