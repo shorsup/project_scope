@@ -2,6 +2,7 @@ $(document).ready(function() {
     calculateTotalHours();
     milestones();
     run();
+    groupDetection();
 
     // $("#textinput").bind('input propertychange', function() {
     //     calculateTotalHours();
@@ -13,6 +14,7 @@ $(document).ready(function() {
         calculateTotalHours();
         milestones();
         run();
+        groupDetection();
     });
 });
 
@@ -26,6 +28,23 @@ function insertSnippet(string) {
     // Use below when making a proper snippet manager: 
     var snippetManager = ace.require("ace/snippets").snippetManager;
     snippetManager.insertSnippet(editor, '- The ${1:name} banners are set up as adverts and assigned to two separate advert groups, one for desktop and one for mobile: ${1:desktop_group} and ${2:mobile_group}');
+}
+
+function groupDetection() {
+    // Text Area
+    var editor = ace.edit("editor");
+    var input = editor.getValue();
+
+    var groupBoundaries = /^---((.|\n)*)(---)$/g;
+
+    var matchesGroupBoundaries = input.match(groupBoundaries);
+
+    if (matchesGroupBoundaries) {
+        for (var i = 0; i < matchesGroupBoundaries.length; i++) {
+            console.log(matchesGroupBoundaries[i]);
+        }
+    }
+
 }
 
 function calculateTotalHours() {
@@ -83,7 +102,7 @@ function calculateTotalHours() {
                 mockupSum += int;
             }
 
-            console.log(matchesHrLine[i])
+            // console.log(matchesHrLine[i])
             // console.log("Hours: " + matchesHr[i]);
         }
     }
@@ -100,7 +119,7 @@ function calculateTotalHours() {
                 mockupSum += int;
             }
 
-            console.log(matchesMinLine[i])
+            // console.log(matchesMinLine[i])
             // console.log("Minutes: " + matchesMin[i]);
         }
     }
@@ -120,12 +139,12 @@ function calculateTotalHours() {
                 mockupSum += int;
             }
 
-            console.log(matchesHrMinLine[i])
+            // console.log(matchesHrMinLine[i])
             // console.log("Hours, Minutes: " + matchesHrMin[i]);
         }
     }
 
-    console.log("mockups " + mockupSum);
+    // console.log("mockups " + mockupSum);
     var price = sum * 160;
     $('.js-hours-total').text(sum);
     $('.js-price-total').text(price);
@@ -156,7 +175,7 @@ function milestones() {
     var test2 = input.match(milestoneRegex2);
     var test3 = input.match(graphic);
 
-    console.log(test3);
+    // console.log(test3);
 
     var x = '';
 
