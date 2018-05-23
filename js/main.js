@@ -37,14 +37,17 @@ function calculateTotalHours() {
 
     // Minutes Only
     var min = /<!--.\d+(m|min|mins|minutes).-->/g;
+    var minLine = /.*(<!--.\d+(m|min|mins|minutes).-->).*/g;
     // var min = /\*\*\(\d\dm\)\*\*/g;
     
     // Hours Only
     var hr = /<!--.\d+(hr|hrs|hour|hours).-->/g; 
+    var hrLine = /.*(<!--.\d+(hr|hrs|hour|hours).-->).*/g;
     // var hr = /\*\*\(\d+hr\)\*\*/g;
     
     // Hours & Minutes
     var hrMin = /<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes)-->/g;
+    var hrMinLine = /.*(<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes)-->).*/g;
     // var hrMin = /\*\*\(\d+hr\s\d\dm\)\*\*/g;
 
     // Numbers
@@ -52,8 +55,14 @@ function calculateTotalHours() {
 
     // Number Formats
     var matchesHr = input.match(hr);
+    var matchesHrLine = input.match(hrLine);
+
     var matchesMin = input.match(min);
+    var matchesMinLine = input.match(minLine);
+
     var matchesHrMin = input.match(hrMin);
+    var matchesHrMinLine = input.match(hrMinLine);
+
     // Hour Totals
     var sum = 0;
     var total = 0;
@@ -65,7 +74,8 @@ function calculateTotalHours() {
 
             sum += int;
 
-            console.log("Hours: " + matchesHr[i]);
+            console.log(matchesHrLine[i])
+            // console.log("Hours: " + matchesHr[i]);
         }
     }
 
@@ -76,7 +86,8 @@ function calculateTotalHours() {
 
             sum += int/60;
 
-            console.log("Minutes: " + matchesMin[i]);
+            console.log(matchesMinLine[i])
+            // console.log("Minutes: " + matchesMin[i]);
         }
     }
 
@@ -90,7 +101,8 @@ function calculateTotalHours() {
             sum += hours;
             sum += mins/60;
 
-            console.log("Hours, Minutes: " + matchesHrMin[i]);
+            console.log(matchesHrMinLine[i])
+            // console.log("Hours, Minutes: " + matchesHrMin[i]);
         }
     }
 
