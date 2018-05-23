@@ -32,15 +32,22 @@ function calculateTotalHours() {
     // Text Area
     var editor = ace.edit("editor");
     var input = editor.getValue();
-    // var input = $('#textinput').val();
+
     // Regex
-    var min = /\*\*\(\d\dm\)\*\*/g;
-    // **(30m)**
-    // ! **(5m)** or **(100m)**
-    var hr = /\*\*\(\d+hr\)\*\*/g;
-    // **(1+hr)**
-    var hrMin = /\*\*\(\d+hr\s\d\dm\)\*\*/g;
-    // **(1+hr 30m)**
+
+    // Minutes Only
+    var min = /<!--.\d+(m|min|mins|minutes).-->/g;
+    // var min = /\*\*\(\d\dm\)\*\*/g;
+    
+    // Hours Only
+    var hr = /<!--.\d+(hr|hrs|hour|hours).-->/g; 
+    // var hr = /\*\*\(\d+hr\)\*\*/g;
+    
+    // Hours & Minutes
+    var hrMin = /<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes)-->/g;
+    // var hrMin = /\*\*\(\d+hr\s\d\dm\)\*\*/g;
+
+    // Numbers
     var numbers = /\d+/g;
 
     // Number Formats
@@ -58,7 +65,7 @@ function calculateTotalHours() {
 
             sum += int;
 
-            console.log(matchesHr[i]);
+            console.log("Hours: " + matchesHr[i]);
         }
     }
 
@@ -69,7 +76,7 @@ function calculateTotalHours() {
 
             sum += int/60;
 
-            console.log(matchesMin[i]);
+            console.log("Minutes: " + matchesMin[i]);
         }
     }
 
@@ -83,7 +90,7 @@ function calculateTotalHours() {
             sum += hours;
             sum += mins/60;
 
-            console.log(matchesHrMin[i]);
+            console.log("Hours, Minutes: " + matchesHrMin[i]);
         }
     }
 
