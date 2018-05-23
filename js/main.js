@@ -63,9 +63,13 @@ function calculateTotalHours() {
     var matchesHrMin = input.match(hrMin);
     var matchesHrMinLine = input.match(hrMinLine);
 
+    // Mockups
+    var mockups = /mockup/;
+
     // Hour Totals
     var sum = 0;
     var total = 0;
+    var mockupSum = 0;
 
     if (matchesHr) {
         for (var i = 0; i < matchesHr.length; i++) {
@@ -73,6 +77,11 @@ function calculateTotalHours() {
             var int = parseInt(match);
 
             sum += int;
+
+            // Totaling Mockup Hours
+            if (matchesHrLine[i].match(mockups)) {
+                mockupSum += int;
+            }
 
             console.log(matchesHrLine[i])
             // console.log("Hours: " + matchesHr[i]);
@@ -85,6 +94,11 @@ function calculateTotalHours() {
             var int = parseInt(match);
 
             sum += int/60;
+
+            // Totaling Mockup Hours
+            if (matchesMinLine[i].match(mockups)) {
+                mockupSum += int;
+            }
 
             console.log(matchesMinLine[i])
             // console.log("Minutes: " + matchesMin[i]);
@@ -101,15 +115,22 @@ function calculateTotalHours() {
             sum += hours;
             sum += mins/60;
 
+             // Totaling Mockup Hours
+             if (matchesHrMinLine[i].match(mockups)) {
+                mockupSum += int;
+            }
+
             console.log(matchesHrMinLine[i])
             // console.log("Hours, Minutes: " + matchesHrMin[i]);
         }
     }
 
-    // console.log(sum);
+    console.log("mockups " + mockupSum);
     var price = sum * 160;
     $('.js-hours-total').text(sum);
     $('.js-price-total').text(price);
+    $('.js-mockups-total').text(mockupSum);
+    $('.js-coding-total').text(sum - mockupSum);
     return sum;
 }
 
