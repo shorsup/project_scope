@@ -1,6 +1,6 @@
 $(document).ready(function() {
     calculateTotalHours();
-    milestones();
+    // milestones();
     run();
     groupDetection();
 
@@ -12,7 +12,7 @@ $(document).ready(function() {
     var editor = ace.edit("editor");
     editor.session.on('change', function(delta) {
         calculateTotalHours();
-        milestones();
+        // milestones();
         run();
         groupDetection();
     });
@@ -65,9 +65,19 @@ function calculateTotalHours() {
     // var hr = /\*\*\(\d+hr\)\*\*/g;
     
     // Hours & Minutes
-    var hrMin = /<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes)-->/g;
-    var hrMinLine = /.*(<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes)-->).*/g;
+    var hrMin = /<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes).-->/g;
+    var hrMinLine = /.*(<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes).-->).*/g;
     // var hrMin = /\*\*\(\d+hr\s\d\dm\)\*\*/g;
+
+    // ---Baseline Hours---
+    // Coding
+    var baselineMin = /Coding\s(\d+)(m|min|mins|minutes)\n/g;
+    var baselineHr = /Coding\s(\d+)(hr|hrs|hour|hours)\n/g;
+    var baselineHrMin = /Coding\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g;
+    // Wireframes/Mockups
+    var baselineMockupsMin = /(Wireframe|Wireframes|Mockup|Mockups)\s(\d+)(m|min|mins|minutes)\n/g;
+    var baselineMockupsHr = /(Wireframe|Wireframes|Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\n/g;
+    var baselineMockupsHrMin = /(Wireframe|Wireframes|Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g;
 
     // Numbers
     var numbers = /\d+/g;
@@ -75,12 +85,18 @@ function calculateTotalHours() {
     // Number Formats
     var matchesHr = input.match(hr);
     var matchesHrLine = input.match(hrLine);
+    var matchesBaselineHr = input.match(baselineHr);
+    var matchesBaselineMockupsHr = input.match(baselineMockupsHr);
 
     var matchesMin = input.match(min);
     var matchesMinLine = input.match(minLine);
+    var matchesBaselineMin = input.match(baselineMin);
+    var matchesBaselineMockupsMin = input.match(baselineMockupsMin);
 
     var matchesHrMin = input.match(hrMin);
     var matchesHrMinLine = input.match(hrMinLine);
+    var matchesBaselineHrMin = input.match(baselineHrMin);
+    var matchesBaselineMockupsHrMin = input.match(baselineMockupsHrMin);
 
     // Mockups
     var mockups = /mockup/;
@@ -98,12 +114,33 @@ function calculateTotalHours() {
             sum += int;
 
             // Totaling Mockup Hours
-            if (matchesHrLine[i].match(mockups)) {
-                mockupSum += int;
-            }
+            // if (matchesHrLine[i].match(mockups)) {
+            //     mockupSum += int;
+            // }
 
             // console.log(matchesHrLine[i])
             // console.log("Hours: " + matchesHr[i]);
+        }
+    }
+
+    if (matchesBaselineHr) {
+        for (var i = 0; i < matchesBaselineHr.length; i++) {
+            var match = matchesBaselineHr[i].match(numbers);
+            var int = parseInt(match);
+
+            sum += int;
+            console.log("1 " + matchesBaselineHr);
+        }
+    }
+
+    if (matchesBaselineMockupsHr) {
+        for (var i = 0; i < matchesBaselineMockupsHr.length; i++) {
+            var match = matchesBaselineMockupsHr[i].match(numbers);
+            var int = parseInt(match);
+
+            sum += int;
+            mockupSum += int;
+            console.log("1A " + matchesBaselineMockupsHr[i]);
         }
     }
 
@@ -115,12 +152,33 @@ function calculateTotalHours() {
             sum += int/60;
 
             // Totaling Mockup Hours
-            if (matchesMinLine[i].match(mockups)) {
-                mockupSum += int;
-            }
+            // if (matchesMinLine[i].match(mockups)) {
+            //     mockupSum += int;
+            // }
 
             // console.log(matchesMinLine[i])
             // console.log("Minutes: " + matchesMin[i]);
+        }
+    }
+
+    if (matchesBaselineMin) {
+        for (var i = 0; i < matchesBaselineMin.length; i++) {
+            var match = matchesBaselineMin[i].match(numbers);
+            var int = parseInt(match);
+
+            sum += int/60;
+            console.log("2 " + matchesBaselineMin);
+        }
+    }
+
+    if (matchesBaselineMockupsMin) {
+        for (var i = 0; i < matchesBaselineMockupsMin.length; i++) {
+            var match = matchesBaselineMockupsMin[i].match(numbers);
+            var int = parseInt(match);
+
+            sum += int/60;
+            mockupSum += int/60;
+            console.log("2A " + matchesBaselineMockupsMin[i]);
         }
     }
 
@@ -135,12 +193,40 @@ function calculateTotalHours() {
             sum += mins/60;
 
              // Totaling Mockup Hours
-             if (matchesHrMinLine[i].match(mockups)) {
-                mockupSum += int;
-            }
+            //  if (matchesHrMinLine[i].match(mockups)) {
+            //     mockupSum += int;
+            // }
 
             // console.log(matchesHrMinLine[i])
             // console.log("Hours, Minutes: " + matchesHrMin[i]);
+        }
+    }
+
+    if (matchesBaselineHrMin) {
+        for (var i = 0; i < matchesBaselineHrMin.length; i++) {
+            var numbers = /\d+/g;
+            var match = matchesBaselineHrMin[i].match(numbers);
+            var hours = parseInt(match[0]);
+            var mins = parseInt(match[1]);
+
+            sum += hours;
+            sum += mins/60;
+            console.log("3 " + matchesBaselineHrMin);
+        }
+    }
+
+    if (matchesBaselineMockupsHrMin) {
+        for (var i = 0; i < matchesBaselineMockupsHrMin.length; i++) {
+            var numbers = /\d+/g;
+            var match = matchesBaselineMockupsHrMin[i].match(numbers);
+            var hours = parseInt(match[0]);
+            var mins = parseInt(match[1]);
+
+            mockupSum += hours;
+            mockupSum += mins/60;
+            sum += hours;
+            sum += mins/60;
+            console.log("3A " + matchesBaselineMockupsHrMin[i]);
         }
     }
 
