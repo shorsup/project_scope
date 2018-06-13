@@ -1,5 +1,5 @@
 /* ---Aesthetic--- */
-body, .wrapper-summary {
+body {
     background: #fff;
 }
 
@@ -11,6 +11,9 @@ textarea {
     resize: none;
 }
 
+/* Blue 28384F */
+/* Light Blue F4F6FF */
+
 /* ---Editor--- */
 .wrapper-editor {
     color: #717e83;
@@ -19,9 +22,9 @@ textarea {
 
 .ace_editor {
     position: absolute !important;
-    left: 0;
+    right: 0;
     top: 0;
-    right: 50%;
+    left: 33.33%;
     bottom: 0;
 }
 
@@ -46,14 +49,14 @@ textarea {
 
 /* ---Layout--- */
 .wrapper-preview, #textinput {
-    color: inherit;
-    background: inherit;
+    color: #fff;
+    background: #272727;
     border: none;
     height: 100vh;
 }
 
 .wrapper-summary {
-    height: 20vh;
+    height: 100vh;
     overflow-y: scroll;
 }
 
