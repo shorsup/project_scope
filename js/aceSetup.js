@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var editor = ace.edit("editor");
     editor.session.setMode("ace/mode/markdown");
-    editor.setTheme("ace/theme/tomorrow_night_eighties");
+    editor.setTheme("ace/theme/chrome");
     editor.session.setUseWrapMode(true);
     editor.setShowPrintMargin(false);
  
