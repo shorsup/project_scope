@@ -51,6 +51,24 @@ hr {
     height: 70px;
 }
 
+.wrapper-menu .menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.wrapper-menu .white {
+    color: #fff;
+}
+
+.wrapper-menu .menu-btn {
+    line-height: 70px;
+    font-size: 25px;
+    padding-left: 50px;
+    display: inline-block;
+}
+
 .menu-row {
     line-height: 1.2;
 }

@@ -12,6 +12,10 @@ $(document).ready(function() {
         run();
         groupDetection();
     });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 });
 
 function toggleSnippetMenu() {
