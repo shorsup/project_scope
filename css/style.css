@@ -65,7 +65,7 @@ hr {
 .wrapper-menu .menu-btn {
     line-height: 70px;
     font-size: 25px;
-    padding-left: 50px;
+    padding: 0 25px;
     display: inline-block;
 }
 

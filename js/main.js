@@ -5,12 +5,14 @@ $(document).ready(function() {
     groupDetection();
 
     var editor = ace.edit("editor");
+    var input = editor.getValue();
 
     editor.session.on('change', function(delta) {
         calculateTotalHours();
         // milestones();
         run();
         groupDetection();
+        Cookies.set('Markdown Content', input);
     });
 
     $(function () {
