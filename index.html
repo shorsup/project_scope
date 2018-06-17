@@ -9,6 +9,8 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
     <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css">
+    <!-- Cookie -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -20,8 +22,6 @@
     <!-- Ace -->
     <script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/aceSetup.js"></script>
-    <!-- Cookie -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 </head>
 <body>
     <div class="">
@@ -31,7 +31,7 @@
         <div class="row wrapper-menu">
             <div class="offset-sm-3 col-sm-9 menu">
                 <div class="menu-btn js-toggle-md">
-                    <i class="fa fa-code white" data-toggle="tooltip" data-placement="left" title="Markdown"></i>
+                    <i class="fa fa-code white active" data-toggle="tooltip" data-placement="left" title="Markdown"></i>
                 </div>
                 <div class="menu-btn js-toggle-rt">
                     <i class="fa fa-align-left white" data-toggle="tooltip" data-placement="left" title="Rich Text"></i>
@@ -54,14 +54,18 @@
             <!-- Preview -->
             <div class="wrapper-preview col-xs-12 col-sm-3">
                 <div class="wrapper-summary text-left">
-                    <div class="row text-center">
-                        <div class="col-sm-6">
-                            <p>Total Hours</p>
-                            <p><span class="js-hours-total">0</span></p>
+                    <div class="row text-left">
+                        <div class="col-sm-12">
+                            <p class="">Project Totals</p>
                         </div>
-                        <div class="col-sm-6">
-                            <p>Billable Amount</p>
-                            <p>$<span class="js-price-total">0</span></p>
+                    </div>
+
+                    <div class="menu-row row">
+                        <div class="col-sm-12">
+                            <p>Cost</p>
+                            <p class="">$<span class="js-price-total">0</span></p>
+                            <p>Hours</p>
+                            <p class=""><span class="js-hours-total">0</span></p>
                         </div>
                     </div>
 
@@ -86,7 +90,7 @@
                 <h3>Snippets</h3>
                 <div class="list-group">
                     <a href="#" class="list-group-item active">Banners</a>
-                    <a onclick="insertSnippet('n_ban')" href="#" class="list-group-item list-group-item-action">Banner</a>
+                    <a onclick="insertSnippet('n_ban', '- The ${1:name} banners are set up as adverts and assigned to two separate advert groups, one for desktop and one for mobile: ${1:desktop_group} and ${2:mobile_group}')" href="#" class="list-group-item list-group-item-action">Banner</a>
                     <a href="#" class="list-group-item list-group-item-action">Banner (Mobile &amp; Desktop)</a>
                     <a href="#" class="list-group-item active">Adverts</a>
                     <a href="#" class="list-group-item list-group-item-action">Advert</a>
@@ -103,7 +107,7 @@
                     <a href="#" class="list-group-item active">Thumbnails</a>
                     <a href="#" class="list-group-item list-group-item-action">Blog Thumbnails</a>
                 </div>
-                <div id="targetDiv"></div>
+                <div class="hidden" id="targetDiv"></div>
             </div>
         </div>
     </div><!-- /container -->

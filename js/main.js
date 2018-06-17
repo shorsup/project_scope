@@ -4,7 +4,7 @@ $(document).ready(function() {
     run();
     groupDetection();
 
-    var editor = ace.edit("editor");
+    var editor = ace.edit('editor');
     var input = editor.getValue();
 
     editor.session.on('change', function(delta) {
@@ -12,7 +12,7 @@ $(document).ready(function() {
         // milestones();
         run();
         groupDetection();
-        Cookies.set('Markdown Content', input);
+        Cookies.set('markdown', input);
     });
 
     $(function () {
@@ -24,12 +24,12 @@ function toggleSnippetMenu() {
     $('.wrapper-snippet-menu').toggle('hide');
 }
 
-function insertSnippet(string) {
+function insertSnippet(string, value) {
     var editor = ace.edit("editor");
     // editor.insert(string);
     // Use below when making a proper snippet manager: 
     var snippetManager = ace.require("ace/snippets").snippetManager;
-    snippetManager.insertSnippet(editor, '- The ${1:name} banners are set up as adverts and assigned to two separate advert groups, one for desktop and one for mobile: ${1:desktop_group} and ${2:mobile_group}');
+    snippetManager.insertSnippet(editor, value);
 }
 
 function groupDetection() {
@@ -49,32 +49,58 @@ function groupDetection() {
 
 }
 
-function minutesRegex(regex) {
+function minutesRegex(regexItem, regexLine, type) {
     // Text Area
     var editor = ace.edit("editor");
     var input = editor.getValue();
     
     // Regex
     var numbers = /\d+/g;
-    var match = input.match(regex);
+    var regexLineMatch = input.match(regexLine);
+    var regexItemMatch = input.match(regexItem);
 
     // Totals
-    var sum = 0;
-    var mockupSum = 0;
+    var total = 0;
+    var mockupTotal = 0;
 
     // Calculation
-    if (input.match(regex)) {
-        for (var i = 0; i < match.length; i++) {
-            var allDigits = match[i].match(numbers);
-            var int = parseInt(allDigits);
-            console.log (int);
+    if (regexLineMatch) {
+        console.log(regexLineMatch);
+        console.log(regexLineMatch.length);
 
-            sum += int/60;
-            return sum;
+        for (var i = 0; i < regexLineMatch.length; i++) {
+            var itemWithinLine = regexLineMatch[i].match(regexItem);
+            var sum = 0;
 
-            console.log("minutesRegex: " + sum);
+            console.log('22 ' + itemWithinLine);
+
+            if (itemWithinLine) {
+                console.log('yey');
+                console.log(type);
+
+                var hours = parseInt(itemWithinLine[0].match(numbers));
+
+                if (type === 'mins') sum += hours/60;
+                if (type === 'hrs') sum += hours;
+                if (type === 'hrs/mins') {
+                    var mins = parseInt(itemWithinLine[0].match(numbers)[1]);
+
+                    sum += hours;
+                    sum += mins/60;
+                }
+
+                total = total + sum;
+
+                if (regexLineMatch[i].match(/mockup/g)) {
+                    console.log('mockup found');
+                    mockupTotal += sum;
+                }
+            }
         }
     }
+    console.log("total hours: " + total);
+    console.log("total mockup hours: " + mockupTotal);
+    return [total, mockupTotal];
 }
 
 function calculateTotalHours() {
@@ -136,18 +162,13 @@ function calculateTotalHours() {
     var total = 0;
     var mockupSum = 0;
 
-    minutesRegex(/<!--.\d+(m|min|mins|minutes).-->/g);
+    sum += minutesRegex(/<!--.\d+(m|min|mins|minutes).-->/g, /.*(<!--.\d+(m|min|mins|minutes).-->).*/g, 'mins')[0];
+    sum += minutesRegex(/<!--.\d+(hr|hrs|hour|hours).-->/g, /.*(<!--.\d+(hr|hrs|hour|hours).-->).*/g, 'hrs')[0];
+    sum += minutesRegex(/<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes).-->/g, /.*(<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes).-->).*/g, 'hrs/mins')[0];
 
-    if (matchesHr) {
-        for (var i = 0; i < matchesHr.length; i++) {
-            var match = matchesHr[i].match(numbers);
-            var int = parseInt(match);
-
-            sum += int;
-
-            console.log(matchesHrLine[i])
-        }
-    }
+    mockupSum += minutesRegex(/<!--.\d+(m|min|mins|minutes).-->/g, /.*(<!--.\d+(m|min|mins|minutes).-->).*/g, 'mins')[1];
+    mockupSum += minutesRegex(/<!--.\d+(hr|hrs|hour|hours).-->/g, /.*(<!--.\d+(hr|hrs|hour|hours).-->).*/g, 'hrs')[1];
+    mockupSum += minutesRegex(/<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes).-->/g, /.*(<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes).-->).*/g, 'hrs/mins')[1];
 
     if (matchesBaselineHr) {
         for (var i = 0; i < matchesBaselineHr.length; i++) {
@@ -170,17 +191,6 @@ function calculateTotalHours() {
         }
     }
 
-    // if (matchesMin) {
-    //     for (var i = 0; i < matchesMin.length; i++) {
-    //         var match = matchesMin[i].match(numbers);
-    //         var int = parseInt(match);
-
-    //         sum += int/60;
-
-    //         console.log(matchesMinLine[i])
-    //     }
-    // }
-
     if (matchesBaselineMin) {
         for (var i = 0; i < matchesBaselineMin.length; i++) {
             var match = matchesBaselineMin[i].match(numbers);
@@ -199,20 +209,6 @@ function calculateTotalHours() {
             sum += int/60;
             mockupSum += int/60;
             console.log("2A " + matchesBaselineMockupsMin[i]);
-        }
-    }
-
-    if (matchesHrMin) {
-        for (var i = 0; i < matchesHrMin.length; i++) {
-            var numbers = /\d+/g;
-            var match = matchesHrMin[i].match(numbers);
-            var hours = parseInt(match[0]);
-            var mins = parseInt(match[1]);
-
-            sum += hours;
-            sum += mins/60;
-
-            console.log(matchesHrMinLine[i])
         }
     }
 
@@ -244,7 +240,7 @@ function calculateTotalHours() {
         }
     }
 
-    console.log("mockups " + mockupSum);
+    // console.log("mockups " + mockupSum);
     var price = sum * 160;
     $('.js-hours-total').text(sum);
     $('.js-price-total').text(price);

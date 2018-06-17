@@ -28,6 +28,18 @@ p {
 .circle-bg.blue {
     background-color: #4389E6;
 }
+.circle-bg.pink {
+    background-color: #DF81A2;
+}
+.circle-bg.green {
+    background-color: #53D6D2;
+}
+.circle-bg.purple {
+    background-color: #B387E8;
+}
+.circle-bg.lilac {
+    background-color: #7D90FC;
+}
 
 .yellow-colour {
     color: #F1B352;
@@ -59,6 +71,10 @@ hr {
 }
 
 .wrapper-menu .white {
+    color: #333;
+}
+
+.wrapper-menu .white.active {
     color: #fff;
 }
 
