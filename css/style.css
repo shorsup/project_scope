@@ -15,6 +15,10 @@ p {
     margin-bottom: 0;
 }
 
+a {
+    text-decoration: none !important;
+}
+
 .circle-bg {
     width: 35px;
     height: 35px;
@@ -90,8 +94,9 @@ hr {
     color: #333;
 }
 
-.wrapper-menu .white.active {
+.wrapper-menu .white.active, .wrapper-menu .white:hover {
     color: #fff;
+    cursor: pointer;
 }
 
 .wrapper-menu .menu-btn {
