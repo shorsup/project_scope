@@ -49,6 +49,22 @@ p {
     color: #4389E6;
     font-size: 14px;
 }
+.pink-colour {
+    color: #DF81A2;
+    font-size: 14px;
+}
+.green-colour {
+    color: #53D6D2;
+    font-size: 14px;
+}
+.purple-colour {
+    color: #B387E8;
+    font-size: 14px;
+}
+.lilac-colour {
+    color: #7D90FC;
+    font-size: 14px;
+}
 
 hr {
     border-color: #495057;
