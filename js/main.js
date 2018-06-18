@@ -1,6 +1,6 @@
 $(document).ready(function() {
     calculateTotalHours();
-    // milestones();
+    milestones();
     run();
     groupDetection();
 
@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     editor.session.on('change', function(delta) {
         calculateTotalHours();
-        // milestones();
+        milestones();
         run();
         groupDetection();
         Cookies.set('markdown', input);
@@ -156,29 +156,20 @@ function calculateTotalHours() {
 }
 
 function milestones() {
-    var milestoneRegex = /\#+.+?(hr\))/g;
-    var milestoneRegex2 = /\#+.+?(m\))/g;
-    var graphic = /^.*\b(a wireframe|a photoshop mockup)\b.*$/g;
+    var milestoneRegex = /\#+.+?((hr|m)\))/g;
     var editor = ace.edit("editor");
     var input = editor.getValue();
 
-    var test = input.match(milestoneRegex);
-    var test2 = input.match(milestoneRegex2);
-    var test3 = input.match(graphic);
+    var milestoneMatch = input.match(milestoneRegex);
 
     var x = '';
 
-    if (test) {
-        for (var i = 0; i < test.length; i++) {
-            x += test[i] + '<br>';
-        }
-    }
-
-    if (test2) {
-        for (var i = 0; i < test2.length; i++) {
-            x += test2[i] + '<br>';
+    if (milestoneMatch) {
+        for (var i = 0; i < milestoneMatch.length; i++) {
+            x += '<p>' + milestoneMatch[i] + '</p>';
         }
     }
 
     $('.js-milestones').html(x);
+    // (?<=#+).*
 }

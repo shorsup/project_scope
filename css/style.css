@@ -133,14 +133,14 @@ hr {
 /* ---Preview--- */
 .wrapper-preview {
     background-color: #f4f7f8;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 /* ---Snippet Menu--- */
 .wrapper-snippet-menu {
     position: absolute;
     z-index: 2;
-    overflow-y: scroll;
+    overflow-y: auto;
     top: 0;
     left: 50%;
     right: 0;
@@ -159,7 +159,7 @@ hr {
 
 .wrapper-summary {
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-top: 15px;
 }
 
@@ -196,4 +196,12 @@ hr {
     right: 0;
     padding: 20px;
     overflow-y: auto;
+}
+
+.js-milestones {
+    margin-top: 15px;
+}
+
+.js-milestones p {
+    padding: 5px 0;
 }
