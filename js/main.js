@@ -166,7 +166,7 @@ function milestones() {
 
     if (milestoneMatch) {
         for (var i = 0; i < milestoneMatch.length; i++) {
-            x += '<p>' + milestoneMatch[i] + '</p>';
+            x += '<p> ' + milestoneMatch[i].match(/(?!#)(?!\s).+/g) + '</p>';
         }
     }
 
