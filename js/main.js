@@ -73,7 +73,6 @@ function minutesRegex(regexItem, regexLine, timepoint, type) {
     // Regex
     var numbers = /\d+/g;
     var regexLineMatch = input.match(regexLine);
-    var regexItemMatch = input.match(regexItem);
 
     // Totals
     var mockupTotal = 0;
@@ -118,59 +117,6 @@ function minutesRegex(regexItem, regexLine, timepoint, type) {
 }
 
 function calculateTotalHours() {
-    // Text Area
-    var editor = ace.edit("editor");
-    var input = editor.getValue();
-
-    // Regex
-
-    // Minutes Only
-    var min = /<!--.\d+(m|min|mins|minutes).-->/g;
-    var minLine = /.*(<!--.\d+(m|min|mins|minutes).-->).*/g;
-    // var min = /\*\*\(\d\dm\)\*\*/g;
-    
-    // Hours Only
-    var hr = /<!--.\d+(hr|hrs|hour|hours).-->/g; 
-    var hrLine = /.*(<!--.\d+(hr|hrs|hour|hours).-->).*/g;
-    // var hr = /\*\*\(\d+hr\)\*\*/g;
-    
-    // Hours & Minutes
-    var hrMin = /<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes).-->/g;
-    var hrMinLine = /.*(<!--.\d+(hr|hrs|hour|hours)\s\d+(m|min|mins|minutes).-->).*/g;
-    // var hrMin = /\*\*\(\d+hr\s\d\dm\)\*\*/g;
-
-    // ---Baseline Hours---
-    // Coding
-    var baselineMin = /Coding\s(\d+)(m|min|mins|minutes)\n/g;
-    var baselineHr = /Coding\s(\d+)(hr|hrs|hour|hours)\n/g;
-    var baselineHrMin = /Coding\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g;
-    // Wireframes/Mockups
-    var baselineMockupsMin = /(Wireframe|Wireframes|Mockup|Mockups)\s(\d+)(m|min|mins|minutes)\n/g;
-    var baselineMockupsHr = /(Wireframe|Wireframes|Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\n/g;
-    var baselineMockupsHrMin = /(Wireframe|Wireframes|Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g;
-
-    // Numbers
-    var numbers = /\d+/g;
-
-    // Number Formats
-    var matchesHr = input.match(hr);
-    var matchesHrLine = input.match(hrLine);
-    var matchesBaselineHr = input.match(baselineHr);
-    var matchesBaselineMockupsHr = input.match(baselineMockupsHr);
-
-    var matchesMin = input.match(min);
-    var matchesMinLine = input.match(minLine);
-    var matchesBaselineMin = input.match(baselineMin);
-    var matchesBaselineMockupsMin = input.match(baselineMockupsMin);
-
-    var matchesHrMin = input.match(hrMin);
-    var matchesHrMinLine = input.match(hrMinLine);
-    var matchesBaselineHrMin = input.match(baselineHrMin);
-    var matchesBaselineMockupsHrMin = input.match(baselineMockupsHrMin);
-
-    // Mockups
-    var mockups = /mockup/;
-
     // Hour Totals
     var codingSum = 0;
     var mockupSum = 0;
@@ -200,77 +146,6 @@ function calculateTotalHours() {
     mockupSum += minutesRegex(/(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)/g, /(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)/g, 'hrs', 'baseline mockup')[1];
     mockupSum += minutesRegex(/(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g, /(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g, 'hrs/mins', 'baseline mockup')[1];
 
-    // if (matchesBaselineHr) {
-    //     for (var i = 0; i < matchesBaselineHr.length; i++) {
-    //         var match = matchesBaselineHr[i].match(numbers);
-    //         var int = parseInt(match);
-
-    //         sum += int;
-    //         console.log("1 " + matchesBaselineHr);
-    //     }
-    // }
-
-    // if (matchesBaselineMockupsHr) {
-    //     for (var i = 0; i < matchesBaselineMockupsHr.length; i++) {
-    //         var match = matchesBaselineMockupsHr[i].match(numbers);
-    //         var int = parseInt(match);
-
-    //         sum += int;
-    //         mockupSum += int;
-    //         console.log("1A " + matchesBaselineMockupsHr[i]);
-    //     }
-    // }
-
-    // if (matchesBaselineMin) {
-    //     for (var i = 0; i < matchesBaselineMin.length; i++) {
-    //         var match = matchesBaselineMin[i].match(numbers);
-    //         var int = parseInt(match);
-
-    //         sum += int/60;
-    //         console.log("2 " + matchesBaselineMin);
-    //     }
-    // }
-
-    // if (matchesBaselineMockupsMin) {
-    //     for (var i = 0; i < matchesBaselineMockupsMin.length; i++) {
-    //         var match = matchesBaselineMockupsMin[i].match(numbers);
-    //         var int = parseInt(match);
-
-    //         sum += int/60;
-    //         mockupSum += int/60;
-    //         console.log("2A " + matchesBaselineMockupsMin[i]);
-    //     }
-    // }
-
-    // if (matchesBaselineHrMin) {
-    //     for (var i = 0; i < matchesBaselineHrMin.length; i++) {
-    //         var numbers = /\d+/g;
-    //         var match = matchesBaselineHrMin[i].match(numbers);
-    //         var hours = parseInt(match[0]);
-    //         var mins = parseInt(match[1]);
-
-    //         sum += hours;
-    //         sum += mins/60;
-    //         console.log("3 " + matchesBaselineHrMin);
-    //     }
-    // }
-
-    // if (matchesBaselineMockupsHrMin) {
-    //     for (var i = 0; i < matchesBaselineMockupsHrMin.length; i++) {
-    //         var numbers = /\d+/g;
-    //         var match = matchesBaselineMockupsHrMin[i].match(numbers);
-    //         var hours = parseInt(match[0]);
-    //         var mins = parseInt(match[1]);
-
-    //         mockupSum += hours;
-    //         mockupSum += mins/60;
-    //         sum += hours;
-    //         sum += mins/60;
-    //         console.log("3A " + matchesBaselineMockupsHrMin[i]);
-    //     }
-    // }
-
-    // console.log("mockups " + mockupSum);
     var sum = codingSum + wireframeSum + mockupSum;
     var price = sum * 160;
     $('.js-hours-total').text(sum);
