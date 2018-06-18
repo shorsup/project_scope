@@ -18,6 +18,16 @@ $(document).ready(function() {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
+    $('.js-toggle-rt').click(function() {
+        $('#targetDiv').show();
+        $('.js-toggle-rt .fa, .js-toggle-md .fa').toggleClass('active');
+    });
+
+    $('.js-toggle-md').click(function() {
+        $('#targetDiv').hide();
+        $('.js-toggle-rt .fa, .js-toggle-md .fa').toggleClass('active');
+    });
 });
 
 function toggleSnippetMenu() {

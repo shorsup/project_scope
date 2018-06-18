@@ -19,6 +19,12 @@ a {
     text-decoration: none !important;
 }
 
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 .circle-bg {
     width: 35px;
     height: 35px;
@@ -177,4 +183,18 @@ hr {
         left: 0;
         top: 50%;
     }
+}
+
+#targetDiv {
+    z-index: 9999;
+    position: absolute;
+    background-color: #fff;
+    left: 25%;
+    width: 75%;
+    bottom: 0;
+    height: 100%;
+    top: 70px;
+    right: 0;
+    padding: 20px;
+    overflow-y: scroll;
 }
