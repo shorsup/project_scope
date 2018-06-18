@@ -195,5 +195,5 @@ hr {
     height: calc(100vh - 70px);
     right: 0;
     padding: 20px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
