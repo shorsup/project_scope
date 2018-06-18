@@ -154,11 +154,11 @@ hr {
     color: #dae0e5;
     background: #27384E;
     border: none;
-    height: 100vh;
+    height: calc(100vh - 70px);
 }
 
 .wrapper-summary {
-    height: 100vh;
+    height: 100%;
     overflow-y: scroll;
     padding-top: 15px;
 }
@@ -192,8 +192,7 @@ hr {
     left: 25%;
     width: 75%;
     bottom: 0;
-    height: 100%;
-    top: 70px;
+    height: calc(100vh - 70px);
     right: 0;
     padding: 20px;
     overflow-y: scroll;

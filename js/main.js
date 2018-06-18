@@ -20,13 +20,19 @@ $(document).ready(function() {
     })
 
     $('.js-toggle-rt').click(function() {
-        $('#targetDiv').show();
-        $('.js-toggle-rt .fa, .js-toggle-md .fa').toggleClass('active');
+        if (!$('.js-toggle-rt .fa').hasClass('active')) {
+            $('#targetDiv').show();
+            $('.js-toggle-rt .fa').addClass('active');
+            $('.js-toggle-md .fa').removeClass('active');
+        }
     });
 
     $('.js-toggle-md').click(function() {
-        $('#targetDiv').hide();
-        $('.js-toggle-rt .fa, .js-toggle-md .fa').toggleClass('active');
+        if (!$('.js-toggle-md .fa').hasClass('active')) {
+            $('#targetDiv').hide();
+            $('.js-toggle-md .fa').addClass('active');
+            $('.js-toggle-rt .fa').removeClass('active');
+        }
     });
 });
 
