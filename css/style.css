@@ -3,6 +3,12 @@ body {
     background: #fff;
 }
 
+.section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
 .form-control:focus {
     box-shadow: none;
 }

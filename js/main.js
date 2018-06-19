@@ -196,8 +196,8 @@ function calculateTotalHours() {
         mockupSegment += minutesRegex(/(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g, /(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g, 'hrs/mins', 'baseline mockup', segment[i])[1];
 
         var segmentTotal = codingSegment + wireframeSegment + mockupSegment;
-        
-        milestonesInput(segment[i]);
+        milestonesInput(segment[i], wireframeSegment, mockupSegment, codingSegment);
+        // createSegment(codingSegment, wireframeSegment, mockupSegment);
         
         if (segmentTotal != 0) {
             console.log("Total " + segmentTotal);
@@ -234,14 +234,51 @@ function milestones() {
     $('.js-milestones').html(x);
 }
 
-function milestonesInput(input) {
+function milestonesInput(input, wireframeSegment, mockupSegment, codingSegment) {
     var milestoneRegex = /\#+.+?((hr|m)\))/g;
 
     var milestoneMatch = input.match(milestoneRegex);
 
+    var giveMe = '';
+
     if (milestoneMatch) {
         for (var i = 0; i < milestoneMatch.length; i++) {
-            console.log(milestoneMatch[i].match(/(?!#)(?!\s).+/g));
+            console.log("title " + milestoneMatch[i].match(/(?!#)(?!\s).+/g));
+
+            giveMe += milestoneMatch[i].match(/(?!#)(?!\s).+/g);
         }
     }
+
+    createSegment(wireframeSegment, mockupSegment, codingSegment, giveMe);
+}
+
+function createSegment(wireframeSegment, mockupSegment, codingSegment, title) {
+    var segment = {
+        types: [wireframeSegment, mockupSegment, codingSegment],
+        title: ['Wireframe', 'Mockup', 'Coding'],
+        colours: ['blue', 'pink', 'yellow'],
+        icons: ['pencil', 'paint-brush', 'code']
+    };
+    var output = "";
+
+    for (var i = 0; i < segment.types.length; i++) {
+
+        if (segment.types[i] != 0) {
+            output += " <div class='menu-row'>"; 
+            output += "<p><i class='fa fa-" + segment.icons[i] + " circle-bg " + segment.colours[i] + " text-center pull-left'></i>" +  segment.title[i] + "</p>";
+            output += "<p><span class='" + segment.colours[i] + "-colour'>Hours</span> <span class='pull-right'>" + segment.types[i] + "</span></p>";
+            output += "</div>";
+            output += "<hr>"; 
+
+            console.log("A " + output);
+        }
+
+        // $('.js-segments').html(output);
+    }
+    console.log("B " + output);
+    var contents = $('.js-segments').html();
+
+    var titleRow = " <h2 class='section-title'>" + title + "</h2>";
+
+    $('.js-segments').html(contents + titleRow + output);
 }
