@@ -196,14 +196,14 @@ function calculateTotalHours() {
         mockupSegment += minutesRegex(/(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g, /(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g, 'hrs/mins', 'baseline mockup', segment[i])[1];
 
         var segmentTotal = codingSegment + wireframeSegment + mockupSegment;
-        milestonesInput(segment[i], wireframeSegment, mockupSegment, codingSegment);
+        milestonesInput(segment[i], segmentTotal, wireframeSegment, mockupSegment, codingSegment);
         // createSegment(codingSegment, wireframeSegment, mockupSegment);
         
         if (segmentTotal != 0) {
-            console.log("Total " + segmentTotal);
-            console.log("Wireframe " + wireframeSegment);
-            console.log("Mockup " + mockupSegment);
-            console.log("Coding " + codingSegment);
+            // console.log("Total " + segmentTotal);
+            // console.log("Wireframe " + wireframeSegment);
+            // console.log("Mockup " + mockupSegment);
+            // console.log("Coding " + codingSegment);
         }
     }
 
@@ -234,7 +234,7 @@ function milestones() {
     $('.js-milestones').html(x);
 }
 
-function milestonesInput(input, wireframeSegment, mockupSegment, codingSegment) {
+function milestonesInput(input, segmentTotal, wireframeSegment, mockupSegment, codingSegment) {
     var milestoneRegex = /\#+.+?((hr|m)\))/g;
 
     var milestoneMatch = input.match(milestoneRegex);
@@ -243,26 +243,29 @@ function milestonesInput(input, wireframeSegment, mockupSegment, codingSegment) 
 
     if (milestoneMatch) {
         for (var i = 0; i < milestoneMatch.length; i++) {
-            console.log("title " + milestoneMatch[i].match(/(?!#)(?!\s).+/g));
+            // console.log("title " + milestoneMatch[i].match(/(?!#)(?!\s).+/g));
 
             giveMe += milestoneMatch[i].match(/(?!#)(?!\s).+/g);
         }
     }
 
-    createSegment(wireframeSegment, mockupSegment, codingSegment, giveMe);
+    createSegment(segmentTotal, wireframeSegment, mockupSegment, codingSegment, giveMe);
 }
 
-function createSegment(wireframeSegment, mockupSegment, codingSegment, title) {
+function createSegment(segmentTotal, wireframeSegment, mockupSegment, codingSegment, title) {
     var segment = {
-        types: [wireframeSegment, mockupSegment, codingSegment],
-        title: ['Wireframe', 'Mockup', 'Coding'],
-        colours: ['blue', 'pink', 'yellow'],
-        icons: ['pencil', 'paint-brush', 'code']
+        types: [segmentTotal, wireframeSegment, mockupSegment, codingSegment],
+        title: ['Total', 'Wireframe', 'Mockup', 'Coding'],
+        colours: ['green', 'blue', 'pink', 'yellow'],
+        icons: ['clock-o', 'pencil', 'paint-brush', 'code']
     };
+
     var output = "";
 
-    for (var i = 0; i < segment.types.length; i++) {
+    output += "<div class='wrapper-segment'>";
+    output += " <h2 class='section-title'>" + title + "</h2>";
 
+    for (var i = 0; i < segment.types.length; i++) {
         if (segment.types[i] != 0) {
             output += " <div class='menu-row'>"; 
             output += "<p><i class='fa fa-" + segment.icons[i] + " circle-bg " + segment.colours[i] + " text-center pull-left'></i>" +  segment.title[i] + "</p>";
@@ -270,15 +273,12 @@ function createSegment(wireframeSegment, mockupSegment, codingSegment, title) {
             output += "</div>";
             output += "<hr>"; 
 
-            console.log("A " + output);
+            // console.log("A " + output);
         }
-
-        // $('.js-segments').html(output);
     }
-    console.log("B " + output);
+    output += "</div>";
+    // console.log("B " + output);
     var contents = $('.js-segments').html();
 
-    var titleRow = " <h2 class='section-title'>" + title + "</h2>";
-
-    $('.js-segments').html(contents + titleRow + output);
+    $('.js-segments').html(contents + output);
 }
