@@ -197,14 +197,6 @@ function calculateTotalHours() {
 
         var segmentTotal = codingSegment + wireframeSegment + mockupSegment;
         milestonesInput(segment[i], segmentTotal, wireframeSegment, mockupSegment, codingSegment);
-        // createSegment(codingSegment, wireframeSegment, mockupSegment);
-        
-        if (segmentTotal != 0) {
-            // console.log("Total " + segmentTotal);
-            // console.log("Wireframe " + wireframeSegment);
-            // console.log("Mockup " + mockupSegment);
-            // console.log("Coding " + codingSegment);
-        }
     }
 
     var sum = codingSum + wireframeSum + mockupSum;
@@ -261,6 +253,7 @@ function createSegment(segmentTotal, wireframeSegment, mockupSegment, codingSegm
     };
 
     var output = "";
+    var contents = $('.js-segments').html();
 
     output += "<div class='wrapper-segment'>";
     output += " <h2 class='section-title'>" + title + "</h2>";
@@ -272,13 +265,9 @@ function createSegment(segmentTotal, wireframeSegment, mockupSegment, codingSegm
             output += "<p><span class='" + segment.colours[i] + "-colour'>Hours</span> <span class='pull-right'>" + segment.types[i] + "</span></p>";
             output += "</div>";
             output += "<hr>"; 
-
-            // console.log("A " + output);
         }
     }
     output += "</div>";
-    // console.log("B " + output);
-    var contents = $('.js-segments').html();
 
     $('.js-segments').html(contents + output);
 }
