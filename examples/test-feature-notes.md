@@ -1,6 +1,6 @@
-![logo](https://store.neto.com.au/assets/notes/icon-by-design/icon-logo.jpg)
-
 # Feature Notes
+
+![logo](https://store.neto.com.au/assets/notes/icon-by-design/icon-logo.jpg)
 
 ## Quick Reference Guide
 
