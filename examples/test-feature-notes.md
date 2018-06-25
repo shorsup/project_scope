@@ -28,6 +28,8 @@ https://www.netohq.com/support/s/training
 
 ## Component Library
 
+### The Styles of the Project
+
 ![component](https://store.neto.com.au/assets/notes/icon-by-design/component.png)
 
 [The Component Library can be accessed here](https://www.iconbydesign.com.au/?nview=2018-06-phaseOne-00214934&templatebody=p1-styles)

@@ -223,14 +223,34 @@ hr {
 
 /* Feature Notes */
 
+/* color: #fc487c; */
+
 #targetDiv img {
     max-width: 100%;
     height: auto;
 }
 
+#targetDiv a {
+    color: #47beee;
+}
+
 #targetDiv h1, 
 #targetDiv h2 {
+    font-family: Gotham SSm A,Gotham SSm B,Montserrat,sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+#targetDiv h1 {
     text-align: center;
+}
+
+#targetDiv h2 {
+    text-align: left;
+}
+
+#targetDiv h3 {
+    text-align: left;
 }
 
 @media print {
