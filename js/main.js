@@ -1,58 +1,41 @@
 $(document).ready(function() {
+    calculate();
+
+    $('.js-toggle-rt, .js-toggle-md, .js-toggle-fn').on('click', function() {
+        mode.set(this);
+    });
+
+    $('.js-calculate').click(function() {
+        calculate();
+    });
+});
+
+function calculate() {
     calculateTotalHours();
     milestones();
     run();
     groupDetection();
+}
 
-    var editor = ace.edit('editor');
-    var input = editor.getValue();
+const mode = {
+    clear() {
+        $('.wrapper-menu .menu .menu-btn').each(function() {
+            $(this).find('.fa').removeClass('active');
+            $('.editor').hide();
+        });
+    },
+    set(mode) {
+        this.clear();
+        calculate();
+        $(mode).find('.fa').addClass('active');
+        var menu = ($(mode).data('editor'));
+        $(menu).show();
+    }
+}
 
-
-    editor.session.on('change', function(delta) {
-        // calculateTotalHours();
-        // milestones();
-        // run();
-        // groupDetection();
-        // Cookies.set('markdown', input);
-    });
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-
-    $('.js-calculate').click(function() {
-        calculateTotalHours();
-        milestones();
-        run();
-        groupDetection();
-    });
-
-    $('.js-toggle-rt').click(function() {
-        calculateTotalHours();
-        milestones();
-        run();
-        groupDetection();
-
-        if (!$('.js-toggle-rt .fa').hasClass('active')) {
-            $('#targetDiv').show();
-            $('.js-toggle-rt .fa').addClass('active');
-            $('.js-toggle-md .fa').removeClass('active');
-        }
-    });
-
-    $('.js-toggle-md').click(function() {
-        calculateTotalHours();
-        milestones();
-        run();
-        groupDetection();
-        
-        if (!$('.js-toggle-md .fa').hasClass('active')) {
-            $('#targetDiv').hide();
-            $('.js-toggle-md .fa').addClass('active');
-            $('.js-toggle-rt .fa').removeClass('active');
-        }
-    });
-});
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
 
 function toggleSnippetMenu() {
     $('.wrapper-snippet-menu').toggle('hide');
