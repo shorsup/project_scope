@@ -220,3 +220,36 @@ hr {
 .js-milestones p {
     padding: 5px 0;
 }
+
+/* Feature Notes */
+
+#targetDiv img {
+    max-width: 100%;
+    height: auto;
+}
+
+#targetDiv h1, 
+#targetDiv h2 {
+    text-align: center;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #targetDiv, #targetDiv * {
+        visibility: visible;
+    }
+
+    #targetDiv {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+    }
+
+    #targetDiv hr {
+        page-break-before: always;
+    }
+}

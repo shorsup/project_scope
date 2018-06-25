@@ -14,7 +14,6 @@ function calculate() {
     calculateTotalHours();
     milestones();
     run();
-    groupDetection();
 }
 
 const mode = {
@@ -47,23 +46,6 @@ function insertSnippet(string, value) {
     // Use below when making a proper snippet manager: 
     var snippetManager = ace.require("ace/snippets").snippetManager;
     snippetManager.insertSnippet(editor, value);
-}
-
-function groupDetection() {
-    // Text Area
-    var editor = ace.edit("editor");
-    var input = editor.getValue();
-
-    var groupBoundaries = /^---((.|\n)*)(---)$/g;
-
-    var matchesGroupBoundaries = input.match(groupBoundaries);
-
-    if (matchesGroupBoundaries) {
-        for (var i = 0; i < matchesGroupBoundaries.length; i++) {
-            // console.log(matchesGroupBoundaries[i]);
-        }
-    }
-
 }
 
 function minutesRegex(regexItem, regexLine, timepoint, type, input) {
@@ -218,8 +200,6 @@ function milestonesInput(input, segmentTotal, wireframeSegment, mockupSegment, c
 
     if (milestoneMatch) {
         for (var i = 0; i < milestoneMatch.length; i++) {
-            // console.log("title " + milestoneMatch[i].match(/(?!#)(?!\s).+/g));
-
             giveMe += milestoneMatch[i].match(/(?!#)(?!\s).+/g);
         }
     }
