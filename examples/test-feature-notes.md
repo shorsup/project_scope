@@ -86,6 +86,8 @@ Recommended Image Size:
 
 ## Featured Products
 
+### Advert Group: p1-home-product-families
+
 ![featured products](https://store.neto.com.au/assets/notes/icon-by-design/feat-products.png)
 
 - The products have been set up as Featured Product adverts and assigned to an advert group called: p1-home-product-families
