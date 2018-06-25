@@ -222,8 +222,9 @@ hr {
 }
 
 /* Feature Notes */
-
-/* color: #fc487c; */
+#targetDiv p {
+    margin-bottom: 1rem;
+}
 
 #targetDiv img {
     max-width: 100%;
@@ -234,11 +235,20 @@ hr {
     color: #47beee;
 }
 
+#targetDiv strong {
+    color: #083E52;
+}
+
+#targetDiv em {
+    color: #fc487c;
+}
+
 #targetDiv h1, 
 #targetDiv h2 {
     font-family: Gotham SSm A,Gotham SSm B,Montserrat,sans-serif;
     font-weight: 800;
     text-transform: uppercase;
+    color: #083E52;
 }
 
 #targetDiv h1 {
@@ -247,10 +257,24 @@ hr {
 
 #targetDiv h2 {
     text-align: left;
+    font-size: 22px;
+    line-height: 1em;
+    padding-left: 10px;
+    border-left: 4px solid #47beee;
+    margin-bottom: 0;
+    margin-top: 25px;
 }
 
 #targetDiv h3 {
     text-align: left;
+    font-size: 14px;
+    line-height: 1em;
+    padding-left: 10px;
+    border-left: 4px solid #47beee;
+    margin-bottom: 25px;
+    color: #083E52;
+    text-transform: uppercase;
+    font-weight: 400;
 }
 
 @media print {

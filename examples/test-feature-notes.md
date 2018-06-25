@@ -4,6 +4,8 @@
 
 ## Quick Reference Guide
 
+### Site Setup Tips
+
 **Creating new pages:**
 http://docs.neto.com.au/article/how-do-i-add-a-content-information-page-to-my-web
 
@@ -38,6 +40,8 @@ https://www.netohq.com/support/s/training
 
 ## Split Image Adverts
 
+### Advert Group: p1-homepage-split
+
 ![homepage images](https://store.neto.com.au/assets/notes/icon-by-design/split-images.png)
 
 - These has been set up as adverts and assigned to the following advert group: p1-homepage-split
@@ -52,6 +56,8 @@ Recommended Image Size:
 
 ## Category Images
 
+### Advert Group: p1-homepage-split
+
 ![category images](https://store.neto.com.au/assets/notes/icon-by-design/category-images.png)
 
 - The category images on the homepage pull from the Main Image from the category page eg. https://www.iconbydesign.com.au/_cpanel/contents/view?id=150
@@ -59,6 +65,8 @@ Recommended Image Size:
 ---
 
 ## Static Full-Width Banner
+
+### Advert Group: p1-home-baners
 
 ![featured products](https://store.neto.com.au/assets/notes/icon-by-design/advert-full-4.png)
 
@@ -86,6 +94,8 @@ Recommended Image Size:
 
 ## Our Story
 
+### Advert Group: p1-our-story
+
 ![video](https://store.neto.com.au/assets/notes/icon-by-design/video.png)
 
 - The placeholder image has been created as a static image and is located within the themes directory here:
@@ -101,6 +111,8 @@ Recommended Image Size:
 
 ## Testimonials
 
+### Advertisment
+
 ![testimonials](https://store.neto.com.au/assets/notes/icon-by-design/testimonials.png)
 
 - The testimonials in this section pull from your existing homepage testimonials.
@@ -108,6 +120,8 @@ Recommended Image Size:
 ---
 
 ## Homepage Description
+
+### Advert Group: p1-home-description
 
 ![description](https://store.neto.com.au/assets/notes/icon-by-design/description.png)
 
@@ -127,19 +141,10 @@ Recommended Image Size:
 
 ## Instagram
 
+### Advertisment
+
 ![instagram](https://store.neto.com.au/assets/notes/icon-by-design/instagram.png)
 
 To integrate your own Instagram feed we require your Instagram User ID and Access Token.
   - This can easily be generated through: http://instagram.pixelunion.net
   - Your token will look something like this: 7771189783.1677ed0.536d172142b44a1c945370bb87504b3c
-
----
-
-# Advertising Campaign Issue
-
-- It appears that you have been statically uploading/linking to elements within the Marketing folder throughout your site. Eg. the 'Our Awards' in your footer.
-  - *assets > marketing*
-- This folder dynamically contains all of the images from all of your advertising campaigns. This can cause problems if you have an image with the same filename as the advertising campaign ID.
-  - eg. Image '90.jpg' aligns with the Advertising Campaign with ID 90.
-- The best solution going forward is to either move these images into the following location, or to rename the files, and where you have mentioned them in the code, to not have a file name of a number only:
-  - *2018-06-phaseOne-00214934 > img > p1-marketing-images*
