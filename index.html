@@ -36,11 +36,14 @@
                 <div class="js-toggle-md menu-btn" data-editor="#editor">
                     <i class="fa fa-code white active" data-toggle="tooltip" data-placement="left" title="Markdown"></i>
                 </div>
-                <div class="js-toggle-rt menu-btn" data-editor="#targetDiv">
+                <div class="js-toggle-rt menu-btn" data-editor="#markdownPreview">
                     <i class="fa fa-align-left white" data-toggle="tooltip" data-placement="left" title="Rich Text"></i>
                 </div>
                 <div class="js-toggle-fn menu-btn" data-editor="#notesEditor">
-                    <i class="fa fa-sticky-note white" data-toggle="tooltip" data-placement="left" title="Feature Notes"></i>
+                    <i class="fa fa-file-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes Editor"></i>
+                </div>
+                <div class="js-toggle-fn menu-btn" data-editor="#targetDiv">
+                    <i class="fa fa-file-text-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes Preview"></i>
                 </div>
                 <div class="menu-btn">
                     <a href="https://developers.neto.com.au/documentation/web-designers/tweak-documents/" target="_blank">
@@ -64,6 +67,9 @@
 
             <!-- Rendered Markdown -->
             <div class="editor" id="targetDiv" style="display: none;"></div>
+
+            <!-- Rendered Markdown -->
+            <div class="editor" id="markdownPreview" style="display: none;"></div>
             
             <!-- Preview -->
             <div class="wrapper-preview col-xs-12 col-sm-3">

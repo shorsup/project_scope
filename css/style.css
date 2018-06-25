@@ -200,7 +200,8 @@ hr {
     }
 }
 
-#targetDiv {
+#targetDiv,
+#markdownPreview {
     z-index: 9999;
     position: absolute;
     background-color: #fff;

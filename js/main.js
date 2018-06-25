@@ -13,7 +13,8 @@ $(document).ready(function() {
 function calculate() {
     calculateTotalHours();
     milestones();
-    run();
+    runMarkdown();
+    runFeatureNotes();
 }
 
 const mode = {
