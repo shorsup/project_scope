@@ -7,19 +7,19 @@
 ### Site Setup Tips
 
 **Creating new pages:**
-http://docs.neto.com.au/article/how-do-i-add-a-content-information-page-to-my-web
+[Add a Content or Information Page](https://www.netohq.com/support/s/article/How-do-I-add-a-content-and-information-page-to-my-web-shop#category=Support__c:Menus_content_pages__c)
 
-**Make changes to your menu**
-https://www.netohq.com/support/s/article/How-do-I-add-or-edit-the-menus-on-my-web-shop
+**Making changes to your menu:**
+[Add or Edit Website Menus](https://www.netohq.com/support/s/article/How-do-I-add-or-edit-the-menus-on-my-web-shop)
 
-**What are content zones? How do I use them?**
-https://www.netohq.com/support/s/article/What-are-content-zonesHow-do-I-use-them
+**What are content zones & how do I use them?**
+[Setup Content Zones](https://www.netohq.com/support/s/article/What-are-content-zonesHow-do-I-use-them)
 
-**How do I create / edit featured products ads?**
-http://docs.neto.com.au/article/how-do-i-create-edit-featured-products-ads
+**How do I create & edit featured products ads?**
+[Create Featured Products Ads](https://www.netohq.com/support/s/article/Creating-Featured-Products-Ads)
 
-**How do I create / edit an image and text ad?**
-http://docs.neto.com.au/article/how-can-i-create-edit-adverts-on-my-website
+**How do I create & edit an image and text ad?**
+[Create and Edit Website Banner Adverts](https://www.netohq.com/support/s/article/How-can-I-create-and-edit-adverts-on-my-website)
 
 At this point I highly recommend utilising one of our free training sessions that are provided by our support team. They'll guide you through the system and help to setup your store, while addressing any questions or concerns you have throughout the process.
 

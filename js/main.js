@@ -21,15 +21,19 @@ const mode = {
     clear() {
         $('.wrapper-menu .menu .menu-btn').each(function() {
             $(this).find('.fa').removeClass('active');
-            $('.editor').hide();
+            $('.editor, .sidebar').hide();
         });
     },
     set(mode) {
         this.clear();
         calculate();
+
+        var editor = ($(mode).data('editor'));
+        var sidebar = ($(mode).data('sidebar'));
+
         $(mode).find('.fa').addClass('active');
-        var menu = ($(mode).data('editor'));
-        $(menu).show();
+        $(editor).show();
+        $(sidebar).show();
     }
 }
 
@@ -41,12 +45,9 @@ function toggleSnippetMenu() {
     $('.wrapper-snippet-menu').toggle('hide');
 }
 
-function insertSnippet(string, value) {
-    var editor = ace.edit("editor");
-    // editor.insert(string);
-    // Use below when making a proper snippet manager: 
-    var snippetManager = ace.require("ace/snippets").snippetManager;
-    snippetManager.insertSnippet(editor, value);
+function insertSnippet(string, editor) {
+    var editor = ace.edit(editor);
+    editor.insert(string);
 }
 
 function minutesRegex(regexItem, regexLine, timepoint, type, input) {

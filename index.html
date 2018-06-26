@@ -34,16 +34,16 @@
                 <div class="js-calculate menu-btn">
                     <i class="fa fa-check-square white" data-toggle="tooltip" data-placement="left" title="Calculate"></i>
                 </div>
-                <div class="js-toggle-md menu-btn" data-editor="#editor">
+                <div class="js-toggle-md menu-btn" data-editor="#editor" data-sidebar="#scopeSidebar">
                     <i class="fa fa-code white active" data-toggle="tooltip" data-placement="left" title="Markdown"></i>
                 </div>
-                <div class="js-toggle-rt menu-btn" data-editor="#markdownPreview">
+                <div class="js-toggle-rt menu-btn" data-editor="#markdownPreview" data-sidebar="#scopeSidebar">
                     <i class="fa fa-align-left white" data-toggle="tooltip" data-placement="left" title="Rich Text"></i>
                 </div>
-                <div class="js-toggle-fn menu-btn" data-editor="#notesEditor">
+                <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-sidebar="#notesSidebar">
                     <i class="fa fa-file-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes Editor"></i>
                 </div>
-                <div class="js-toggle-fn menu-btn" data-editor="#targetDiv">
+                <div class="js-toggle-fn menu-btn" data-editor="#targetDiv" data-sidebar="#notesSidebar">
                     <i class="fa fa-file-text-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes Preview"></i>
                 </div>
                 <div class="menu-btn">
@@ -73,7 +73,7 @@
             <div class="editor" id="markdownPreview" style="display: none;"></div>
             
             <!-- Preview -->
-            <div class="wrapper-preview col-xs-12 col-sm-3">
+            <div id="scopeSidebar" class="wrapper-preview col-xs-12 col-sm-3 sidebar">
                 <div class="wrapper-summary text-left">
                     <h2 class="section-title total">Totals</h2>
 
@@ -123,11 +123,11 @@
             </div>
 
             <!-- Snippets -->
-            <div class="wrapper-snippet-menu" style="display: none;">
+            <div id="notesSidebar" class="wrapper-snippet-menu col-xs-12 col-sm-3 sidebar" style="display: none;">
                 <h3>Snippets</h3>
                 <div class="list-group">
                     <a href="#" class="list-group-item active">Banners</a>
-                    <a onclick="insertSnippet('n_ban', '- The ${1:name} banners are set up as adverts and assigned to two separate advert groups, one for desktop and one for mobile: ${1:desktop_group} and ${2:mobile_group}')" href="#" class="list-group-item list-group-item-action">Banner</a>
+                    <a href="#" class="list-group-item list-group-item-action">Banner</a>
                     <a href="#" class="list-group-item list-group-item-action">Banner (Mobile &amp; Desktop)</a>
                     <a href="#" class="list-group-item active">Adverts</a>
                     <a href="#" class="list-group-item list-group-item-action">Advert</a>
