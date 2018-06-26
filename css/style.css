@@ -188,8 +188,8 @@ hr {
 /* Previews: Mobile Responsive */
 @media (max-width: 575px) {
     .wrapper-preview {
-        height: 50vh;
-        margin-top: 50vh;
+        top: calc(50vh - 70px);
+        height: calc(50vh - 70px);
     }
 
     .ace_editor {
@@ -198,7 +198,7 @@ hr {
         right: 0;
         z-index: 1;
         bottom: 50%;
-        top: 0;
+        top: 70px;
     }
 
     .wrapper-snippet-menu {

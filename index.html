@@ -25,9 +25,6 @@
     <script src="js/plugins/aceSetup.js"></script>
 </head>
 <body>
-    <div class="">
-        
-    </div>
     <div class="container-fluid">
         <div class="row wrapper-menu">        
             <div class="offset-sm-3 col-sm-9 menu">
@@ -73,7 +70,7 @@
             <div class="editor" id="markdownPreview" style="display: none;"></div>
             
             <!-- Preview -->
-            <div id="scopeSidebar" class="wrapper-preview col-xs-12 col-sm-3 sidebar">
+            <div id="scopeSidebar" class="wrapper-preview col-12 col-sm-3 sidebar">
                 <div class="wrapper-summary text-left">
                     <h2 class="section-title total">Totals</h2>
 
@@ -123,26 +120,27 @@
             </div>
 
             <!-- Snippets -->
-            <div id="notesSidebar" class="wrapper-snippet-menu col-xs-12 col-sm-3 sidebar" style="display: none;">
+            <div id="notesSidebar" class="wrapper-snippet-menu col-12 col-sm-3 sidebar" style="display: none;">
                 <h3>Snippets</h3>
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">Banners</a>
-                    <a href="#" class="list-group-item list-group-item-action">Banner</a>
-                    <a href="#" class="list-group-item list-group-item-action">Banner (Mobile &amp; Desktop)</a>
-                    <a href="#" class="list-group-item active">Adverts</a>
-                    <a href="#" class="list-group-item list-group-item-action">Advert</a>
-                    <a href="#" class="list-group-item list-group-item-action">Multiple Adverts</a>
-                    <a href="#" class="list-group-item list-group-item-action">Multiple Adverts with Example</a>
-                    <a href="#" class="list-group-item list-group-item-action">Adverts with Image, Content, Link</a>
-                    <a href="#" class="list-group-item list-group-item-action">Featured Products Adverts</a>
-                    <a href="#" class="list-group-item active">Menus</a>
-                    <a href="#" class="list-group-item list-group-item-action">Navigation Menu</a>
-                    <a href="#" class="list-group-item list-group-item-action">Static Menu</a>
-                    <a href="#" class="list-group-item active">Editable Zones</a>
-                    <a href="#" class="list-group-item list-group-item-action">Content Zone</a>
-                    <a href="#" class="list-group-item list-group-item-action">Custom Product Fields</a>
-                    <a href="#" class="list-group-item active">Thumbnails</a>
-                    <a href="#" class="list-group-item list-group-item-action">Blog Thumbnails</a>
+                    <a href="#" class="list-group-item active">Images</a>
+                    <a onclick="insertSnippet('![](https://store.neto.com.au/assets/scopes/algolia/dropdown.png)', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Image</a>
+                    <a onclick="insertSnippet('## Banners', 'notesEditor');" href="#" class="list-group-item active">Banners</a>
+                    <a onclick="insertSnippet('- The ${1:name} banner is set up as an advert and assigned to this advert group: ${2:home_group}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Banner</a>
+                    <a onclick="insertSnippet('', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Banner (Mobile &amp; Desktop)</a>
+                    <a onclick="insertSnippet('## Adverts', 'notesEditor');" href="#" class="list-group-item active">Adverts</a>
+                    <a onclick="insertSnippet('- This ${1:name} has been set up as an advert and assigned to the following advert group: ${2:advert_group}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Advert</a>
+                    <a honclick="insertSnippet('- These has been set up as adverts and assigned to the following advert group: ${1:advert_group}', 'notesEditor');" ref="#" class="list-group-item list-group-item-action">Multiple Adverts</a>
+                    <a onclick="insertSnippet('- This has been set up as an advert. You can edit the image, content and link here: ${1:link}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Adverts with Image, Content, Link</a>
+                    <a onclick="insertSnippet('- The products have been set up as Featured Product adverts and assigned to an advert group called: ${1:advert_group}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Featured Products Adverts</a>
+                    <a onclick="insertSnippet('## Menus', 'notesEditor');" href="#" class="list-group-item active">Menus</a>
+                    <a onclick="insertSnippet('- The main product navigation menu is automatically populated by your Product Category structure. This can be edited here: ${1:link}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Navigation Menu</a>
+                    <a onclick="insertSnippet('- This has been set up as a static menu which can be edited from the cPanel here: ${1:link}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Static Menu</a>
+                    <a onclick="insertSnippet('## Editable Zones', 'notesEditor');" href="#" class="list-group-item active">Editable Zones</a>
+                    <a onclick="insertSnippet('- This has been set up as a content zone and can be edited here: ${1:link}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Content Zone</a>
+                    <a onclick="insertSnippet('- These have been set up as additional product fields and can be updated in the cpanel under the heading: ${1:heading}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Custom Product Fields</a>
+                    <a onclick="insertSnippet('## Thumbnails', 'notesEditor');" href="#" class="list-group-item active">Thumbnails</a>
+                    <a onclick="insertSnippet('- Blog thumbnails are automatically populated by your Blog Posts and are sorted by most recent posts.', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Blog Thumbnails</a>
                 </div>
             </div>
         </div>

@@ -48,6 +48,8 @@ function toggleSnippetMenu() {
 function insertSnippet(string, editor) {
     var editor = ace.edit(editor);
     editor.insert(string);
+    editor.gotoLine(10, 0, false);
+    editor.focus();
 }
 
 function minutesRegex(regexItem, regexLine, timepoint, type, input) {
