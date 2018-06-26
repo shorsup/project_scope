@@ -3,7 +3,6 @@ body {
     background: #fff;
 }
 
-
 textarea {
     resize: none;
 }
@@ -244,8 +243,9 @@ hr {
 }
 
 #targetDiv h1, 
-#targetDiv h2 {
-    font-family: Gotham SSm A,Gotham SSm B,Montserrat,sans-serif;
+#targetDiv h2,
+h1,
+h2 {
     font-weight: 800;
     text-transform: uppercase;
     color: #083E52;
@@ -269,6 +269,7 @@ hr {
     border-left: 4px solid #47beee;
     margin-bottom: 0;
     margin-top: 25px;
+    color: #083E52;
 }
 
 #targetDiv h3 {
@@ -284,25 +285,30 @@ hr {
 }
 
 /* Feature Notes: Print Preview */
+#targetDiv h1 + p {
+    text-align: center;
+}
+
 @media print {
-    body * {
-        visibility: hidden;
+    * {
+        -webkit-transition: none !important;
+        transition: none !important;
+        float: none !important;
+    }
+
+    .wrapper-preview,
+    .wrapper-menu {
         display: none;
     }
 
-    #targetDiv, #targetDiv * {
-        visibility: visible;
-        display: initial;
-    }
-
     #targetDiv {
-        position: absolute;
-        left: 0;
+        overflow: visible;
         top: 0;
-        height: 100%;
+        left: 0;
+        width: 100%;
     }
 
-    #targetDiv hr {
+    hr {
         page-break-after: always;
     }
 }
