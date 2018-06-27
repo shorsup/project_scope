@@ -10,6 +10,15 @@ $(document).ready(function() {
     });
 });
 
+function pdfRender() {
+    // Default export is a4 paper, portrait, using milimeters for units
+    var doc = new jsPDF('landscape')
+    var featureNotesHTML = $('#targetDiv').html();
+
+    doc.text(featureNotesHTML, 10, 10)
+    doc.save('a4.pdf')
+}
+
 function calculate() {
     calculateTotalHours();
     milestones();
