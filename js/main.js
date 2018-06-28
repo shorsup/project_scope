@@ -1,6 +1,8 @@
 $(document).ready(function() {
     calculate();
-    loadEditors();
+    if (localStorage.getItem("markdownStorage") != null && localStorage.getItem("notesStorage") != null) {
+        loadEditors();
+    }
 
     $('.js-toggle-rt, .js-toggle-md, .js-toggle-fn').on('click', function() {
         mode.set(this);
