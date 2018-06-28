@@ -18,10 +18,6 @@ $(document).ready(function() {
     });
 });
 
-editor.session.on('change', function() {
-    saveEditors();
-});
-
 function saveEditors() {
     if (typeof(Storage) !== "undefined") {
         var markdownEditor = ace.edit('editor');
