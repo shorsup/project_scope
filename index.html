@@ -39,7 +39,7 @@
                 <div class="js-toggle-rt menu-btn" data-editor="#markdownPreview" data-sidebar="#scopeSidebar">
                     <i class="fa fa-align-left white" data-toggle="tooltip" data-placement="left" title="Rich Text"></i>
                 </div>
-                <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-sidebar="#notesSidebar">
+                <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-sidebar="#notesEditorSidebar">
                     <i class="fa fa-file-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes Editor"></i>
                 </div>
                 <div class="js-toggle-fn menu-btn" data-editor="#targetDiv" data-sidebar="#notesSidebar">
@@ -122,11 +122,12 @@
             </div>
 
             <!-- Snippets -->
-            <div id="notesSidebar" class="wrapper-snippet-menu col-12 col-sm-3 sidebar" style="display: none;">
+            <div id="notesEditorSidebar" class="wrapper-snippet-menu col-12 col-sm-3 sidebar" style="display: none;">
                 <h3>Snippets</h3>
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">Images</a>
+                    <a href="#" class="list-group-item active">Extra</a>
                     <a onclick="insertSnippet('![](https://store.neto.com.au/assets/scopes/algolia/dropdown.png)', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Image</a>
+                    <a onclick="insertSnippet('<div style='display: block; page-break-before: always;'></div>', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Page Break</a>
                     <a onclick="insertSnippet('## Banners', 'notesEditor');" href="#" class="list-group-item active">Banners</a>
                     <a onclick="insertSnippet('- The ${1:name} banner is set up as an advert and assigned to this advert group: ${2:home_group}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Banner</a>
                     <a onclick="insertSnippet('', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Banner (Mobile &amp; Desktop)</a>
@@ -145,6 +146,12 @@
                     <a onclick="insertSnippet('- Blog thumbnails are automatically populated by your Blog Posts and are sorted by most recent posts.', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Blog Thumbnails</a>
                 </div>
             </div>
+
+            <!-- Feature Notes Sidebar -->
+            <div id="notesSidebar" class="wrapper-snippet-menu col-12 col-sm-3 sidebar" style="display: none;">
+                <input id="fn-2" type="text" name="primarycolour" placeholder="Primary Colour">
+            </div>
+
         </div>
     </div><!-- /container -->
 </body>
