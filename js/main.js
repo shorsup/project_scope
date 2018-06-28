@@ -1,18 +1,48 @@
 $(document).ready(function() {
     calculate();
+    loadEditors();
 
     $('.js-toggle-rt, .js-toggle-md, .js-toggle-fn').on('click', function() {
         mode.set(this);
     });
 
     $('.js-calculate').click(function() {
+        saveEditors();
         calculate();
+
+        // Feature Notes Colour
         var colour = $('#fn-2').val();
         $('#targetDiv h1').css('background-color', colour);
         $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
         $('#targetDiv a').css('color', colour);
     });
 });
+
+editor.session.on('change', function() {
+    saveEditors();
+});
+
+function saveEditors() {
+    if (typeof(Storage) !== "undefined") {
+        var markdownEditor = ace.edit('editor');
+        var notesEditor = ace.edit('notesEditor');
+
+        // Store
+        localStorage.setItem("markdownStorage", markdownEditor.getValue());
+        localStorage.setItem("notesStorage", notesEditor.getValue());
+    }
+}
+
+function loadEditors() {
+    if (typeof(Storage) !== "undefined") {
+        var markdownEditor = ace.edit('editor');
+        var notesEditor = ace.edit('notesEditor');
+
+        // Retrieve
+        markdownEditor.setValue(localStorage.getItem("markdownStorage"));
+        notesEditor.setValue(localStorage.getItem("notesStorage"));
+    }
+}
 
 function pdfRender() {
     // Default export is a4 paper, portrait, using milimeters for units
