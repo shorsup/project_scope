@@ -18,6 +18,53 @@ $(document).ready(function() {
         $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
         $('#targetDiv a').css('color', colour);
     });
+
+    // segment.map(segment => ``);
+    // const dogs = new Map();
+    // dogs.set('Hugo', 20);
+
+    // #{2}\s+(.*(\(.*))
+    // #{2}\s+(.*(?!\s)(\(.*))
+
+    const editorValue = ace.edit('editor').getValue();
+    const segments = editorValue.split('---');
+    // console.log(segment[0]);
+    // console.log(segment[1]);
+
+    let segment = segments.map(function(contents) {
+        // var h2Pattern = new RegExp(/#{2}\s+.*(?!\s).*/, 'g');
+        // var h2Pattern = new RegExp(/^#{2}\s+(.*)/, 'gm');
+        var h2Pattern = new RegExp(/^#{2}\s+((.*)\s+(\(.*))/, 'm');
+        var h3Pattern = new RegExp(/^#{3}\s+.*(?!\s).*/, 'gm');
+        var bullet = new RegExp(/^-\s.*/, 'gm');
+        var min = new RegExp(/\d+m|min|mins|minutes/, 'g');
+        var hour = new RegExp(/\d+hr|hrs|hour|hours/, 'g');
+        var time = new RegExp(/<!--(min|hour)-->/, 'g');
+
+        if(h2Pattern.test(contents)) { 
+            var validPattern = h2Pattern.test(contents)[0];
+        }
+
+        console.log(h2Pattern.exec(contents));
+        console.log(h2Pattern.test(contents));
+
+        return {
+            title: validPattern,
+            subtitle: h3Pattern.exec(contents),
+            content: [{
+                    text: bullet.exec(contents),
+                    time: 1
+                },
+                {
+                    text: '2',
+                    time: 2
+                }
+            ]
+        };
+    });
+
+    console.log(segment);
+    // console.log(segments.title);
 });
 
 function saveEditors() {
@@ -45,7 +92,7 @@ function loadEditors() {
 function pdfRender() {
     // Default export is a4 paper, portrait, using milimeters for units
     var doc = new jsPDF('landscape')
-    var featureNotesHTML = $('#targetDiv').html();
+    var featureNotesHTML = $('#markdownPreview').html();
 
     doc.text(featureNotesHTML, 10, 10)
     doc.save('a4.pdf')
@@ -212,7 +259,7 @@ function calculateTotalHours() {
         var segmentTotal = codingSegment + wireframeSegment + mockupSegment;
         if (segmentTotal === 0 ) segmentTotal = null;
 
-        milestonesInput(segment[i], segmentTotal, wireframeSegment, mockupSegment, codingSegment);
+        milestonesInput(segment[i], wireframeSegment + mockupSegment, codingSegment);
     }
 
     var sum = codingSum + wireframeSum + mockupSum;
@@ -242,30 +289,29 @@ function milestones() {
     $('.js-milestones').html(x);
 }
 
-function milestonesInput(input, segmentTotal, wireframeSegment, mockupSegment, codingSegment) {
+function milestonesInput(input, designSegment, codingSegment) {
     var milestoneRegex = /\#+.+?((hr|m)\))/g;
 
     var milestoneMatch = input.match(milestoneRegex);
 
-    var giveMe = '';
+    var segmentTitle = '';
 
     if (milestoneMatch) {
         for (var i = 0; i < milestoneMatch.length; i++) {
-            giveMe += milestoneMatch[i].match(/(?!#)(?!\s).+/g);
+            segmentTitle += milestoneMatch[i].match(/(?!#)(?!\s).+/g);
         }
     }
 
-    createSegment(segmentTotal, wireframeSegment, mockupSegment, codingSegment, giveMe);
+    createSegment(designSegment, codingSegment, segmentTitle);
 }
 
-function createSegment(segmentTotal, wireframeSegment, mockupSegment, codingSegment, title) {
+function createSegment(designSegment, codingSegment, segmentTitle) {
     var contents = $('.js-segments').html();
     let markup = '';
-    
+
     const segment = [
-        { title: 'Total', colour: 'green', icon: 'clock-o', hours: segmentTotal },
-        { title: 'Wireframe', colour: 'blue', icon: 'pencil', hours: wireframeSegment },
-        { title: 'Mockup', colour: 'pink', icon: 'paint-brush', hours: mockupSegment },
+        { title: 'Total', colour: 'green', icon: 'clock-o', hours: designSegment + codingSegment},
+        { title: 'Design', colour: 'blue', icon: 'pencil', hours: designSegment },
         { title: 'Coding', colour: 'yellow', icon: 'code', hours: codingSegment }
     ];
 
@@ -281,7 +327,7 @@ function createSegment(segmentTotal, wireframeSegment, mockupSegment, codingSegm
 
     markup += `
         <div class="wrapper-segment">
-            <h2 class="section-title">${title}</h2>
+            <h2 class="section-title">${segmentTitle}</h2>
             ${renderSegment(segment)}
         </div>
     `;
