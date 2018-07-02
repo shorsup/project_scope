@@ -205,7 +205,13 @@ function calculateTotalHours() {
         mockupSegment += minutesRegex(/(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)/g, /(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)/g, 'hrs', 'baseline mockup', segment[i])[1];
         mockupSegment += minutesRegex(/(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g, /(Mockup|Mockups)\s(\d+)(hr|hrs|hour|hours)\s+(\d+)(m|min|mins|minutes)/g, 'hrs/mins', 'baseline mockup', segment[i])[1];
 
+        if (codingSegment === 0 ) codingSegment = null;
+        if (wireframeSegment === 0 ) wireframeSegment = null;
+        if (mockupSegment === 0 ) mockupSegment = null;
+
         var segmentTotal = codingSegment + wireframeSegment + mockupSegment;
+        if (segmentTotal === 0 ) segmentTotal = null;
+
         milestonesInput(segment[i], segmentTotal, wireframeSegment, mockupSegment, codingSegment);
     }
 
@@ -253,29 +259,32 @@ function milestonesInput(input, segmentTotal, wireframeSegment, mockupSegment, c
 }
 
 function createSegment(segmentTotal, wireframeSegment, mockupSegment, codingSegment, title) {
-    var segment = {
-        types: [segmentTotal, wireframeSegment, mockupSegment, codingSegment],
-        title: ['Total', 'Wireframe', 'Mockup', 'Coding'],
-        colours: ['green', 'blue', 'pink', 'yellow'],
-        icons: ['clock-o', 'pencil', 'paint-brush', 'code']
-    };
-
-    var output = "";
     var contents = $('.js-segments').html();
+    let markup = '';
+    
+    const segment = [
+        { title: 'Total', colour: 'green', icon: 'clock-o', hours: segmentTotal },
+        { title: 'Wireframe', colour: 'blue', icon: 'pencil', hours: wireframeSegment },
+        { title: 'Mockup', colour: 'pink', icon: 'paint-brush', hours: mockupSegment },
+        { title: 'Coding', colour: 'yellow', icon: 'code', hours: codingSegment }
+    ];
 
-    output += "<div class='wrapper-segment'>";
-    output += " <h2 class='section-title'>" + title + "</h2>";
-
-    for (var i = 0; i < segment.types.length; i++) {
-        if (segment.types[i] != 0) {
-            output += " <div class='menu-row'>"; 
-            output += "<p><i class='fa fa-" + segment.icons[i] + " circle-bg " + segment.colours[i] + " text-center pull-left'></i>" +  segment.title[i] + "</p>";
-            output += "<p><span class='" + segment.colours[i] + "-colour'>Hours</span> <span class='pull-right'>" + segment.types[i] + "</span></p>";
-            output += "</div>";
-            output += "<hr>"; 
-        }
+    function renderSegment(segment) {
+        return segment.map(segment => segment.hours ? `
+            <div class="menu-row">
+                <p><i class="fa fa-${segment.icon} circle-bg ${segment.colour} text-center pull-left"></i> ${segment.title}</p>
+                <p><span class="${segment.colour}-colour">Hours</span> <span class="pull-right">${segment.hours}</span></p>
+            </div>
+            <hr>
+        ` : '').join('');
     }
-    output += "</div>";
 
-    $('.js-segments').html(contents + output);
+    markup += `
+        <div class="wrapper-segment">
+            <h2 class="section-title">${title}</h2>
+            ${renderSegment(segment)}
+        </div>
+    `;
+
+    $('.js-segments').html(contents + markup);
 }
