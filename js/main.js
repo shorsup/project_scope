@@ -35,22 +35,28 @@ $(document).ready(function() {
         // var h2Pattern = new RegExp(/#{2}\s+.*(?!\s).*/, 'g');
         // var h2Pattern = new RegExp(/^#{2}\s+(.*)/, 'gm');
         var h2Pattern = new RegExp(/^#{2}\s+((.*)\s+(\(.*))/, 'm');
-        var h3Pattern = new RegExp(/^#{3}\s+.*(?!\s).*/, 'gm');
+        var h3Pattern = new RegExp(/^#{3}\s+(.*)/, 'm');
         var bullet = new RegExp(/^-\s.*/, 'gm');
         var min = new RegExp(/\d+m|min|mins|minutes/, 'g');
         var hour = new RegExp(/\d+hr|hrs|hour|hours/, 'g');
         var time = new RegExp(/<!--(min|hour)-->/, 'g');
 
         if(h2Pattern.test(contents)) { 
-            var validPattern = h2Pattern.test(contents)[0];
+            var validPattern = h2Pattern.exec(contents);
+            var h2 = validPattern[2];
         }
 
-        console.log(h2Pattern.exec(contents));
-        console.log(h2Pattern.test(contents));
+        if(h3Pattern.test(contents)) { 
+            var validPattern = h3Pattern.exec(contents);
+            var h3 = validPattern[1];
+        }
+
+        console.log(h3Pattern.exec(contents));
+        // console.log(h2Pattern.test(contents));
 
         return {
-            title: validPattern,
-            subtitle: h3Pattern.exec(contents),
+            title: h2,
+            subtitle: h3,
             content: [{
                     text: bullet.exec(contents),
                     time: 1
