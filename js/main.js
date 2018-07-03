@@ -41,17 +41,9 @@ $(document).ready(function() {
     function totalHours(input) {
         var result = 0;
 
-        for (i = 0; i < input.length; i++) {
-            result += input[i].line.hours;
-        }
-        return result;
-    }
-
-    function totalHoursComment(input) {
-        var result = 0;
-
-        for (i = 0; i < input.length && input.length !== 0; i++) {
-            result += input[i].hours;
+        for (i = 0; i < input.length > 0; i++) {
+            if (input[i].line.hours !== undefined) result += input[i].line.hours;
+            if (input[i].hours !== undefined) result += input[i].hours;
         }
         return result;
     }
@@ -95,9 +87,9 @@ $(document).ready(function() {
         return {
             title: h2,
             hours: {
-                coding: totalHours(lineObject) + totalHoursComment(commentObject),
+                coding: totalHours(lineObject) + totalHours(commentObject),
                 designs: 10,
-                total: totalHours(lineObject) + totalHoursComment(commentObject) + 10
+                total: totalHours(lineObject) + totalHours(commentObject) + 10
             },
             comments: commentObject,
             content: lineObject,
