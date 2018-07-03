@@ -23,6 +23,39 @@ $(document).ready(function() {
     const editorValue = ace.edit('editor').getValue();
     const segments = editorValue.split('---');
 
+    function returnTime(input) {
+        var hourRegexOb = /((?<minutes>\d+)(\s+|)(m|min|mins|minutes)\b)|((?<hours>\d+)(\s+|)(hr|hrs|hour|hours)\b)|((?<decimal>\d+\.\d+)(hr|hrs|hour|hours))/gm;
+        var myArray;
+        var result = 0;
+
+        while ((myArray = hourRegexOb.exec(input)) !== null) {
+            if (myArray.groups.hours) result += parseInt(myArray.groups.hours);
+            if (myArray.groups.minutes) result += myArray.groups.minutes/60;
+            if (myArray.groups.decimal) result = parseFloat(myArray.groups.decimal);
+            
+            return result;
+        }
+        return result;
+    }
+
+    function totalHours(input) {
+        var result = 0;
+
+        for (i = 0; i < input.length; i++) {
+            result += input[i].line.hours;
+        }
+        return result;
+    }
+
+    function totalHoursComment(input) {
+        var result = 0;
+
+        for (i = 0; i < input.length && input.length !== 0; i++) {
+            result += input[i].hours;
+        }
+        return result;
+    }
+
     let segment = segments.map(function(contents) {
         var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)\s+(?<time>\(.*))/, 'm');
         var bullet = /^-\s.*/gm;
@@ -33,20 +66,6 @@ $(document).ready(function() {
             var h2 = validPattern[2];
         }
 
-        function returnTime(input) {
-            var hourRegexOb = /((?<minutes>\d+)(\s+|)(m|min|mins|minutes)\b)|((?<hours>\d+)(\s+|)(hr|hrs|hour|hours)\b)|((?<decimal>\d+\.\d+)(hr|hrs|hour|hours))/gm;
-            var myArray;
-            var result = 0;
-
-            while ((myArray = hourRegexOb.exec(input)) !== null) {
-                if (myArray.groups.hours) result += parseInt(myArray.groups.hours);
-                if (myArray.groups.minutes) result += myArray.groups.minutes/60;
-                if (myArray.groups.decimal) result = parseFloat(myArray.groups.decimal);
-                
-                return result;
-            }
-            return result;
-        }
 
         var lineArray = contents.match(bullet);
         let lineObject = lineArray.map(function(item) {
@@ -71,24 +90,6 @@ $(document).ready(function() {
                     type: 'comment'
                 }
             }
-        }
-
-        function totalHours(input) {
-            var result = 0;
-
-            for (i = 0; i < input.length; i++) {
-                result += input[i].line.hours;
-            }
-            return result;
-        }
-
-        function totalHoursComment(input) {
-            var result = 0;
-
-            for (i = 0; i < input.length && input.length !== 0; i++) {
-                result += input[i].hours;
-            }
-            return result;
         }
 
         return {
