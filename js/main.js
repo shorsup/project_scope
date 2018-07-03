@@ -34,7 +34,7 @@ $(document).ready(function() {
     let segment = segments.map(function(contents) {
         // var h2Pattern = new RegExp(/#{2}\s+.*(?!\s).*/, 'g');
         // var h2Pattern = new RegExp(/^#{2}\s+(.*)/, 'gm');
-        var h2Pattern = new RegExp(/^#{2}\s+((.*)\s+(\(.*))/, 'm');
+        var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)\s+(?<time>\(.*))/, 'm');
         var h3Pattern = new RegExp(/^#{3}\s+(.*)/, 'm');
         var bullet = /^-\s.*/gm;
         var min = new RegExp(/\d+m|min|mins|minutes/, 'g');
@@ -44,8 +44,26 @@ $(document).ready(function() {
         if(h2Pattern.test(contents)) { 
             var validPattern = h2Pattern.exec(contents);
             var h2 = validPattern[2];
-            // console.log(h2Pattern.exec(contents));
+            // console.log(validPattern.groups.title);
         }
+
+        // console.log(hourArray);
+
+            // if(hourRegexOb.test(contents)) { 
+            var hourRegexOb = /(?<minutes>\d+(\s+|)(m|min|mins|minutes)\b)|(?<hours>\d+(\s+|)(hr|hrs|hour|hours)\b)|(?<decimalHours>\d+\.\d+(hr|hrs|hour|hours))/gm;
+            var myArray;
+            // var validPattern = hourRegexOb.exec(contents);
+            while ((myArray = hourRegexOb.exec(contents)) !== null) {
+                // console.log(myArray.groups.minutes);
+            }
+
+            // var test = contents.match(hourRegexOb);
+            
+            // console.log(validPattern === null);
+            // console.log(validPattern);
+            
+            // console.log(test);
+        // }
 
         if(h3Pattern.test(contents)) { 
             var validPattern = h3Pattern.exec(contents);
@@ -56,8 +74,25 @@ $(document).ready(function() {
 
         // console.log(contents.match(bullet));
 
+        function returnTime(input) {
+            var hourRegexOb = /((?<minutes>\d+)(\s+|)(m|min|mins|minutes)\b)|((?<hours>\d+)(\s+|)(hr|hrs|hour|hours)\b)|((?<decimal>\d+\.\d+)(hr|hrs|hour|hours))/gm;
+            var myArray;
+            var result = 0;
+
+            while ((myArray = hourRegexOb.exec(input)) !== null) {
+                if (myArray.groups.hours) result += parseInt(myArray.groups.hours);
+                if (myArray.groups.minutes) result += myArray.groups.minutes/60;
+                if (myArray.groups.decimal) result = parseFloat(myArray.groups.decimal);
+                
+                return result;
+            }
+            return result;
+        }
+
         var lineArray = contents.match(bullet);
         let lineObject = lineArray.map(function(item) {
+            
+
             // console.log(item);
 
             // **TODO:**
@@ -66,7 +101,7 @@ $(document).ready(function() {
             return ({
                 line: {
                     text: item,
-                    hours: 1,
+                    hours: returnTime(item),
                     type: 'coding'
                 }
             });
@@ -86,6 +121,9 @@ $(document).ready(function() {
     });
 
     // console.log(line);
+    for (i = 0; i < segment.length; i++) {
+        if (segment[i].title === undefined) segment.splice(i, 1);
+    }
     console.log(segment);
 });
 
