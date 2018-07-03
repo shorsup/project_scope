@@ -36,7 +36,7 @@ $(document).ready(function() {
         // var h2Pattern = new RegExp(/^#{2}\s+(.*)/, 'gm');
         var h2Pattern = new RegExp(/^#{2}\s+((.*)\s+(\(.*))/, 'm');
         var h3Pattern = new RegExp(/^#{3}\s+(.*)/, 'm');
-        var bullet = new RegExp(/^-\s.*/, 'm');
+        var bullet = /^-\s.*/gm;
         var min = new RegExp(/\d+m|min|mins|minutes/, 'g');
         var hour = new RegExp(/\d+hr|hrs|hour|hours/, 'g');
         var time = new RegExp(/<!--(min|hour)-->/, 'g');
@@ -54,31 +54,39 @@ $(document).ready(function() {
         }
         // console.log(h2Pattern.test(contents));
 
+        // console.log(contents.match(bullet));
+
+        var lineArray = contents.match(bullet);
+        let lineObject = lineArray.map(function(item) {
+            // console.log(item);
+
+            // **TODO:**
+            // 1. Function to calculate type
+            // 2. Function to calculate times (if no time, time is 0)
+            return ({
+                line: {
+                    text: item,
+                    hours: 1,
+                    type: 'coding'
+                }
+            });
+        });
+
         if(bullet.test(contents)) { 
             var validPattern = bullet.exec(contents);
             var bullet = validPattern;
-            console.log(bullet[0]);
+            // console.log(bullet);
         }
 
         return {
             title: h2,
             subtitle: h3,
-            content: [{
-                    text: bullet[0],
-                    time: 1,
-                    type: 'design'
-                },
-                {
-                    text: '2',
-                    time: 2,
-                    type: 'coding'
-                }
-            ]
+            content: lineObject
         };
     });
 
+    // console.log(line);
     console.log(segment);
-    // console.log(segments.title);
 });
 
 function saveEditors() {
@@ -303,6 +311,16 @@ function milestones() {
     $('.js-milestones').html(x);
 }
 
+function calculateType(input) {
+    var milestoneRegex = new RegExp(/\#+.+?((hr|m)\))/, 'g');
+
+    milestoneRegex.test(input);
+    // input.test(milestoneRegex);
+
+    // return milestoneMatch = input.match(milestoneRegex);
+}
+
+// new RegExp(/^#{2}\s+((.*)\s+(\(.*))/, 'm');
 function milestonesInput(input, designSegment, codingSegment) {
     var milestoneRegex = /\#+.+?((hr|m)\))/g;
 
