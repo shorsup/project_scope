@@ -32,47 +32,14 @@ $(document).ready(function() {
     // console.log(segment[1]);
 
     let segment = segments.map(function(contents) {
-        // var h2Pattern = new RegExp(/#{2}\s+.*(?!\s).*/, 'g');
-        // var h2Pattern = new RegExp(/^#{2}\s+(.*)/, 'gm');
         var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)\s+(?<time>\(.*))/, 'm');
-        var h3Pattern = new RegExp(/^#{3}\s+(.*)/, 'm');
         var bullet = /^-\s.*/gm;
-        var min = new RegExp(/\d+m|min|mins|minutes/, 'g');
-        var hour = new RegExp(/\d+hr|hrs|hour|hours/, 'g');
-        var time = new RegExp(/<!--(min|hour)-->/, 'g');
+        var commentRegex = /^(Coding|coding|Mockup|mockup|Wireframe|wireframe|Designs|designs).*/gm;
 
         if(h2Pattern.test(contents)) { 
             var validPattern = h2Pattern.exec(contents);
             var h2 = validPattern[2];
-            // console.log(validPattern.groups.title);
         }
-
-        // console.log(hourArray);
-
-            // if(hourRegexOb.test(contents)) { 
-            var hourRegexOb = /(?<minutes>\d+(\s+|)(m|min|mins|minutes)\b)|(?<hours>\d+(\s+|)(hr|hrs|hour|hours)\b)|(?<decimalHours>\d+\.\d+(hr|hrs|hour|hours))/gm;
-            var myArray;
-            // var validPattern = hourRegexOb.exec(contents);
-            while ((myArray = hourRegexOb.exec(contents)) !== null) {
-                // console.log(myArray.groups.minutes);
-            }
-
-            // var test = contents.match(hourRegexOb);
-            
-            // console.log(validPattern === null);
-            // console.log(validPattern);
-            
-            // console.log(test);
-        // }
-
-        if(h3Pattern.test(contents)) { 
-            var validPattern = h3Pattern.exec(contents);
-            var h3 = validPattern[1];
-            // console.log(h3Pattern.exec(contents));
-        }
-        // console.log(h2Pattern.test(contents));
-
-        // console.log(contents.match(bullet));
 
         function returnTime(input) {
             var hourRegexOb = /((?<minutes>\d+)(\s+|)(m|min|mins|minutes)\b)|((?<hours>\d+)(\s+|)(hr|hrs|hour|hours)\b)|((?<decimal>\d+\.\d+)(hr|hrs|hour|hours))/gm;
@@ -106,6 +73,37 @@ $(document).ready(function() {
                 }
             });
         });
+        
+        var commentObject = [];
+
+        if (contents.match(commentRegex) !== null) {
+            var commentArray = contents.match(commentRegex);
+
+            for (i = 0; i < commentArray.length; i++) {
+                commentObject[i] = {
+                    line: commentArray[i],
+                    hours: returnTime(commentArray[i]),
+                    type: 'comment'
+                }
+            }
+        }
+
+        // var commentArray = contents.match(commentRegex);
+        // console.log(commentArray);
+
+        // for (i = 0; i < commentArray.length; i++) {
+        //     if (commentArray[i] !== null) console.log(commentArray[i]);
+        // }
+
+        // let commentObject = commentArray.map(function(item) {
+        //     if (item !== null) console.log(item);
+        // });
+
+        if(commentRegex.test(contents)) { 
+            var validPattern = commentRegex.exec(contents);
+            var commentRegex = validPattern;
+            // console.log(bullet);
+        }
 
         if(bullet.test(contents)) { 
             var validPattern = bullet.exec(contents);
@@ -113,17 +111,41 @@ $(document).ready(function() {
             // console.log(bullet);
         }
 
+        function totalHours(input) {
+            var result = 0;
+
+            for (i = 0; i < input.length; i++) {
+                result += input[i].line.hours;
+            }
+            return result;
+        }
+
+        function totalHoursComment(input) {
+            var result = 0;
+
+            for (i = 0; i < input.length && input.length !== 0; i++) {
+                result += input[i].hours;
+            }
+            return result;
+        }
+
         return {
             title: h2,
-            subtitle: h3,
-            content: lineObject
+            hours: {
+                coding: totalHours(lineObject),
+                comment: totalHoursComment(commentObject),
+                designs: 10,
+                total: this.coding + this.comment + this.design,
+            },
+            comments: commentObject,
+            content: lineObject,
         };
     });
 
     // console.log(line);
-    for (i = 0; i < segment.length; i++) {
-        if (segment[i].title === undefined) segment.splice(i, 1);
-    }
+    // for (i = 0; i < segment.length; i++) {
+    //     if (segment[i].title === undefined) segment.splice(i, 1);
+    // }
     console.log(segment);
 });
 
