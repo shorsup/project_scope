@@ -36,7 +36,7 @@ $(document).ready(function() {
         // var h2Pattern = new RegExp(/^#{2}\s+(.*)/, 'gm');
         var h2Pattern = new RegExp(/^#{2}\s+((.*)\s+(\(.*))/, 'm');
         var h3Pattern = new RegExp(/^#{3}\s+(.*)/, 'm');
-        var bullet = new RegExp(/^-\s.*/, 'gm');
+        var bullet = new RegExp(/^-\s.*/, 'm');
         var min = new RegExp(/\d+m|min|mins|minutes/, 'g');
         var hour = new RegExp(/\d+hr|hrs|hour|hours/, 'g');
         var time = new RegExp(/<!--(min|hour)-->/, 'g');
@@ -44,26 +44,34 @@ $(document).ready(function() {
         if(h2Pattern.test(contents)) { 
             var validPattern = h2Pattern.exec(contents);
             var h2 = validPattern[2];
+            // console.log(h2Pattern.exec(contents));
         }
 
         if(h3Pattern.test(contents)) { 
             var validPattern = h3Pattern.exec(contents);
             var h3 = validPattern[1];
+            // console.log(h3Pattern.exec(contents));
         }
-
-        console.log(h3Pattern.exec(contents));
         // console.log(h2Pattern.test(contents));
+
+        if(bullet.test(contents)) { 
+            var validPattern = bullet.exec(contents);
+            var bullet = validPattern;
+            console.log(bullet[0]);
+        }
 
         return {
             title: h2,
             subtitle: h3,
             content: [{
-                    text: bullet.exec(contents),
-                    time: 1
+                    text: bullet[0],
+                    time: 1,
+                    type: 'design'
                 },
                 {
                     text: '2',
-                    time: 2
+                    time: 2,
+                    type: 'coding'
                 }
             ]
         };
