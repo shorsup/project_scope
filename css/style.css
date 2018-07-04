@@ -146,9 +146,9 @@ hr {
 
 .ace_editor {
     position: absolute !important;
-    right: 0;
+    right: 40%;
     top: 70px;
-    left: 25%;
+    left: 16.66%;
     bottom: 0;
 }
 
@@ -177,13 +177,17 @@ hr {
     z-index: 9999;
     position: absolute;
     background-color: #fff;
-    left: 25%;
-    width: 75%;
+    left: 60%;
+    width: 40%;
     bottom: 0;
     height: calc(100vh - 70px);
     right: 0;
     padding: 20px;
     overflow-y: auto;
+}
+
+#markdownPreview {
+    background-color: #f8f9fa;
 }
 
 /* Previews: Mobile Responsive */
@@ -323,7 +327,7 @@ input {
 /* --- Errors --- */
 .wrapper-errors {
     position: absolute;
-    z-index: 999;
+    z-index: 99999;
     right: 15px;
     top: 85px;
 }

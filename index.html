@@ -27,10 +27,10 @@
 <body>
     <div class="wrapper-errors" style="display: none;">
         <div class="alert alert-danger fade show">
-            <strong>Sections:</strong> Each section/page should be surrounded by '---'.
+            <strong>Sections:</strong> Each section/page must be surrounded by '---'.
         </div>
         <div class="alert alert-primary fade show">
-            <strong>Titles:</strong> Each section to have a h2 (##) title with brackets.
+            <strong>Titles:</strong> Each section/page must have a h2 (##) title with brackets.
         </div>
         <div class="alert alert-warning fade show">
             <strong>Times:</strong> Times on sub-bullets will not be calculated, they need to be on normal bullets.
@@ -44,23 +44,23 @@
         <div class="row wrapper-menu">        
             <div class="offset-sm-3 col-sm-9 menu">
                 <div class="js-errors menu-btn">
-                    <i class="fa fa-warning white" data-toggle="tooltip" data-placement="left" title="Information"></i>
+                    <i class="fa fa-warning white" data-toggle="tooltip" data-placement="left" title="Errors & Information"></i>
                 </div>
                 <div class="js-calculate menu-btn">
                     <i class="fa fa-save white" data-toggle="tooltip" data-placement="left" title="Calculate & Save"></i>
                 </div>
-                <div class="js-toggle-md menu-btn" data-editor="#editor" data-sidebar="#scopeSidebar">
-                    <i class="fa fa-code white active" data-toggle="tooltip" data-placement="left" title="Markdown"></i>
+                <div class="js-toggle-md menu-btn" data-editor="#editor" data-preview="#markdownPreview" data-sidebar="#scopeSidebar">
+                    <i class="fa fa-code white active" data-toggle="tooltip" data-placement="left" title="Project Scope"></i>
                 </div>
-                <div class="js-toggle-rt menu-btn" data-editor="#markdownPreview" data-sidebar="#scopeSidebar">
+                <!-- <div class="js-toggle-rt menu-btn" data-editor="#editor" data-preview="#markdownPreview" data-sidebar="#scopeSidebar">
                     <i class="fa fa-align-left white" data-toggle="tooltip" data-placement="left" title="Rich Text"></i>
+                </div> -->
+                <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-preview="#targetDiv" data-sidebar="#notesSidebar">
+                    <i class="fa fa-file-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes"></i>
                 </div>
-                <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-sidebar="#notesEditorSidebar">
-                    <i class="fa fa-file-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes Editor"></i>
-                </div>
-                <div class="js-toggle-fn menu-btn" data-editor="#targetDiv" data-sidebar="#notesSidebar">
+                <!-- <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-preview="#targetDiv" data-sidebar="#notesSidebar">
                     <i class="fa fa-file-text-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes Preview"></i>
-                </div>
+                </div> -->
                 <!-- <div class="menu-btn">
                     <a href="https://developers.neto.com.au/documentation/web-designers/tweak-documents/" target="_blank">
                         <i class="fa fa-desktop white" data-toggle="tooltip" data-placement="left" title="Implementation"></i>
@@ -85,17 +85,17 @@
             <div class="editor" id="targetDiv" style="display: none;"></div>
 
             <!-- Rendered Markdown -->
-            <div class="editor" id="markdownPreview" style="display: none;"></div>
+            <div class="editor" id="markdownPreview"></div>
             
             <!-- Preview -->
-            <div id="scopeSidebar" class="wrapper-preview col-12 col-sm-3 sidebar">
+            <div id="scopeSidebar" class="wrapper-preview col-12 col-sm-2 sidebar">
                 <div class="wrapper-summary text-left">
                     <div class="js-segments"></div>
                 </div>
             </div>
 
             <!-- Snippets -->
-            <div id="notesEditorSidebar" class="wrapper-snippet-menu col-12 col-sm-3 sidebar" style="display: none;">
+            <div id="notesEditorSidebar" class="wrapper-snippet-menu col-12 col-sm-2 sidebar" style="display: none;">
                 <h3>Snippets</h3>
                 <div class="list-group">
                     <a href="#" class="list-group-item active">Extra</a>
@@ -121,7 +121,7 @@
             </div>
 
             <!-- Feature Notes Sidebar -->
-            <div id="notesSidebar" class="wrapper-snippet-menu col-12 col-sm-3 sidebar" style="display: none;">
+            <div id="notesSidebar" class="wrapper-snippet-menu col-12 col-sm-2 sidebar" style="display: none;">
                 <input id="fn-2" type="text" class="form-control" name="primarycolour" placeholder="Primary Colour">
             </div>
 

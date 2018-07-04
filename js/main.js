@@ -38,15 +38,12 @@ $(document).ready(function() {
         var coding = 0;
         var design = 0;
         
-        
         for (i = 0; i < input.length > 0; i++) {
-            // console.log(input[i]);
-            
             if (input[i].hours !== undefined) total += input[i].hours;
             if (input[i].type === 'coding') coding += input[i].hours;
             if (input[i].type === 'design') design += input[i].hours;
         }
-        // return result;
+
         return ({
             coding: coding,
             design: design,
@@ -57,7 +54,6 @@ $(document).ready(function() {
     let segment = segments.map(function(contents) {
         var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)(\s+|\s+`)(?<time>\(.*\)))/, 'm');
         var bullet = /^-\s.*/gm;
-        var commentRegex = /^(Coding|coding|Mockup|mockup|Wireframe|wireframe|Designs|designs).*/gm;
         var commentRegex2 = /^((?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs)).*/gm;
         
         if(h2Pattern.test(contents)) { 
@@ -65,9 +61,7 @@ $(document).ready(function() {
             var h2 = validPattern[2];
         }
 
-
         var lineArray = contents.match(bullet);
-
         if (lineArray === null) return {};
 
         let lineObject = lineArray.map(function(item) {
@@ -80,12 +74,8 @@ $(document).ready(function() {
             });
         });
         
-        var commentObject = [];
         var commentObject2 = [];
-        var commentCapture = [];
-
         var commentArrayHours;
-        var commentIndex = 0;
 
         while ((commentArrayHours = commentRegex2.exec(contents)) !== null) {
             var type  = '';
@@ -100,40 +90,21 @@ $(document).ready(function() {
             });
 
             var type  = '';
-
-            // console.log(commentObject2);
-        }
-        // console.log(commentObject2);
-
-        if (contents.match(commentRegex) !== null) {
-            var commentArray = contents.match(commentRegex);
-
-            for (i = 0; i < commentArray.length; i++) {
-                commentObject[i] = {
-                    line: commentArray[i],
-                    hours: returnTime(commentArray[i]),
-                    type: 'comment'
-                }
-            }
         }
 
         return {
             title: h2,
             hours: {
-                // coding: totalHours(lineObject) + totalHours(commentObject),
-                // designs: 10,
-                // total: totalHours(lineObject) + totalHours(commentObject) + 10
                 coding: totalHours(commentObject2).coding + totalHours(lineObject).coding,
                 design: totalHours(commentObject2).design + totalHours(lineObject).design,
                 total: totalHours(commentObject2).total + totalHours(lineObject).total,
-                // comment: totalHours(commentObject2),
-                // line: totalHours(lineObject) 
             },
             comments: commentObject2,
             content: lineObject,
         };
     });
     
+    // Removes segments without titles
     for (var i = segment.length - 1; i >= 0; i--) {
         if (segment[i].title === undefined) segment.splice(i, 1);
     }
@@ -146,12 +117,6 @@ $(document).ready(function() {
             calculateTotalHours(segment);
             location.reload();
         }
-
-        // Feature Notes Colour
-        var colour = $('#fn-2').val();
-        $('#targetDiv h1').css('background-color', colour);
-        $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
-        $('#targetDiv a').css('color', colour);
     });
     
     console.log(segment);
@@ -212,13 +177,23 @@ $(document).ready(function() {
             calculate();
     
             var editor = ($(mode).data('editor'));
+            var preview = ($(mode).data('preview'));
             var sidebar = ($(mode).data('sidebar'));
     
             $(mode).find('.fa').addClass('active');
             $(editor).show();
             $(sidebar).show();
+            $(preview).show();
+
+            // Feature Notes Colour
+            var colour = $('#fn-2').val();
+            $('#targetDiv h1').css('background-color', colour);
+            $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
+            $('#targetDiv a').css('color', colour);
         }
     }
+
+    mode.set('.js-toggle-md');
     
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
