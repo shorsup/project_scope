@@ -39,17 +39,24 @@ $(document).ready(function() {
     }
 
     function totalHours(input) {
-        var result = 0;
+        var total = 0;
         var coding = 0;
         var design = 0;
 
-        // if (input[i].type === 'coding') coding += input[i].hours;
-        // if (input[i].type === 'design') design += input[i].hours;
-
+        
         for (i = 0; i < input.length > 0; i++) {
-            if (input[i].hours !== undefined) result += input[i].hours;
+            console.log(input[i]);
+
+            if (input[i].hours !== undefined) total += input[i].hours;
+            if (input[i].type === 'coding') coding += input[i].hours;
+            if (input[i].type === 'design') design += input[i].hours;
         }
-        return result;
+        // return result;
+        return ({
+            coding: coding,
+            design: design,
+            total: total
+        });
     }
 
     let segment = segments.map(function(contents) {
@@ -98,7 +105,7 @@ $(document).ready(function() {
 
             // console.log(commentObject2);
         }
-        console.log(commentObject2);
+        // console.log(commentObject2);
 
         if (contents.match(commentRegex) !== null) {
             var commentArray = contents.match(commentRegex);
@@ -115,11 +122,13 @@ $(document).ready(function() {
         return {
             title: h2,
             hours: {
-                coding: totalHours(lineObject) + totalHours(commentObject),
-                designs: 10,
-                total: totalHours(lineObject) + totalHours(commentObject) + 10
+                // coding: totalHours(lineObject) + totalHours(commentObject),
+                // designs: 10,
+                // total: totalHours(lineObject) + totalHours(commentObject) + 10
+                comment: totalHours(commentObject2),
+                line: totalHours(lineObject) 
             },
-            comments: commentObject,
+            comments: commentObject2,
             content: lineObject,
         };
     });
