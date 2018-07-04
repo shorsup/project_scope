@@ -52,7 +52,7 @@ $(document).ready(function() {
         var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)\s+(?<time>\(.*))/, 'm');
         var bullet = /^-\s.*/gm;
         var commentRegex = /^(Coding|coding|Mockup|mockup|Wireframe|wireframe|Designs|designs).*/gm;
-        var commentRegex2 = /^(?<type>(?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs)).*/gm;
+        var commentRegex2 = /^((?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs)).*/gm;
 
         if(h2Pattern.test(contents)) { 
             var validPattern = h2Pattern.exec(contents);
@@ -72,14 +72,29 @@ $(document).ready(function() {
         });
         
         var commentObject = [];
+        var commentObject2 = [];
+        var commentCapture = [];
 
         var commentArrayHours;
-        var commentResult = 0;
+        var commentIndex = 0;
 
         while ((commentArrayHours = commentRegex2.exec(contents)) !== null) {
-            if (commentArrayHours.groups.coding) console.log(commentArrayHours.groups);
-            if (commentArrayHours.groups.design) console.log(commentArrayHours.groups);
+            var type  = '';
+
+            if (commentArrayHours.groups.coding !== undefined) type = 'coding';
+            if (commentArrayHours.groups.design !== undefined) type = 'design';
+
+            commentObject2.push({
+                line: commentArrayHours[0],
+                hours: returnTime(commentArrayHours),
+                type: type
+            });
+
+            var type  = '';
+
+            // console.log(commentObject2);
         }
+        console.log(commentObject2);
 
         if (contents.match(commentRegex) !== null) {
             var commentArray = contents.match(commentRegex);
