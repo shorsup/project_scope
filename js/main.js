@@ -24,11 +24,12 @@ $(document).ready(function() {
     const segments = editorValue.split('---');
 
     function returnTime(input) {
-        var hourRegexOb = /((?<minutes>\d+)(\s+|)(m|min|mins|minutes)\b)|((?<hours>\d+)(\s+|)(hr|hrs|hour|hours)\b)|((?<decimal>\d+\.\d+)(hr|hrs|hour|hours))/gm;
+        var hourRegexOb = /(((?<hr>\d+)(hr|hrs|hour|hours)\b)\s+((?<min>\d+)(m|min|mins|minutes)\b))|((?<minutes>\d+)(\s+|)(m|min|mins|minutes)\b)|((?<hours>\d+)(\s+|)(hr|hrs|hour|hours)\b)|((?<decimal>\d+\.\d+)(hr|hrs|hour|hours))/gm;
         var myArray;
         var result = 0;
 
         while ((myArray = hourRegexOb.exec(input)) !== null) {
+            if (myArray.groups.hr && myArray.groups.min) result += parseInt(myArray.groups.hr) + myArray.groups.min/60;
             if (myArray.groups.hours) result += parseInt(myArray.groups.hours);
             if (myArray.groups.minutes) result += myArray.groups.minutes/60;
             if (myArray.groups.decimal) result = parseFloat(myArray.groups.decimal);
@@ -60,7 +61,7 @@ $(document).ready(function() {
     }
 
     let segment = segments.map(function(contents) {
-        var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)\s+(?<time>\(.*))/, 'm');
+        var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)(\s+|\s+`)(?<time>\(.*\)))/, 'm');
         var bullet = /^-\s.*/gm;
         var commentRegex = /^(Coding|coding|Mockup|mockup|Wireframe|wireframe|Designs|designs).*/gm;
         var commentRegex2 = /^((?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs)).*/gm;
@@ -72,6 +73,9 @@ $(document).ready(function() {
 
 
         var lineArray = contents.match(bullet);
+
+        if (lineArray === null) return {};
+
         let lineObject = lineArray.map(function(item) {
             return ({
                 // line: {
@@ -135,9 +139,12 @@ $(document).ready(function() {
             content: lineObject,
         };
     });
-
+    
+    for (var i = segment.length - 1; i >= 0; i--) {
+        if (segment[i].title === undefined) segment.splice(i, 1);
+    }
+    
     console.log(segment);
-    // console.log(segment.length);
     calculateTotalHours(segment);
 
     function calculateTotalHours(input) {
