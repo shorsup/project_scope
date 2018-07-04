@@ -45,7 +45,7 @@ $(document).ready(function() {
 
         
         for (i = 0; i < input.length > 0; i++) {
-            console.log(input[i]);
+            // console.log(input[i]);
 
             if (input[i].hours !== undefined) total += input[i].hours;
             if (input[i].type === 'coding') coding += input[i].hours;
@@ -125,8 +125,11 @@ $(document).ready(function() {
                 // coding: totalHours(lineObject) + totalHours(commentObject),
                 // designs: 10,
                 // total: totalHours(lineObject) + totalHours(commentObject) + 10
-                comment: totalHours(commentObject2),
-                line: totalHours(lineObject) 
+                coding: totalHours(commentObject2).coding + totalHours(lineObject).coding,
+                design: totalHours(commentObject2).design + totalHours(lineObject).design,
+                total: totalHours(commentObject2).total + totalHours(lineObject).total,
+                // comment: totalHours(commentObject2),
+                // line: totalHours(lineObject) 
             },
             comments: commentObject2,
             content: lineObject,
