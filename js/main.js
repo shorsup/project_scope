@@ -40,9 +40,13 @@ $(document).ready(function() {
 
     function totalHours(input) {
         var result = 0;
+        var coding = 0;
+        var design = 0;
+
+        // if (input[i].type === 'coding') coding += input[i].hours;
+        // if (input[i].type === 'design') design += input[i].hours;
 
         for (i = 0; i < input.length > 0; i++) {
-            if (input[i].line.hours !== undefined) result += input[i].line.hours;
             if (input[i].hours !== undefined) result += input[i].hours;
         }
         return result;
@@ -63,11 +67,11 @@ $(document).ready(function() {
         var lineArray = contents.match(bullet);
         let lineObject = lineArray.map(function(item) {
             return ({
-                line: {
-                    text: item,
+                // line: {
+                    line: item,
                     hours: returnTime(item),
                     type: 'coding'
-                }
+                // }
             });
         });
         
