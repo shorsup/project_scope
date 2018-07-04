@@ -9,29 +9,19 @@ $(document).ready(function() {
         mode.set(this);
     });
 
-    $('.js-calculate').click(function() {
-        saveEditors();
-        calculate();
-
-        // Feature Notes Colour
-        var colour = $('#fn-2').val();
-        $('#targetDiv h1').css('background-color', colour);
-        $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
-        $('#targetDiv a').css('color', colour);
-    });
-
+    
     $('.js-errors').click(function() {
         $('.wrapper-errors').toggle();
     });
-
+    
     const editorValue = ace.edit('editor').getValue();
     const segments = editorValue.split('---');
-
+    
     function returnTime(input) {
         var hourRegexOb = /(((?<hr>\d+)(hr|hrs|hour|hours)\b)\s+((?<min>\d+)(m|min|mins|minutes)\b))|((?<minutes>\d+)(\s+|)(m|min|mins|minutes)\b)|((?<hours>\d+)(\s+|)(hr|hrs|hour|hours)\b)|((?<decimal>\d+\.\d+)(hr|hrs|hour|hours))/gm;
         var myArray;
         var result = 0;
-
+        
         while ((myArray = hourRegexOb.exec(input)) !== null) {
             if (myArray.groups.hr && myArray.groups.min) result += parseInt(myArray.groups.hr) + myArray.groups.min/60;
             if (myArray.groups.hours) result += parseInt(myArray.groups.hours);
@@ -42,16 +32,16 @@ $(document).ready(function() {
         }
         return result;
     }
-
+    
     function totalHours(input) {
         var total = 0;
         var coding = 0;
         var design = 0;
-
+        
         
         for (i = 0; i < input.length > 0; i++) {
             // console.log(input[i]);
-
+            
             if (input[i].hours !== undefined) total += input[i].hours;
             if (input[i].type === 'coding') coding += input[i].hours;
             if (input[i].type === 'design') design += input[i].hours;
@@ -63,13 +53,13 @@ $(document).ready(function() {
             total: total
         });
     }
-
+    
     let segment = segments.map(function(contents) {
         var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)(\s+|\s+`)(?<time>\(.*\)))/, 'm');
         var bullet = /^-\s.*/gm;
         var commentRegex = /^(Coding|coding|Mockup|mockup|Wireframe|wireframe|Designs|designs).*/gm;
         var commentRegex2 = /^((?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs)).*/gm;
-
+        
         if(h2Pattern.test(contents)) { 
             var validPattern = h2Pattern.exec(contents);
             var h2 = validPattern[2];
@@ -147,11 +137,29 @@ $(document).ready(function() {
     for (var i = segment.length - 1; i >= 0; i--) {
         if (segment[i].title === undefined) segment.splice(i, 1);
     }
+
+    $('.js-calculate').click(function() {
+        saveEditors();
+        calculate();
+
+        if (segment !== undefined) {
+            calculateTotalHours(segment);
+            location.reload();
+        }
+
+        // Feature Notes Colour
+        var colour = $('#fn-2').val();
+        $('#targetDiv h1').css('background-color', colour);
+        $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
+        $('#targetDiv a').css('color', colour);
+    });
     
     console.log(segment);
     calculateTotalHours(segment);
 
     function calculateTotalHours(input) {
+        $('.js-segments').html('');
+
         var designTotal = 0;
         var codingTotal = 0;
 
@@ -187,7 +195,7 @@ $(document).ready(function() {
     }
     
     function calculate() {
-        // calculateTotalHours();
+        // calculateTotalHours(segment);
         runMarkdown();
         runFeatureNotes();
     }
