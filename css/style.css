@@ -168,8 +168,8 @@ hr {
 .wrapper-summary {
     height: 100%;
     overflow-y: auto;
-    padding-top: 15px;
     padding-right: 35px;
+    padding-bottom: 40px;
 }
 
 #targetDiv,
