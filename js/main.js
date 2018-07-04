@@ -137,19 +137,21 @@ $(document).ready(function() {
     });
 
     console.log(segment);
+    // console.log(segment.length);
+    calculateTotalHours(segment);
 
-    function calculateTotalHours() {
-        for (var i = 0; i < segment.length; i++) {
-            createSegment(segment.hours.designs, segment.hours.coding, segment.title);
+    function calculateTotalHours(input) {
+        for (var i = 0; i < input.length; i++) {
+            createSegment(input[i].hours.design, input[i].hours.coding, input[i].title);
         }
     
-        var sum = codingSum + wireframeSum + mockupSum;
-        var price = sum * 160;
-        $('.js-hours-total').text(sum);
-        $('.js-price-total').text(price);
-        $('.js-mockups-total').text(mockupSum);
-        $('.js-wireframes-total').text(wireframeSum);
-        $('.js-coding-total').text(codingSum);
+        // var sum = codingSum + wireframeSum + mockupSum;
+        // var price = sum * 160;
+        // $('.js-hours-total').text(sum);
+        // $('.js-price-total').text(price);
+        // $('.js-mockups-total').text(mockupSum);
+        // $('.js-wireframes-total').text(wireframeSum);
+        // $('.js-coding-total').text(codingSum);
     }
     
     function saveEditors() {
