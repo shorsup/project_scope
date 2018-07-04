@@ -4,6 +4,8 @@ $(document).ready(function() {
     editor.setTheme("ace/theme/chrome");
     editor.session.setUseWrapMode(true);
     editor.setShowPrintMargin(false);
+    editor.container.style.lineHeight = 2.4;
+    editor.renderer.updateFontSize();
  
     ace.config.loadModule('ace/ext/language_tools', function () {
         editor.setOptions({

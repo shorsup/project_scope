@@ -188,6 +188,7 @@ hr {
 
 #markdownPreview {
     background-color: #f8f9fa;
+    border-left: 10px solid #dfdfdf;
 }
 
 /* Previews: Mobile Responsive */
