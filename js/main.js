@@ -141,17 +141,16 @@ $(document).ready(function() {
     calculateTotalHours(segment);
 
     function calculateTotalHours(input) {
+        var designTotal = 0;
+        var codingTotal = 0;
+
         for (var i = 0; i < input.length; i++) {
             createSegment(input[i].hours.design, input[i].hours.coding, input[i].title);
+            
+            designTotal += input[i].hours.design;
+            codingTotal += input[i].hours.coding;
         }
-    
-        // var sum = codingSum + wireframeSum + mockupSum;
-        // var price = sum * 160;
-        // $('.js-hours-total').text(sum);
-        // $('.js-price-total').text(price);
-        // $('.js-mockups-total').text(mockupSum);
-        // $('.js-wireframes-total').text(wireframeSum);
-        // $('.js-coding-total').text(codingSum);
+        createSegment(designTotal, codingTotal, 'Project');
     }
     
     function saveEditors() {
@@ -211,7 +210,7 @@ $(document).ready(function() {
         let markup = '';
     
         const segment = [
-            { title: 'Total', colour: 'green', icon: 'clock-o', hours: designSegment + codingSegment},
+            { title: 'Total', colour: 'purple', icon: 'clock-o', hours: designSegment + codingSegment},
             { title: 'Design', colour: 'blue', icon: 'pencil', hours: designSegment },
             { title: 'Coding', colour: 'yellow', icon: 'code', hours: codingSegment }
         ];
