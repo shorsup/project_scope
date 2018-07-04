@@ -54,7 +54,7 @@ $(document).ready(function() {
     let segment = segments.map(function(contents) {
         var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)(\s+|\s+`)(?<time>\(.*\)))/, 'm');
         var bullet = /^-\s.*/gm;
-        var commentRegex2 = /^((?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs)).*/gm;
+        var commentRegex2 = /^((?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)).*/gm;
         
         if(h2Pattern.test(contents)) { 
             var validPattern = h2Pattern.exec(contents);
