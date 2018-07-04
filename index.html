@@ -27,9 +27,24 @@
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 </head>
 <body>
+    <div class="wrapper-errors" style="display: none;">
+        <div class="alert alert-danger fade show">
+            <strong>Sections:</strong> Each section/page should be surrounded by '---'.
+        </div>
+        <div class="alert alert-primary fade show">
+            <strong>Titles:</strong> Each section to have a h2 (##) title with brackets.
+        </div>
+        <div class="alert alert-warning fade show">
+            <strong>Times:</strong> Times on sub-bullets will not be calculated, they need to be on normal bullets.
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row wrapper-menu">        
             <div class="offset-sm-3 col-sm-9 menu">
+                <div class="js-errors menu-btn">
+                    <i class="fa fa-warning white" data-toggle="tooltip" data-placement="left" title="Information"></i>
+                </div>
                 <div class="js-calculate menu-btn">
                     <i class="fa fa-save white" data-toggle="tooltip" data-placement="left" title="Calculate & Save"></i>
                 </div>
@@ -45,11 +60,11 @@
                 <div class="js-toggle-fn menu-btn" data-editor="#targetDiv" data-sidebar="#notesSidebar">
                     <i class="fa fa-file-text-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes Preview"></i>
                 </div>
-                <div class="menu-btn">
+                <!-- <div class="menu-btn">
                     <a href="https://developers.neto.com.au/documentation/web-designers/tweak-documents/" target="_blank">
                         <i class="fa fa-desktop white" data-toggle="tooltip" data-placement="left" title="Implementation"></i>
                     </a>
-                </div>
+                </div> -->
                 <div class="menu-btn">
                     <a href="https://github.com/NetoECommerce/design-resources/blob/master/Project%20Scopes/Tweak-Prices.md" target="_blank">
                         <i class="fa fa-clock-o white" data-toggle="tooltip" data-placement="left" title="Tweak Prices"></i>
@@ -75,14 +90,6 @@
             <div id="scopeSidebar" class="wrapper-preview col-12 col-sm-3 sidebar">
                 <div class="wrapper-summary text-left">
                     <div class="js-segments"></div>
-
-                    <hr>
-
-                    <div class="menu-row">
-                        <p><i class="fa fa-clock-o circle-bg lilac text-center pull-left"></i> Milestones</p>
-                        <p><span class="lilac-colour">Total</span></p>
-                        <div class="js-milestones"></div>
-                    </div>
                 </div>
             </div>
 

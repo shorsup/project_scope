@@ -319,3 +319,11 @@ input {
     margin: 20px auto;
     display: block;
 }
+
+/* --- Errors --- */
+.wrapper-errors {
+    position: absolute;
+    z-index: 999;
+    right: 15px;
+    top: 85px;
+}

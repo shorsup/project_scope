@@ -20,6 +20,10 @@ $(document).ready(function() {
         $('#targetDiv a').css('color', colour);
     });
 
+    $('.js-errors').click(function() {
+        $('.wrapper-errors').toggle();
+    });
+
     const editorValue = ace.edit('editor').getValue();
     const segments = editorValue.split('---');
 
