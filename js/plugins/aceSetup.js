@@ -19,15 +19,17 @@ $(document).ready(function() {
 $(document).ready(function() {
     var notesEditor = ace.edit("notesEditor");
     notesEditor.session.setMode("ace/mode/markdown");
-    notesEditor.setTheme("ace/theme/dracula");
+    notesEditor.setTheme("ace/theme/chrome");
     notesEditor.session.setUseWrapMode(true);
     notesEditor.setShowPrintMargin(false);
+    notesEditor.container.style.lineHeight = 2.4;
+    notesEditor.renderer.updateFontSize();
  
     ace.config.loadModule('ace/ext/language_tools', function () {
         notesEditor.setOptions({
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true,
-            enableSnippets: true
+            enableBasicAutocompletion: false,
+            enableLiveAutocompletion: false,
+            enableSnippets: false
         })
     })
 
