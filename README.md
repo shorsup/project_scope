@@ -1,57 +1,120 @@
 # project_scope
 
-Starting scope
-* Chose template (based on options and starting theme)
-* Pull from markdown file
-* Select which pages are getting done
-* Only include those selected
-* Step through each page
-* Select wireframe or mockups
-* Select elements from prices list (password protected)
-* Placed in order of selection or where clicked
-* Reorder them with drag and drop
-* Each bullet is detected as a tweak, ask at end if it should be added to prices list (password)
-* Compiles all so they can be copy and pasted into GitHub (better ways, server)
-* Lead times calculated based on coding hours, graphic design hours, and hours in backlog
-* Summary at end
+For use in Custom Web Design: Project Scope.
 
-Extras
-* Saving file in cookie
-* Accounts
-* File save
-* Uploading own templates and price sheets (format guide/errors)
+Parses markdown into a JSON object, and calculates Coding, Design and Total hours for each segment/page of a websites Project Scope.
 
-Including images
-* Upload them to a server
-* Save a descriptive file name
-* Setup folders with project name
-* Preview the images before selection
-* Click where to include, places markdown
+---
 
-Times to be added up
-- [x] ```**(30m)**```
-- [x] ```**(1hr)**```
-- [x] ```**(1hr 30m)**```
-- [x] Detect times
-- [x] Convert to minutes eg. Integers
-- [x] Sum
-* Total project (compare against sum of each section)
+## Input
 
-Times for each section calculated and updated
-* ```## Home Page (7hr 15m)```
-* Section determined by ```---```
-* Title starts with a #
-* Doesn’t have ** around number
+```markdown
+---
 
-Place total hours and total price
+## Title ()
 
-Milestones
-* Homepage phase
-* Wireframe and mock-up phase
-* Implementation phase
+<--
+Coding 1hr
+Design 2hr
+-->
 
-Summary
-* Coding times
-* Wireframe times
-* Mock-up times
-* Milestones
+- A 'Login/Register' link, once logged in change to 'My Account'.
+- A 'My Wishlist' link, which when logged in takes a user to the wishlist section within the account page.<!-- 15m -->
+
+---
+```
+
+## Output
+
+```json
+{
+    title: "Title"
+    comments: [
+        {
+            line: "Coding 1hr"
+            hours: 1
+            type: "coding"
+        },
+        {
+            line: "Design 2hr"
+            hours: 2
+            type: "design"
+        }
+    ]
+    content: [
+        {
+            line: "- A 'Login/Register' link, once logged in change to 'My Account'."
+            hours: 0
+            type: "coding"
+        },
+        {
+            line: "- A 'My Wishlist' link, which when logged in takes…list section within the account page.<!-- 15m -->"
+            hours: 0.25
+            type: "coding"
+        }
+    ]
+    hours: {coding: 1.25, design: 2, total: 3.25}
+}
+```
+
+---
+
+## Code Standards
+
+### Sections
+
+Each section/page must be surrounded by '---'.
+
+```markdown
+---
+
+section/page
+
+---
+```
+
+---
+
+### Titles
+
+Each section/page must have a h2 (##) title with brackets:
+
+```markdown
+## Title (xxhr)
+```
+
+---
+
+### Times
+
+Times on sub-bullets will not be calculated, they need to be on normal bullets:
+
+```markdown
+- A 'My Wishlist' link, which when logged in takes a user to the wishlist section within the account page.<!-- 15m -->
+  - Extra information <!-- 30m -->
+```
+
+#### Returns
+
+```json
+hours: {coding: 0.25, design: 0, total: 0.25}
+```
+
+---
+
+### Comments
+
+Comments will be calculated if formatted as below:
+
+```markdown
+<--
+Coding 1hr
+Design 2hr
+-->
+```
+
+#### Returns
+
+```json
+hours: {coding: 1, design: 2, total: 3}
+```
