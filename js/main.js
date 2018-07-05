@@ -15,7 +15,8 @@ $(document).ready(function() {
     });
 
     $('.js-load').click(function() {
-        $(".text").load("private/default.md");
+        var file = $.get("private/default.md");
+        ace.edit('editor').setValue(file)
     });
     
     const editorValue = ace.edit('editor').getValue();
