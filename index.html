@@ -16,10 +16,10 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" media="screen, print" href="css/style.css" />
     <!-- Showdown -->
-    <script src="js/plugins/showdown.min.js"></script>
-    <script src="js/plugins/script.js"></script>
+    <script src="js/plugins/showdown/showdown.min.js"></script>
+    <script src="js/plugins/showdownSetup.js"></script>
     <!-- Ace -->
-    <script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/plugins/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/plugins/aceSetup.js"></script>
     <!-- jsPDF -->
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
@@ -43,9 +43,6 @@
     <div class="container-fluid">
         <div class="row wrapper-menu">        
             <div class="offset-sm-3 col-sm-9 menu">
-                <div class="js-load menu-btn">
-                    <i class="fa fa-cloud-download white" data-toggle="tooltip" data-placement="left" title="Load"></i>
-                </div>
                 <div class="js-errors menu-btn">
                     <i class="fa fa-warning white" data-toggle="tooltip" data-placement="left" title="Errors & Information"></i>
                 </div>
