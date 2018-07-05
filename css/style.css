@@ -38,22 +38,22 @@ hr {
 
 /* Aesthetic: Colours */
 .circle-bg.yellow {
-    background-color: #F1B352;
+    background: #F1B352;
 }
 .circle-bg.blue {
-    background-color: #4389E6;
+    background: #4389E6;
 }
 .circle-bg.pink {
-    background-color: #DF81A2;
+    background: #DF81A2;
 }
 .circle-bg.green {
-    background-color: #53D6D2;
+    background: #53D6D2;
 }
 .circle-bg.purple {
-    background-color: #B387E8;
+    background: #B387E8;
 }
 .circle-bg.lilac {
-    background-color: #7D90FC;
+    background: #7D90FC;
 }
 
 .yellow-colour {
@@ -83,7 +83,7 @@ hr {
 
 /* --- Menu --- */
 .wrapper-menu {
-    background-color: #6578FE;
+    background: #6578FE;
     height: 70px;
 }
 
@@ -115,6 +115,44 @@ hr {
 }
 
 /* --- Sidebar --- */
+.sidebar {
+    width: 50px;
+}
+
+.wrapper-mode {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    z-index: 99;
+    height: calc(100vh - 70px);
+    background: #383d41;
+}
+
+.js-times-toggle {
+    cursor: pointer;
+    color: #fff;
+    z-index: 99;
+}
+
+.js-errors {
+    color: #6578FE;
+}
+
+.js-times-toggle i,
+.js-errors i,
+.js-render i {
+    font-size: 30px;
+    padding: 10px;
+}
+
+.mode-active {
+    background: #27384E;
+}
+
+.js-segments .wrapper-segment:first-of-type .section-title {
+    margin-top: 15px;
+}
+
 .section-title {
     font-size: 18px;
     margin-bottom: 10px;
@@ -144,21 +182,22 @@ hr {
     background: #0e1e25;
 }
 
+.left-spacing {
+    left: 16.66% !important;
+}
+
 .ace_editor {
     position: absolute !important;
-    right: 40%;
+    right: 50%;
     top: 70px;
-    left: 16.66%;
+    left: 50px;
     bottom: 0;
 }
 
 /* --- Previews --- */
 .wrapper-preview {
-    background-color: #f4f7f8;
+    background: #f4f7f8;
     overflow-y: auto;
-}
-
-.wrapper-preview {
     color: #dae0e5;
     background: #27384E;
     border: none;
@@ -170,15 +209,16 @@ hr {
     overflow-y: auto;
     padding-right: 35px;
     padding-bottom: 40px;
+    padding-left: 50px;
 }
 
 #targetDiv,
 #markdownPreview {
     z-index: 9999;
     position: absolute;
-    background-color: #fff;
-    left: 60%;
-    width: 40%;
+    background: #fff;
+    left: 50%;
+    width: 50%;
     bottom: 0;
     height: calc(100vh - 70px);
     right: 0;
@@ -197,16 +237,21 @@ blockquote p {
 /* Previews: Mobile Responsive */
 @media (max-width: 575px) {
     .wrapper-preview {
-        top: calc(50vh - 70px);
-        height: calc(50vh - 70px);
+        height: calc(100vh - 70px);
+        z-index: 9;
+    }
+
+    #targetDiv {
+        left: 50px;
+        width: calc (100% - 50px);
     }
 
     .ace_editor {
         position: absolute !important;
-        left: 0;
+        left: 50px;
         right: 0;
         z-index: 1;
-        bottom: 50%;
+        bottom: 0;
         top: 70px;
     }
 
@@ -258,7 +303,7 @@ blockquote p {
 
 #targetDiv h1 {
     text-align: center;
-    background-color: #007EB0;
+    background: #007EB0;
     padding: 65px 0;
     color: #fff;
     margin: 0 -20px;

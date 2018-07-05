@@ -8,10 +8,17 @@ $(document).ready(function() {
     $('.js-toggle-rt, .js-toggle-md, .js-toggle-fn').on('click', function() {
         mode.set(this);
     });
-
     
     $('.js-errors').click(function() {
         $('.wrapper-errors').toggle();
+    });
+
+    $('.js-times-toggle').click(function() {
+        $('.wrapper-summary').toggle();
+        $('.sidebar').toggleClass('col col-sm-2');
+        $('.ace_editor').toggleClass('left-spacing');
+        $(this).toggleClass('mode-active');
+        ace.edit('editor').resize();
     });
     
     const editorValue = ace.edit('editor').getValue();
@@ -170,6 +177,9 @@ $(document).ready(function() {
             $('.wrapper-menu .menu .menu-btn').each(function() {
                 $(this).find('.fa').removeClass('active');
                 $('.editor, .sidebar').hide();
+                $('.editor').removeClass('d-sm-block');
+                ace.edit('editor').clearSelection();
+                ace.edit('notesEditor').clearSelection();
             });
         },
         set(mode) {
@@ -183,7 +193,10 @@ $(document).ready(function() {
             $(mode).find('.fa').addClass('active');
             $(editor).show();
             $(sidebar).show();
-            $(preview).show();
+            $(preview).toggleClass('d-none d-sm-block');
+
+            ace.edit('editor').clearSelection();
+            ace.edit('notesEditor').clearSelection();
 
             // Feature Notes Colour
             var colour = $('#fn-2').val();

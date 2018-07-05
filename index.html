@@ -43,29 +43,15 @@
     <div class="container-fluid">
         <div class="row wrapper-menu">        
             <div class="offset-sm-3 col-sm-9 menu">
-                <div class="js-errors menu-btn">
-                    <i class="fa fa-warning white" data-toggle="tooltip" data-placement="left" title="Errors & Information"></i>
-                </div>
                 <div class="js-calculate menu-btn">
                     <i class="fa fa-save white" data-toggle="tooltip" data-placement="left" title="Calculate & Save"></i>
                 </div>
                 <div class="js-toggle-md menu-btn" data-editor="#editor" data-preview="#markdownPreview" data-sidebar="#scopeSidebar">
                     <i class="fa fa-code white active" data-toggle="tooltip" data-placement="left" title="Project Scope"></i>
                 </div>
-                <!-- <div class="js-toggle-rt menu-btn" data-editor="#editor" data-preview="#markdownPreview" data-sidebar="#scopeSidebar">
-                    <i class="fa fa-align-left white" data-toggle="tooltip" data-placement="left" title="Rich Text"></i>
-                </div> -->
                 <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-preview="#targetDiv" data-sidebar="#notesSidebar">
                     <i class="fa fa-file-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes"></i>
                 </div>
-                <!-- <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-preview="#targetDiv" data-sidebar="#notesSidebar">
-                    <i class="fa fa-file-text-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes Preview"></i>
-                </div> -->
-                <!-- <div class="menu-btn">
-                    <a href="https://developers.neto.com.au/documentation/web-designers/tweak-documents/" target="_blank">
-                        <i class="fa fa-desktop white" data-toggle="tooltip" data-placement="left" title="Implementation"></i>
-                    </a>
-                </div> -->
                 <div class="menu-btn">
                     <a href="https://github.com/NetoECommerce/design-resources/blob/master/Project%20Scopes/Tweak-Prices.md" target="_blank">
                         <i class="fa fa-clock-o white" data-toggle="tooltip" data-placement="left" title="Tweak Prices"></i>
@@ -81,17 +67,25 @@
             <!-- Feature Notes Editor -->
             <div id="notesEditor" class="editor" style="display: none;"></div>
 
-            <!-- Rendered Markdown -->
-            <div class="editor" id="targetDiv" style="display: none;"></div>
+            <!-- Feature Notes -->
+            <div class="editor d-none d-sm-block" id="targetDiv" style="display: none;"></div>
 
             <!-- Rendered Markdown -->
-            <div class="editor" id="markdownPreview"></div>
+            <div class="editor d-none d-sm-block" id="markdownPreview"></div>
             
+            <div class="wrapper-mode">
+                <div class="js-times-toggle">
+                    <i class="fa fa-clock-o text-center"></i>
+                </div>
+                <div class="js-errors d-none d-sm-block">
+                    <i class="fa fa-warning white"></i>
+                </div>
+            </div>
+
             <!-- Preview -->
-            <div id="scopeSidebar" class="wrapper-preview col-12 col-sm-2 sidebar">
-                <div class="wrapper-summary text-left">
+            <div id="scopeSidebar" class="wrapper-preview sidebar">
+                <div class="wrapper-summary text-left" style="display: none;">
                     <div class="js-segments"></div>
-                    <div class="text"></div>
                 </div>
             </div>
 
@@ -122,7 +116,7 @@
             </div>
 
             <!-- Feature Notes Sidebar -->
-            <div id="notesSidebar" class="wrapper-snippet-menu col-12 col-sm-2 sidebar" style="display: none;">
+            <div id="notesSidebar" class="wrapper-snippet-menu sidebar" style="display: none;">
                 <input id="fn-2" type="text" class="form-control" name="primarycolour" placeholder="Primary Colour">
             </div>
 
