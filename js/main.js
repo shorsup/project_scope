@@ -15,7 +15,7 @@ $(document).ready(function() {
     });
 
     $('.js-load').click(function() {
-        $(".text").load("default.md");
+        $(".text").load("private/default.md");
     });
     
     const editorValue = ace.edit('editor').getValue();
