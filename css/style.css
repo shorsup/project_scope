@@ -184,10 +184,6 @@ hr {
     right: 0;
     padding: 20px;
     overflow-y: auto;
-}
-
-#markdownPreview {
-    background-color: #f8f9fa;
     border-left: 10px solid #dfdfdf;
 }
 
