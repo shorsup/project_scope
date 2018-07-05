@@ -189,7 +189,6 @@ $(document).ready(function() {
             var colour = $('#fn-2').val();
             $('#targetDiv h1').css('background-color', colour);
             $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
-            $('#targetDiv a').css('color', colour);
         }
     }
 
