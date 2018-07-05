@@ -16,7 +16,10 @@ $(document).ready(function() {
 
     $('.js-load').click(function() {
         var file = $.get("private/default.md");
-        ace.edit('editor').setValue(file)
+        var mdEditor = ace.edit('editor');
+        console.log(file);
+        mdEditor.setValue(file);
+        editor.clearSelection();
     });
     
     const editorValue = ace.edit('editor').getValue();
