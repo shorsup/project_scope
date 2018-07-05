@@ -2,7 +2,7 @@
 
 For use in Custom Web Design: Project Scope.
 
-Parses markdown into a JSON object, and calculates Coding, Design and Total hours for each segment/page of a websites Project Scope.
+Parses markdown into a javascript object, and calculates Coding, Design and Total hours for each segment/page of a websites Project Scope.
 
 ---
 
@@ -26,11 +26,10 @@ Design 2hr
 
 ## Output
 
-```json
+```javascript
 {
     title: "Title"
-    comments: [
-        {
+    comments: [{
             line: "Coding 1hr"
             hours: 1
             type: "coding"
@@ -41,8 +40,7 @@ Design 2hr
             type: "design"
         }
     ]
-    content: [
-        {
+    content: [{
             line: "- A 'Login/Register' link, once logged in change to 'My Account'."
             hours: 0
             type: "coding"
@@ -53,7 +51,11 @@ Design 2hr
             type: "coding"
         }
     ]
-    hours: {coding: 1.25, design: 2, total: 3.25}
+    hours: {
+        coding: 1.25,
+        design: 2,
+        total: 3.25
+    }
 }
 ```
 
@@ -96,8 +98,12 @@ Times on sub-bullets will not be calculated, they need to be on normal bullets:
 
 #### Returns
 
-```json
-hours: {coding: 0.25, design: 0, total: 0.25}
+```javascript
+hours: {
+    coding: 0.25,
+    design: 0,
+    total: 0.25
+}
 ```
 
 ---
@@ -115,6 +121,10 @@ Design 2hr
 
 #### Returns
 
-```json
-hours: {coding: 1, design: 2, total: 3}
+```javascript
+hours: {
+    coding: 1,
+    design: 2,
+    total: 3
+}
 ```
