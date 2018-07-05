@@ -6,6 +6,8 @@ function runFeatureNotes() {
     converter.setOption('simplifiedAutoLink', true),
     converter.setOption('openLinksInNewWindow', true),
     converter.setOption('emoji', true),
+    converter.setOption('simpleLineBreaks', true);
+    converter.setOption('disableForced4SpacesIndentedSublists', true);
     html = converter.makeHtml(input);
     
     target.innerHTML = html;
@@ -19,6 +21,8 @@ function runMarkdown() {
     converter.setOption('simplifiedAutoLink', true),
     converter.setOption('openLinksInNewWindow', true),
     converter.setOption('emoji', true),
+    converter.setOption('simpleLineBreaks', true);
+    converter.setOption('disableForced4SpacesIndentedSublists', true);
     html = converter.makeHtml(input);
     
     target.innerHTML = html;

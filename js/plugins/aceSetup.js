@@ -6,12 +6,14 @@ $(document).ready(function() {
     editor.setShowPrintMargin(false);
     editor.container.style.lineHeight = 2.4;
     editor.renderer.updateFontSize();
+    editor.setOptions.s
  
     ace.config.loadModule('ace/ext/language_tools', function () {
         editor.setOptions({
             enableBasicAutocompletion: false,
             enableLiveAutocompletion: false,
-            enableSnippets: false
+            enableSnippets: false,
+            scrollPastEnd: true
         })
     })
 });
@@ -29,7 +31,8 @@ $(document).ready(function() {
         notesEditor.setOptions({
             enableBasicAutocompletion: false,
             enableLiveAutocompletion: false,
-            enableSnippets: false
+            enableSnippets: false,
+            scrollPastEnd: true
         })
     })
 

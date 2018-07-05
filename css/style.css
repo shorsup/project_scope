@@ -7,7 +7,7 @@ textarea {
     resize: none;
 }
 
-p {
+.sidebar p {
     margin-bottom: 0;
 }
 
@@ -187,6 +187,13 @@ hr {
     border-left: 10px solid #dfdfdf;
 }
 
+
+blockquote p {
+    font-style: italic;
+    padding: .66001rem 1rem 1rem;
+    border-left: 3px solid #007bff;
+}
+
 /* Previews: Mobile Responsive */
 @media (max-width: 575px) {
     .wrapper-preview {
@@ -232,18 +239,18 @@ hr {
     color: #47beee;
 }
 
-#targetDiv strong {
+#targetDiv strong,
+#markdownPreview strong {
     color: #083E52;
 }
 
-#targetDiv em {
+#targetDiv em,
+#markdownPreview em {
     color: #fc487c;
 }
 
 #targetDiv h1, 
-#targetDiv h2,
-h1,
-h2 {
+#targetDiv h2 {
     font-weight: 800;
     text-transform: uppercase;
     color: #083E52;
@@ -306,6 +313,7 @@ h2 {
         top: 0;
         left: 0;
         width: 100%;
+        border: none;
     }
 
     hr {

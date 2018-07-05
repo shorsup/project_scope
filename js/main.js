@@ -13,6 +13,10 @@ $(document).ready(function() {
     $('.js-errors').click(function() {
         $('.wrapper-errors').toggle();
     });
+
+    $('.js-load').click(function() {
+        $(".text").load("default.md");
+    });
     
     const editorValue = ace.edit('editor').getValue();
     const segments = editorValue.split('---');
