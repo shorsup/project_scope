@@ -29,6 +29,16 @@ $(document).ready(function() {
 
         $(this).toggleClass('mode-active');
     });
+
+    setInterval(runMarkdown, 5000);
+
+    ace.edit('editor').getSession().on('change', function(e) {
+        setTimeout(saveEditor('editor'), 4000);
+    });
+
+    ace.edit('notesEditor').getSession().on('change', function() {
+        setTimeout(saveEditor('notesEditor'), 4000);
+    });
     
     const editorValue = ace.edit('editor').getValue();
     const segmentArray = editorValue.split('---');
@@ -127,6 +137,7 @@ $(document).ready(function() {
         // Removes segments without titles
         for (var i = scope.length - 1; i >= 0; i--) {
             if (scope[i] === undefined) scope.splice(i, 1);
+            console.log(scope[i]);
         }
         return scope;
     }
@@ -143,25 +154,27 @@ $(document).ready(function() {
         var designTotal = 0;
         var codingTotal = 0;
 
+        console.log(input[0]);
+
         for (var i = 0; i < input.length; i++) {
-            createSegment(input[i].hours.design, input[i].hours.coding, input[i].title);
-            
-            designTotal += input[i].hours.design;
-            codingTotal += input[i].hours.coding;
+            if (input[i].size > 1) {
+                createSegment(input[i].hours.design, input[i].hours.coding, input[i].title);
+                
+                designTotal += input[i].hours.design;
+                codingTotal += input[i].hours.coding;
+            }
         }
         createSegment(designTotal, codingTotal, 'Project');
     }
-    
-    function saveEditors() {
-        if (typeof(Storage) !== "undefined") {
-            var markdownEditor = ace.edit('editor');
-            var notesEditor = ace.edit('notesEditor');
-    
-            // Store
-            localStorage.setItem("markdownStorage", markdownEditor.getValue());
-            localStorage.setItem("notesStorage", notesEditor.getValue());
 
-            runEditors();
+    function saveEditor(scope) {
+        var editor = ace.edit(scope).getValue();
+
+        console.log(scope);
+        if (scope === 'editor') {
+            localStorage.setItem("markdownStorage", editor); 
+        } else {
+            localStorage.setItem("notesStorage", editor);
         }
     }
     
