@@ -348,7 +348,9 @@ blockquote p {
     }
 
     .wrapper-preview,
-    .wrapper-menu {
+    .wrapper-menu,
+    .sidebar,
+    .editor {
         display: none;
     }
 

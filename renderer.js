@@ -14,7 +14,7 @@ printPDFBtn.addEventListener('click', function (event) {
 
 ipcRenderer.on('wrote-pdf', function (event, path) {
   const message = `Wrote PDF to: ${path}`
-  // document.getElementById('output').innerHTML = message
+  document.getElementById('output').innerHTML = message
 })
 
 // External Links
@@ -32,15 +32,11 @@ selectDirBtn.addEventListener('click', function (event) {
 })
 
 ipcRenderer.on('selected-directory', function (event, path, datas) {
-  // document.getElementById('output').innerHTML = `You selected: ${path}`
-  console.log("The file content is : " + path.toString());
-
   fs.readFile(path.toString(), (err, data) => {
     if(err){
       alert("An error ocurred reading the file :" + err.message);
       return;
     }
-    console.log("The file content is :" + data);
     ace.edit('editor').setValue(data.toString());
   });
 })

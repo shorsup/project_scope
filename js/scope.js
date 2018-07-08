@@ -23,7 +23,7 @@ $(document).ready(function() {
         }
 
         $('.wrapper-summary').toggle();
-        $('.sidebar').toggleClass('col col-sm-2');
+        $('.wrapper-preview').toggleClass('col col-sm-2');
         $('.ace_editor').toggleClass('left-spacing');
         ace.edit('editor').resize();
 
