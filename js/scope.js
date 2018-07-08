@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    calculate();
+    runEditors();
 
     if (localStorage.getItem("markdownStorage") != null && localStorage.getItem("notesStorage") != null) {
         loadEditors();
@@ -14,21 +14,29 @@ $(document).ready(function() {
     });
 
     $('.js-times-toggle').click(function() {
+        if(!$(this).hasClass('mode-active')){
+            const segmentArray = ace.edit('editor').getValue().split('---');
+            var scopeObject = createScope(segmentArray);
+    
+            console.log(scopeObject);
+            calculateTotalHours(scopeObject);
+        }
+
         $('.wrapper-summary').toggle();
         $('.sidebar').toggleClass('col col-sm-2');
         $('.ace_editor').toggleClass('left-spacing');
-        $(this).toggleClass('mode-active');
         ace.edit('editor').resize();
+
+        $(this).toggleClass('mode-active');
     });
     
     const editorValue = ace.edit('editor').getValue();
-    const segments = editorValue.split('---');
+    const segmentArray = editorValue.split('---');
     
     function returnTime(input) {
         var hourRegexOb = /(((\d+)(hr|hrs|hour|hours)\b)\s+((\d+)(m|min|mins|minutes)\b))|((\d+)(\s+|)(m|min|mins|minutes)\b)|((\d+)(\s+|)(hr|hrs|hour|hours)\b)|((\d+\.\d+)(hr|hrs|hour|hours))/gm;
         var myArray;
         var result = 0;
-
         
         while ((myArray = hourRegexOb.exec(input)) !== null) {
             if (myArray[3] && myArray[6]) result += parseInt(myArray[3]) + myArray[6]/60; // hr 3, min 6
@@ -59,78 +67,75 @@ $(document).ready(function() {
         });
     }
     
-    let segment = segments.map(function(contents) {
-        var h2Pattern = new RegExp(/^#{2}\s+((.*)(\s+|\s+`)(\(.*\)))/, 'm');
-        var bulletPattern = /^-\s.*/gm;
-        var subBulletPattern = /^(?!\n)\s+-.*/gm;
-        var commentPattern = /^((Coding|coding)|(Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)).*/gm;
+    function createScope(segmentArray) { 
+        scope = segmentArray.map(function(contents) {
+            var h2Pattern = new RegExp(/^#{2}\s+((.*)(\s+|\s+`)(\(.*\)))/, 'm');
+            var bulletPattern = /^-\s.*/gm;
+            var subBulletPattern = /^(?!\n)\s+-.*/gm;
+            var commentPattern = /^((Coding|coding)|(Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)).*/gm;
 
-        if(h2Pattern.test(contents)) { 
-            var validPattern = h2Pattern.exec(contents);
-            var h2 = validPattern[2]; // Title
-        }
+            if(h2Pattern.test(contents)) { 
+                var validPattern = h2Pattern.exec(contents);
+                var h2 = validPattern[2]; // Title
+            }
 
-        // Creating Line Object
-        var lineMatch = contents.match(bulletPattern);
-        if (lineMatch === null) return {};
+            // Creating Line Object
+            var lineMatch = contents.match(bulletPattern);
+            if (lineMatch === null) return {};
 
-        let lineObject = lineMatch.map(function(item) {
-            return ({
-                line: item,
-                hours: returnTime(item),
-                type: 'coding'
+            let lineObject = lineMatch.map(function(item) {
+                return ({
+                    line: item,
+                    hours: returnTime(item),
+                    type: 'coding'
+                });
             });
+
+            // Creating Comment Object
+            var commentObject = [];
+            var commentMatch;
+
+            while ((commentMatch = commentPattern.exec(contents)) !== null) {
+                var type  = '';
+
+                if (commentMatch[2] !== undefined) type = 'coding';
+                if (commentMatch[3] !== undefined) type = 'design';
+
+                commentObject.push({
+                    line: commentMatch[0],
+                    hours: returnTime(commentMatch),
+                    type: type
+                });
+
+                var type  = '';
+            }
+
+            // Segment Output
+            if (h2 !== undefined) {
+                return {
+                    title: h2,
+                    hours: {
+                        coding: totalHours(commentObject).coding + totalHours(lineObject).coding,
+                        design: totalHours(commentObject).design + totalHours(lineObject).design,
+                        total: totalHours(commentObject).total + totalHours(lineObject).total,
+                    },
+                    comments: commentObject,
+                    content: lineObject,
+                };
+            }
         });
-
-        // Creating Comment Object
-        var commentObject = [];
-        var commentMatch;
-
-        while ((commentMatch = commentPattern.exec(contents)) !== null) {
-            var type  = '';
-
-            if (commentMatch[2] !== undefined) type = 'coding';
-            if (commentMatch[3] !== undefined) type = 'design';
-
-            commentObject.push({
-                line: commentMatch[0],
-                hours: returnTime(commentMatch),
-                type: type
-            });
-
-            var type  = '';
+        // Removes segments without titles
+        for (var i = scope.length - 1; i >= 0; i--) {
+            if (scope[i] === undefined) scope.splice(i, 1);
         }
-
-        // Segment Output
-        return {
-            title: h2,
-            hours: {
-                coding: totalHours(commentObject).coding + totalHours(lineObject).coding,
-                design: totalHours(commentObject).design + totalHours(lineObject).design,
-                total: totalHours(commentObject).total + totalHours(lineObject).total,
-            },
-            comments: commentObject,
-            content: lineObject,
-        };
-    });
-    
-    // Removes segments without titles
-    for (var i = segment.length - 1; i >= 0; i--) {
-        if (segment[i].title === undefined) segment.splice(i, 1);
+        return scope;
     }
 
-    $('.js-calculate').click(function() {
-        saveEditors();
-        calculate();
-
-        if (segment !== undefined) {
-            calculateTotalHours(segment);
-            location.reload();
-        }
-    });
+    let scopeObject = createScope(segmentArray);
     
-    console.log(segment);
-    calculateTotalHours(segment);
+    
+    console.log(scopeObject);
+    calculateTotalHours(scopeObject);
 
     function calculateTotalHours(input) {
         $('.js-segments').html('');
@@ -155,6 +160,8 @@ $(document).ready(function() {
             // Store
             localStorage.setItem("markdownStorage", markdownEditor.getValue());
             localStorage.setItem("notesStorage", notesEditor.getValue());
+
+            runEditors();
         }
     }
     
@@ -166,11 +173,12 @@ $(document).ready(function() {
             // Retrieve
             markdownEditor.setValue(localStorage.getItem("markdownStorage"));
             notesEditor.setValue(localStorage.getItem("notesStorage"));
+
+            runEditors();
         }
     }
     
-    function calculate() {
-        // calculateTotalHours(segment);
+    function runEditors() {
         runMarkdown();
         runFeatureNotes();
     }
@@ -187,7 +195,7 @@ $(document).ready(function() {
         },
         set(mode) {
             this.clear();
-            calculate();
+            runEditors();
     
             var editor = ($(mode).data('editor'));
             var preview = ($(mode).data('preview'));
