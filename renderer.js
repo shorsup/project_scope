@@ -3,6 +3,7 @@
 // All of the Node.js APIs are available in this process.
 
 const {ipcRenderer, shell} = require('electron')
+const fs = require('fs')
 
 // PDF Download
 const printPDFBtn = document.getElementById('js-pdf')
@@ -21,4 +22,25 @@ const exLinksBtn = document.getElementById('repoLink')
 
 exLinksBtn.addEventListener('click', function (event) {
   shell.openExternal('https://github.com/NetoECommerce/design-resources/blob/master/Project%20Scopes/Tweak-Prices.md')
+})
+
+// Opening Files
+const selectDirBtn = document.getElementById('js-open')
+
+selectDirBtn.addEventListener('click', function (event) {
+  ipcRenderer.send('open-file-dialog')
+})
+
+ipcRenderer.on('selected-directory', function (event, path, datas) {
+  // document.getElementById('output').innerHTML = `You selected: ${path}`
+  console.log("The file content is : " + path.toString());
+
+  fs.readFile(path.toString(), (err, data) => {
+    if(err){
+      alert("An error ocurred reading the file :" + err.message);
+      return;
+    }
+    console.log("The file content is :" + data);
+    ace.edit('editor').setValue(data.toString());
+  });
 })

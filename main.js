@@ -1,5 +1,9 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, shell, ipcMain} = require('electron')
+const {app, BrowserWindow, shell, ipcMain, dialog} = require('electron')
+
+const fs = require('fs')
+const os = require('os')
+const path = require('path')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -49,9 +53,7 @@ app.on('activate', function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-const fs = require('fs')
-const os = require('os')
-const path = require('path')
+// Printing to PDF
 
 ipcMain.on('print-to-pdf', function (event) {
   const pdfPath = path.join(os.tmpdir(), 'print.pdf')
@@ -66,5 +68,20 @@ ipcMain.on('print-to-pdf', function (event) {
       shell.openExternal('file://' + pdfPath)
       event.sender.send('wrote-pdf', pdfPath)
     })
+  })
+})
+
+// Opening Files
+ipcMain.on('open-file-dialog', function (event) {
+  dialog.showOpenDialog({
+    properties: [
+      'openFile', 'multiSelections', (fileNames) => {
+        event.sender.send('selected-directory', fileNames)
+      }
+    ]
+  }, function (files) {
+    if (files) {
+      event.sender.send('selected-directory', files)
+    }
   })
 })
