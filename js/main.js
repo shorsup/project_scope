@@ -60,53 +60,55 @@ $(document).ready(function() {
     
     let segment = segments.map(function(contents) {
         var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)(\s+|\s+`)(?<time>\(.*\)))/, 'm');
-        var bullet = /^-\s.*/gm;
-        var commentRegex2 = /^((?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)).*/gm;
-        
+        var bulletPattern = /^-\s.*/gm;
+        var subBulletPattern = /^(?!\n)\s+-.*/gm;
+        var commentPattern = /^((?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)).*/gm;
+
         if(h2Pattern.test(contents)) { 
             var validPattern = h2Pattern.exec(contents);
-            var h2 = validPattern[2];
+            var h2 = validPattern.groups.title;
         }
 
-        var lineArray = contents.match(bullet);
-        if (lineArray === null) return {};
+        // Creating Line Object
+        var lineMatch = contents.match(bulletPattern);
+        if (lineMatch === null) return {};
 
-        let lineObject = lineArray.map(function(item) {
+        let lineObject = lineMatch.map(function(item) {
             return ({
-                // line: {
-                    line: item,
-                    hours: returnTime(item),
-                    type: 'coding'
-                // }
+                line: item,
+                hours: returnTime(item),
+                type: 'coding'
             });
         });
-        
-        var commentObject2 = [];
-        var commentArrayHours;
 
-        while ((commentArrayHours = commentRegex2.exec(contents)) !== null) {
+        // Creating Comment Object
+        var commentObject = [];
+        var commentMatch;
+
+        while ((commentMatch = commentPattern.exec(contents)) !== null) {
             var type  = '';
 
-            if (commentArrayHours.groups.coding !== undefined) type = 'coding';
-            if (commentArrayHours.groups.design !== undefined) type = 'design';
+            if (commentMatch.groups.coding !== undefined) type = 'coding';
+            if (commentMatch.groups.design !== undefined) type = 'design';
 
-            commentObject2.push({
-                line: commentArrayHours[0],
-                hours: returnTime(commentArrayHours),
+            commentObject.push({
+                line: commentMatch[0],
+                hours: returnTime(commentMatch),
                 type: type
             });
 
             var type  = '';
         }
 
+        // Segment Output
         return {
             title: h2,
             hours: {
-                coding: totalHours(commentObject2).coding + totalHours(lineObject).coding,
-                design: totalHours(commentObject2).design + totalHours(lineObject).design,
-                total: totalHours(commentObject2).total + totalHours(lineObject).total,
+                coding: totalHours(commentObject).coding + totalHours(lineObject).coding,
+                design: totalHours(commentObject).design + totalHours(lineObject).design,
+                total: totalHours(commentObject).total + totalHours(lineObject).total,
             },
-            comments: commentObject2,
+            comments: commentObject,
             content: lineObject,
         };
     });
