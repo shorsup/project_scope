@@ -25,15 +25,16 @@ $(document).ready(function() {
     const segments = editorValue.split('---');
     
     function returnTime(input) {
-        var hourRegexOb = /(((?<hr>\d+)(hr|hrs|hour|hours)\b)\s+((?<min>\d+)(m|min|mins|minutes)\b))|((?<minutes>\d+)(\s+|)(m|min|mins|minutes)\b)|((?<hours>\d+)(\s+|)(hr|hrs|hour|hours)\b)|((?<decimal>\d+\.\d+)(hr|hrs|hour|hours))/gm;
+        var hourRegexOb = /(((\d+)(hr|hrs|hour|hours)\b)\s+((\d+)(m|min|mins|minutes)\b))|((\d+)(\s+|)(m|min|mins|minutes)\b)|((\d+)(\s+|)(hr|hrs|hour|hours)\b)|((\d+\.\d+)(hr|hrs|hour|hours))/gm;
         var myArray;
         var result = 0;
+
         
         while ((myArray = hourRegexOb.exec(input)) !== null) {
-            if (myArray.groups.hr && myArray.groups.min) result += parseInt(myArray.groups.hr) + myArray.groups.min/60;
-            if (myArray.groups.hours) result += parseInt(myArray.groups.hours);
-            if (myArray.groups.minutes) result += myArray.groups.minutes/60;
-            if (myArray.groups.decimal) result = parseFloat(myArray.groups.decimal);
+            if (myArray[3] && myArray[6]) result += parseInt(myArray[3]) + myArray[6]/60; // hr 3, min 6
+            if (myArray[13]) result += parseInt(myArray[13]); // hours 13
+            if (myArray[9]) result += myArray[9]/60; // minutes 9
+            if (myArray[17]) result = parseFloat(myArray[17]); // decimal 17
             
             return result;
         }
@@ -59,14 +60,14 @@ $(document).ready(function() {
     }
     
     let segment = segments.map(function(contents) {
-        var h2Pattern = new RegExp(/^#{2}\s+((?<title>.*)(\s+|\s+`)(?<time>\(.*\)))/, 'm');
+        var h2Pattern = new RegExp(/^#{2}\s+((.*)(\s+|\s+`)(\(.*\)))/, 'm');
         var bulletPattern = /^-\s.*/gm;
         var subBulletPattern = /^(?!\n)\s+-.*/gm;
-        var commentPattern = /^((?<coding>Coding|coding)|(?<design>Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)).*/gm;
+        var commentPattern = /^((Coding|coding)|(Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)).*/gm;
 
         if(h2Pattern.test(contents)) { 
             var validPattern = h2Pattern.exec(contents);
-            var h2 = validPattern.groups.title;
+            var h2 = validPattern[2]; // Title
         }
 
         // Creating Line Object
@@ -88,8 +89,8 @@ $(document).ready(function() {
         while ((commentMatch = commentPattern.exec(contents)) !== null) {
             var type  = '';
 
-            if (commentMatch.groups.coding !== undefined) type = 'coding';
-            if (commentMatch.groups.design !== undefined) type = 'design';
+            if (commentMatch[2] !== undefined) type = 'coding';
+            if (commentMatch[3] !== undefined) type = 'design';
 
             commentObject.push({
                 line: commentMatch[0],
