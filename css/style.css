@@ -32,6 +32,10 @@ hr {
     border-color: #495057;
 }
 
+.form-control {
+    margin-top: 20px;
+}
+
 .form-control:focus {
     box-shadow: none;
 }

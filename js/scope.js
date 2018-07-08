@@ -13,7 +13,13 @@ $(document).ready(function() {
         $('.wrapper-errors').toggle();
     });
 
-    $('.js-times-toggle, .js-style').on('click', function() {
+    $('.js-colour').click(function() {
+        var colour = $('#fn-2').val();
+        $('#targetDiv h1').css('background-color', colour);
+        $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
+    });
+
+    $('.js-times-toggle, .js-style, .js-comment').on('click', function() {
         if(!$(this).hasClass('mode-active')){
             if($(this).hasClass('js-times-toggle')){
                 const segmentArray = ace.edit('editor').getValue().split('---');
@@ -22,10 +28,11 @@ $(document).ready(function() {
                 calculateTotalHours(scopeObject);
             }
             menuItem.set(this);
+            $(this).addClass('mode-active');
         } else {
             menuItem.clear();
+            $(this).removeClass('mode-active');
         }
-        $(this).toggleClass('mode-active');
     });
 
     setInterval(runMarkdown, 5000);
@@ -191,10 +198,15 @@ $(document).ready(function() {
 
     const menuItem = {
         clear() {
+            $('.sidebar-icon').each(function() {
+                $(this).removeClass('mode-active');
+            });
+            
             $('.icon-menu').hide();
             $('.icon-menu').removeClass('col col-sm-2');
             $('.ace_editor').removeClass('left-spacing');
             ace.edit('editor').resize();
+
         },
         set(item) {
             this.clear();
@@ -234,11 +246,6 @@ $(document).ready(function() {
 
             ace.edit('editor').clearSelection();
             ace.edit('notesEditor').clearSelection();
-
-            // Feature Notes Colour
-            var colour = $('#fn-2').val();
-            $('#targetDiv h1').css('background-color', colour);
-            $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
         }
     }
 

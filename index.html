@@ -80,7 +80,7 @@
                 <div id="js-open" class="js-open sidebar-icon">
                     <i class="fa fa-files-o text-center" data-toggle="tooltip" data-placement="left" title="Open File"></i>
                 </div>
-                <div id="js-comment" class="js-comment sidebar-icon">
+                <div id="js-comment" class="js-comment sidebar-icon" data-icon-menu="#commentMenu">
                     <i class="fa fa-comment text-center" data-toggle="tooltip" data-placement="left" title="Show Notes"></i>
                 </div>
                 <div class="js-errors sidebar-icon d-none d-sm-block">
@@ -88,7 +88,7 @@
                 </div>
             </div>
 
-            <!-- Preview -->
+            <!-- Menu Icons -->
             <div id="timesMenu" class="wrapper-preview icon-menu" style="display: none;">
                 <div class="wrapper-summary text-left">
                     <div class="js-segments"></div>
@@ -99,6 +99,13 @@
             <div id="styleMenu" class="icon-menu" style="display: none;">
                 <div class="wrapper-menu-col">
                     <input id="fn-2" type="text" class="form-control" name="primarycolour" placeholder="Primary Colour">
+                    <button type="button" class="js-colour btn btn-outline-primary">Apply</button>
+                </div>
+            </div>
+
+            <div id="commentMenu" class="icon-menu" style="display: none;">
+                <div class="wrapper-menu-col">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="24"></textarea>
                 </div>
             </div>
 
@@ -110,7 +117,7 @@
                 <div id="js-open" class="js-open sidebar-icon">
                     <i class="fa fa-files-o text-center" data-toggle="tooltip" data-placement="left" title="Open File"></i>
                 </div>
-                <div id="js-comment" class="sidebar-icon js-comment">
+                <div id="js-comment" class="sidebar-icon js-comment" data-icon-menu="#commentMenu">
                     <i class="fa fa-comment text-center" data-toggle="tooltip" data-placement="left" title="Show Notes"></i>
                 </div>
                 <div id="js-style" class="sidebar-icon js-style" data-icon-menu="#styleMenu" data-editor="notesEditor">
