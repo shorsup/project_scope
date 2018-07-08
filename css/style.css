@@ -129,20 +129,19 @@ hr {
 }
 
 .js-times-toggle {
-    cursor: pointer;
     color: #fff;
     z-index: 99;
 }
 
-.js-errors {
-    color: #6578FE;
-}
-
-.js-times-toggle i,
-.js-errors i,
-.js-render i {
+.sidebar-icon i {
     font-size: 30px;
     padding: 10px;
+    cursor: pointer;
+    color: #dee2e6;
+}
+
+.sidebar-icon:hover i {
+    color: #6578FE;
 }
 
 .mode-active {

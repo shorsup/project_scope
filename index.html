@@ -49,19 +49,14 @@
     <div class="container-fluid">
         <div class="row wrapper-menu">        
             <div class="col offset-md-3 col-md-6 menu">
-                <div class="js-calculate menu-btn">
-                    <i class="fa fa-save white" data-toggle="tooltip" data-placement="left" title="Calculate & Save"></i>
-                </div>
                 <div class="js-toggle-md menu-btn" data-editor="#editor" data-preview="#markdownPreview" data-sidebar="#scopeSidebar">
                     <i class="fa fa-code white active" data-toggle="tooltip" data-placement="left" title="Project Scope"></i>
                 </div>
                 <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-preview="#targetDiv" data-sidebar="#notesSidebar">
                     <i class="fa fa-file-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes"></i>
                 </div>
-                <div class="menu-btn">
-                    <a href="https://github.com/NetoECommerce/design-resources/blob/master/Project%20Scopes/Tweak-Prices.md" target="_blank">
-                        <i class="fa fa-clock-o white" data-toggle="tooltip" data-placement="left" title="Tweak Prices"></i>
-                    </a>
+                <div id="repoLink" class="menu-btn">
+                    <i class="fa fa-clock-o white" data-toggle="tooltip" data-placement="left" title="Tweak Prices"></i>
                 </div>
             </div>
         </div>
@@ -79,12 +74,20 @@
             <div class="editor d-none d-sm-block" id="markdownPreview"></div>
             
             <div class="wrapper-mode">
-                <div class="js-times-toggle">
-                    <i class="fa fa-clock-o text-center"></i>
+                <div class="js-errors sidebar-icon d-none d-sm-block">
+                    <i class="fa fa-warning white" data-toggle="tooltip" data-placement="left" title="Show Errors"></i>
                 </div>
-                <div class="js-errors d-none d-sm-block">
-                    <i class="fa fa-warning white"></i>
+                <div class="js-times-toggle sidebar-icon">
+                    <i class="fa fa-clock-o text-center" data-toggle="tooltip" data-placement="left" title="Project Times"></i>
                 </div>
+                <div class="js-calculate sidebar-icon">
+                    <i class="fa fa-save white" data-toggle="tooltip" data-placement="left" title="Calculate & Save"></i>
+                </div>
+                <div id="js-pdf" class="sidebar-icon">
+                    <i class="fa fa-download text-center" data-toggle="tooltip" data-placement="left" title="Download Feature Notes"></i>
+                </div>
+
+                <!-- <p id="output">Print</p> -->
             </div>
 
             <!-- Preview -->
