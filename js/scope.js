@@ -137,7 +137,6 @@ $(document).ready(function() {
         // Removes segments without titles
         for (var i = scope.length - 1; i >= 0; i--) {
             if (scope[i] === undefined) scope.splice(i, 1);
-            console.log(scope[i]);
         }
         return scope;
     }
@@ -154,15 +153,11 @@ $(document).ready(function() {
         var designTotal = 0;
         var codingTotal = 0;
 
-        console.log(input[0]);
-
         for (var i = 0; i < input.length; i++) {
-            if (input[i].size > 1) {
-                createSegment(input[i].hours.design, input[i].hours.coding, input[i].title);
-                
-                designTotal += input[i].hours.design;
-                codingTotal += input[i].hours.coding;
-            }
+            createSegment(input[i].hours.design, input[i].hours.coding, input[i].title);
+            
+            designTotal += input[i].hours.design;
+            codingTotal += input[i].hours.coding;
         }
         createSegment(designTotal, codingTotal, 'Project');
     }
@@ -170,7 +165,6 @@ $(document).ready(function() {
     function saveEditor(scope) {
         var editor = ace.edit(scope).getValue();
 
-        console.log(scope);
         if (scope === 'editor') {
             localStorage.setItem("markdownStorage", editor); 
         } else {
