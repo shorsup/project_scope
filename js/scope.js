@@ -13,24 +13,23 @@ $(document).ready(function() {
         $('.wrapper-errors').toggle();
     });
 
-    $('.js-times-toggle').click(function() {
+    $('.js-times-toggle, .js-style').on('click', function() {
         if(!$(this).hasClass('mode-active')){
-            const segmentArray = ace.edit('editor').getValue().split('---');
-            var scopeObject = createScope(segmentArray);
-    
-            console.log(scopeObject);
-            calculateTotalHours(scopeObject);
+            if($(this).hasClass('js-times-toggle')){
+                const segmentArray = ace.edit('editor').getValue().split('---');
+                var scopeObject = createScope(segmentArray);
+                console.log(scopeObject);
+                calculateTotalHours(scopeObject);
+            }
+            menuItem.set(this);
+        } else {
+            menuItem.clear();
         }
-
-        $('.wrapper-summary').toggle();
-        $('.wrapper-preview').toggleClass('col col-sm-2');
-        $('.ace_editor').toggleClass('left-spacing');
-        ace.edit('editor').resize();
-
         $(this).toggleClass('mode-active');
     });
 
     setInterval(runMarkdown, 5000);
+    setInterval(runFeatureNotes, 5000);
 
     ace.edit('editor').getSession().on('change', function(e) {
         setTimeout(saveEditor('editor'), 4000);
@@ -189,16 +188,35 @@ $(document).ready(function() {
         runMarkdown();
         runFeatureNotes();
     }
+
+    const menuItem = {
+        clear() {
+            $('.icon-menu').hide();
+            $('.icon-menu').removeClass('col col-sm-2');
+            $('.ace_editor').removeClass('left-spacing');
+            ace.edit('editor').resize();
+        },
+        set(item) {
+            this.clear();
+            
+            var iconMenu = ($(item).data('icon-menu'));
+            $(iconMenu).addClass('col col-sm-2');
+            $(iconMenu).show();
+            $('.ace_editor').addClass('left-spacing');
+            ace.edit('editor').resize();
+        }
+    }
     
     const mode = {
         clear() {
             $('.wrapper-menu .menu .menu-btn').each(function() {
                 $(this).find('.fa').removeClass('active');
-                $('.editor, .sidebar').hide();
+                $('.editor, .sidebar, .sidebar-menu').hide();
                 $('.editor').removeClass('d-sm-block');
                 ace.edit('editor').clearSelection();
                 ace.edit('notesEditor').clearSelection();
             });
+            menuItem.clear();
         },
         set(mode) {
             this.clear();
@@ -212,6 +230,7 @@ $(document).ready(function() {
             $(editor).show();
             $(sidebar).show();
             $(preview).toggleClass('d-none d-sm-block');
+            $(preview).show();
 
             ace.edit('editor').clearSelection();
             ace.edit('notesEditor').clearSelection();

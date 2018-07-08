@@ -7,8 +7,16 @@ textarea {
     resize: none;
 }
 
-.sidebar p {
+.icon-menu p {
     margin-bottom: 0;
+}
+
+.icon-menu {
+    overflow-y: auto;
+    color: #dae0e5;
+    background: #27384E;
+    border: none;
+    height: calc(100vh - 70px);
 }
 
 a {
@@ -19,7 +27,6 @@ img {
     max-width: 100%;
     height: auto;
 }
-
 
 hr {
     border-color: #495057;
@@ -194,19 +201,17 @@ hr {
 }
 
 /* --- Previews --- */
-.wrapper-preview {
-    background: #f4f7f8;
-    overflow-y: auto;
-    color: #dae0e5;
-    background: #27384E;
-    border: none;
-    height: calc(100vh - 70px);
-}
-
 .wrapper-summary {
     height: 100%;
     overflow-y: auto;
-    padding-right: 35px;
+    padding-right: 25px;
+    padding-bottom: 40px;
+    padding-left: 50px;
+}
+
+.wrapper-menu-col {
+    height: 100%;
+    overflow-y: auto;
     padding-bottom: 40px;
     padding-left: 50px;
 }

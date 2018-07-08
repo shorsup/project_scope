@@ -74,13 +74,13 @@
             <div class="editor d-none d-sm-block" id="markdownPreview"></div>
             
             <div id="scopeSidebar" class="wrapper-mode sidebar">
-                <div class="js-times-toggle sidebar-icon">
+                <div class="js-times-toggle sidebar-icon" data-icon-menu="#timesMenu" data-editor="editor">
                     <i class="fa fa-clock-o text-center" data-toggle="tooltip" data-placement="left" title="Show Times"></i>
                 </div>
-                <div id="js-open" class="sidebar-icon">
+                <div id="js-open" class="js-open sidebar-icon">
                     <i class="fa fa-files-o text-center" data-toggle="tooltip" data-placement="left" title="Open File"></i>
                 </div>
-                <div id="js-comment" class="sidebar-icon">
+                <div id="js-comment" class="js-comment sidebar-icon">
                     <i class="fa fa-comment text-center" data-toggle="tooltip" data-placement="left" title="Show Notes"></i>
                 </div>
                 <div class="js-errors sidebar-icon d-none d-sm-block">
@@ -89,28 +89,33 @@
             </div>
 
             <!-- Preview -->
-            <div class="wrapper-preview">
-                <div class="wrapper-summary text-left" style="display: none;">
+            <div id="timesMenu" class="wrapper-preview icon-menu" style="display: none;">
+                <div class="wrapper-summary text-left">
                     <div class="js-segments"></div>
                     <div id="output"></div>
                 </div>
             </div>
 
+            <div id="styleMenu" class="icon-menu" style="display: none;">
+                <div class="wrapper-menu-col">
+                    <input id="fn-2" type="text" class="form-control" name="primarycolour" placeholder="Primary Colour">
+                </div>
+            </div>
+
             <!-- Feature Notes Sidebar -->
             <div id="notesSidebar" class="wrapper-mode sidebar" style="display: none;">
-                <div id="js-pdf" class="sidebar-icon">
+                <div id="js-pdf" class="js-pdf sidebar-icon">
                     <i class="fa fa-cloud-download text-center" data-toggle="tooltip" data-placement="left" title="Download"></i>
                 </div>
-                <div id="js-open" class="sidebar-icon">
+                <div id="js-open" class="js-open sidebar-icon">
                     <i class="fa fa-files-o text-center" data-toggle="tooltip" data-placement="left" title="Open File"></i>
                 </div>
-                <div id="js-comment" class="sidebar-icon">
+                <div id="js-comment" class="sidebar-icon js-comment">
                     <i class="fa fa-comment text-center" data-toggle="tooltip" data-placement="left" title="Show Notes"></i>
                 </div>
-                <div id="js-style" class="sidebar-icon">
+                <div id="js-style" class="sidebar-icon js-style" data-icon-menu="#styleMenu" data-editor="notesEditor">
                     <i class="fa fa-paint-brush text-center" data-toggle="tooltip" data-placement="left" title="Style PDF"></i>
                 </div>
-                <input id="fn-2" type="text" class="form-control" name="primarycolour" placeholder="Primary Colour">
             </div>
 
         </div>
