@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css">
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
+    <script src="js/scope.js"></script>
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" media="screen, print" href="css/style.css" />
     <!-- Showdown -->
@@ -23,6 +25,8 @@
     <script src="js/plugins/aceSetup.js"></script>
     <!-- jsPDF -->
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
 </head>
 <body>
     <div class="wrapper-errors" style="display: none;">
@@ -45,19 +49,14 @@
     <div class="container-fluid">
         <div class="row wrapper-menu">        
             <div class="col offset-md-3 col-md-6 menu">
-                <div class="js-calculate menu-btn">
-                    <i class="fa fa-save white" data-toggle="tooltip" data-placement="left" title="Calculate & Save"></i>
-                </div>
                 <div class="js-toggle-md menu-btn" data-editor="#editor" data-preview="#markdownPreview" data-sidebar="#scopeSidebar">
                     <i class="fa fa-code white active" data-toggle="tooltip" data-placement="left" title="Project Scope"></i>
                 </div>
                 <div class="js-toggle-fn menu-btn" data-editor="#notesEditor" data-preview="#targetDiv" data-sidebar="#notesSidebar">
                     <i class="fa fa-file-o white" data-toggle="tooltip" data-placement="left" title="Feature Notes"></i>
                 </div>
-                <div class="menu-btn">
-                    <a href="https://github.com/NetoECommerce/design-resources/blob/master/Project%20Scopes/Tweak-Prices.md" target="_blank">
-                        <i class="fa fa-clock-o white" data-toggle="tooltip" data-placement="left" title="Tweak Prices"></i>
-                    </a>
+                <div id="repoLink" class="menu-btn">
+                    <i class="fa fa-clock-o white" data-toggle="tooltip" data-placement="left" title="Tweak Prices"></i>
                 </div>
             </div>
         </div>
@@ -74,54 +73,105 @@
             <!-- Rendered Markdown -->
             <div class="editor d-none d-sm-block" id="markdownPreview"></div>
             
-            <div class="wrapper-mode">
-                <div class="js-times-toggle">
-                    <i class="fa fa-clock-o text-center"></i>
+            <div id="scopeSidebar" class="wrapper-mode sidebar">
+                <div id="js-create-scope" class="js-create-scope sidebar-icon" data-icon-menu="#createScopeMenu" data-editor="editor">
+                    <i class="fa fa-plus-circle text-center" data-toggle="tooltip" data-placement="left" title="Create Scope"></i>
                 </div>
-                <div class="js-errors d-none d-sm-block">
-                    <i class="fa fa-warning white"></i>
+                <div class="js-times-toggle sidebar-icon" data-icon-menu="#timesMenu" data-editor="editor">
+                    <i class="fa fa-clock-o text-center" data-toggle="tooltip" data-placement="left" title="Show Times"></i>
+                </div>
+                <div id="js-open-scope" class="js-open-scope sidebar-icon">
+                    <i class="fa fa-files-o text-center" data-toggle="tooltip" data-placement="left" title="Open File"></i>
+                </div>
+                <div id="js-comment" class="js-comment sidebar-icon" data-icon-menu="#commentMenu">
+                    <i class="fa fa-comment text-center" data-toggle="tooltip" data-placement="left" title="Show Notes"></i>
+                </div>
+                <div class="js-errors sidebar-icon d-none d-sm-block">
+                    <i class="fa fa-warning white" data-toggle="tooltip" data-placement="left" title="Show Errors"></i>
                 </div>
             </div>
 
-            <!-- Preview -->
-            <div id="scopeSidebar" class="wrapper-preview sidebar">
-                <div class="wrapper-summary text-left" style="display: none;">
+            <!-- Menu Icons -->
+            <div id="timesMenu" class="wrapper-preview icon-menu" style="display: none;">
+                <div class="wrapper-summary text-left">
                     <div class="js-segments"></div>
+                    <div id="output"></div>
                 </div>
             </div>
 
-            <!-- Snippets -->
-            <div id="notesEditorSidebar" class="wrapper-snippet-menu col-12 col-sm-2 sidebar" style="display: none;">
-                <h3>Snippets</h3>
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">Extra</a>
-                    <a onclick="insertSnippet('![](https://store.neto.com.au/assets/scopes/algolia/dropdown.png)', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Image</a>
-                    <a onclick="insertSnippet('<div style='display: block; page-break-before: always;'></div>', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Page Break</a>
-                    <a onclick="insertSnippet('## Banners', 'notesEditor');" href="#" class="list-group-item active">Banners</a>
-                    <a onclick="insertSnippet('- The ${1:name} banner is set up as an advert and assigned to this advert group: ${2:home_group}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Banner</a>
-                    <a onclick="insertSnippet('', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Banner (Mobile &amp; Desktop)</a>
-                    <a onclick="insertSnippet('## Adverts', 'notesEditor');" href="#" class="list-group-item active">Adverts</a>
-                    <a onclick="insertSnippet('- This ${1:name} has been set up as an advert and assigned to the following advert group: ${2:advert_group}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Advert</a>
-                    <a honclick="insertSnippet('- These has been set up as adverts and assigned to the following advert group: ${1:advert_group}', 'notesEditor');" ref="#" class="list-group-item list-group-item-action">Multiple Adverts</a>
-                    <a onclick="insertSnippet('- This has been set up as an advert. You can edit the image, content and link here: ${1:link}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Adverts with Image, Content, Link</a>
-                    <a onclick="insertSnippet('- The products have been set up as Featured Product adverts and assigned to an advert group called: ${1:advert_group}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Featured Products Adverts</a>
-                    <a onclick="insertSnippet('## Menus', 'notesEditor');" href="#" class="list-group-item active">Menus</a>
-                    <a onclick="insertSnippet('- The main product navigation menu is automatically populated by your Product Category structure. This can be edited here: ${1:link}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Navigation Menu</a>
-                    <a onclick="insertSnippet('- This has been set up as a static menu which can be edited from the cPanel here: ${1:link}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Static Menu</a>
-                    <a onclick="insertSnippet('## Editable Zones', 'notesEditor');" href="#" class="list-group-item active">Editable Zones</a>
-                    <a onclick="insertSnippet('- This has been set up as a content zone and can be edited here: ${1:link}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Content Zone</a>
-                    <a onclick="insertSnippet('- These have been set up as additional product fields and can be updated in the cpanel under the heading: ${1:heading}', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Custom Product Fields</a>
-                    <a onclick="insertSnippet('## Thumbnails', 'notesEditor');" href="#" class="list-group-item active">Thumbnails</a>
-                    <a onclick="insertSnippet('- Blog thumbnails are automatically populated by your Blog Posts and are sorted by most recent posts.', 'notesEditor');" href="#" class="list-group-item list-group-item-action">Blog Thumbnails</a>
+            <div id="styleMenu" class="icon-menu" style="display: none;">
+                <div class="wrapper-menu-col">
+                    <input id="fn-2" type="text" class="form-control" name="primarycolour" placeholder="Primary Colour">
+                    <button type="button" class="js-colour btn btn-outline-primary">Apply</button>
+                </div>
+            </div>
+
+            <div id="commentMenu" class="icon-menu" style="display: none;">
+                <div class="wrapper-menu-col">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="24"></textarea>
+                </div>
+            </div>
+
+            <div id="createScopeMenu" class="icon-menu" style="display: none;">
+                <div class="wrapper-menu-col">
+                    <input id="caseNumber" type="text" class="form-control" name="caseNumber" placeholder="Case Number">
+                    <input id="companyName" type="text" class="form-control" name="companyName" placeholder="Company Name">
+                    <input id="companyWebsite" type="text" class="form-control" name="companyWebsite" placeholder="Website">
+                    <input id="scopeVersion" type="text" class="form-control" name="scopeVersion" placeholder="Scope Version">
+                    <div class="form-group">
+                        <select id="scopeType" class="form-control">
+                        <option>Tweaks</option>
+                        <option>Premium Theme</option>
+                        <option>Custom Design</option>
+                        <option>Re-Design</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="themeName" class="form-control" style="display: none;">
+                        <option>Skeletal</option>
+                        <option>Geometric</option>
+                        <option>Twenty3</option>
+                        <option>Frame</option>
+                        </select>
+                    </div>
+                    <button id="js-create-btn" type="button" class="js-colour btn btn-outline-primary">Create</button>
+                </div>
+            </div>
+
+            <div id="createNotesMenu" class="icon-menu" style="display: none;">
+                <div class="wrapper-menu-col">
+                    <input id="caseNumber" type="text" class="form-control" name="caseNumber" placeholder="Case Number">
+                    <input id="companyName" type="text" class="form-control" name="companyName" placeholder="Company Name">
+                    <input id="companyWebsite" type="text" class="form-control" name="companyWebsite" placeholder="Website">
+                    <input id="companyColours" type="text" class="form-control" name="companyColours" placeholder="Company Colour">
+                    <button id="js-create-btn" type="button" class="js-colour btn btn-outline-primary">Create</button>
                 </div>
             </div>
 
             <!-- Feature Notes Sidebar -->
-            <div id="notesSidebar" class="wrapper-snippet-menu sidebar" style="display: none;">
-                <input id="fn-2" type="text" class="form-control" name="primarycolour" placeholder="Primary Colour">
+            <div id="notesSidebar" class="wrapper-mode sidebar" style="display: none;">
+                <div id="js-create-scope" class="js-create-scope sidebar-icon" data-icon-menu="#createNotesMenu" data-editor="editor">
+                    <i class="fa fa-plus-circle text-center" data-toggle="tooltip" data-placement="left" title="Create Scope"></i>
+                </div>
+                <div id="js-pdf" class="js-pdf sidebar-icon">
+                    <i class="fa fa-cloud-download text-center" data-toggle="tooltip" data-placement="left" title="Download"></i>
+                </div>
+                <div id="js-open-notes" class="js-open-notes sidebar-icon">
+                    <i class="fa fa-files-o text-center" data-toggle="tooltip" data-placement="left" title="Open File"></i>
+                </div>
+                <div id="js-comment" class="sidebar-icon js-comment" data-icon-menu="#commentMenu">
+                    <i class="fa fa-comment text-center" data-toggle="tooltip" data-placement="left" title="Show Notes"></i>
+                </div>
+                <div id="js-style" class="sidebar-icon js-style" data-icon-menu="#styleMenu" data-editor="notesEditor">
+                    <i class="fa fa-paint-brush text-center" data-toggle="tooltip" data-placement="left" title="Style PDF"></i>
+                </div>
             </div>
 
         </div>
     </div><!-- /container -->
+    <script>
+        // You can also require other files to run in this process
+        require('./renderer.js')
+    </script>
 </body>
 </html>
