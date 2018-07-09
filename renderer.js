@@ -37,7 +37,6 @@ openNotesTrigger.addEventListener('click', function (event) {
 })
 
 ipcRenderer.on('selected-directory', function (event, path, args) {
-  console.log(args);
   fs.readFile(path.toString(), (err, data) => {
     if(err){
       alert("An error ocurred reading the file :" + err.message);

@@ -74,6 +74,9 @@
             <div class="editor d-none d-sm-block" id="markdownPreview"></div>
             
             <div id="scopeSidebar" class="wrapper-mode sidebar">
+                <div id="js-create-scope" class="js-create-scope sidebar-icon" data-icon-menu="#createScopeMenu" data-editor="editor">
+                    <i class="fa fa-plus-circle text-center" data-toggle="tooltip" data-placement="left" title="Create Scope"></i>
+                </div>
                 <div class="js-times-toggle sidebar-icon" data-icon-menu="#timesMenu" data-editor="editor">
                     <i class="fa fa-clock-o text-center" data-toggle="tooltip" data-placement="left" title="Show Times"></i>
                 </div>
@@ -109,8 +112,47 @@
                 </div>
             </div>
 
+            <div id="createScopeMenu" class="icon-menu" style="display: none;">
+                <div class="wrapper-menu-col">
+                    <input id="caseNumber" type="text" class="form-control" name="caseNumber" placeholder="Case Number">
+                    <input id="companyName" type="text" class="form-control" name="companyName" placeholder="Company Name">
+                    <input id="companyWebsite" type="text" class="form-control" name="companyWebsite" placeholder="Website">
+                    <input id="scopeVersion" type="text" class="form-control" name="scopeVersion" placeholder="Scope Version">
+                    <div class="form-group">
+                        <select id="scopeType" class="form-control">
+                        <option>Tweaks</option>
+                        <option>Premium Theme</option>
+                        <option>Custom Design</option>
+                        <option>Re-Design</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="themeName" class="form-control" style="display: none;">
+                        <option>Skeletal</option>
+                        <option>Geometric</option>
+                        <option>Twenty3</option>
+                        <option>Frame</option>
+                        </select>
+                    </div>
+                    <button id="js-create-btn" type="button" class="js-colour btn btn-outline-primary">Create</button>
+                </div>
+            </div>
+
+            <div id="createNotesMenu" class="icon-menu" style="display: none;">
+                <div class="wrapper-menu-col">
+                    <input id="caseNumber" type="text" class="form-control" name="caseNumber" placeholder="Case Number">
+                    <input id="companyName" type="text" class="form-control" name="companyName" placeholder="Company Name">
+                    <input id="companyWebsite" type="text" class="form-control" name="companyWebsite" placeholder="Website">
+                    <input id="companyColours" type="text" class="form-control" name="companyColours" placeholder="Company Colour">
+                    <button id="js-create-btn" type="button" class="js-colour btn btn-outline-primary">Create</button>
+                </div>
+            </div>
+
             <!-- Feature Notes Sidebar -->
             <div id="notesSidebar" class="wrapper-mode sidebar" style="display: none;">
+                <div id="js-create-scope" class="js-create-scope sidebar-icon" data-icon-menu="#createNotesMenu" data-editor="editor">
+                    <i class="fa fa-plus-circle text-center" data-toggle="tooltip" data-placement="left" title="Create Scope"></i>
+                </div>
                 <div id="js-pdf" class="js-pdf sidebar-icon">
                     <i class="fa fa-cloud-download text-center" data-toggle="tooltip" data-placement="left" title="Download"></i>
                 </div>

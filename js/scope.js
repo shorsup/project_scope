@@ -13,13 +13,39 @@ $(document).ready(function() {
         $('.wrapper-errors').toggle();
     });
 
+    $('#scopeType').on('change', function() {
+        if ($(this).val() === 'Premium Theme') {
+            $('#themeName').show();
+        } else {
+            $('#themeName').hide();
+        }
+    });
+
+    $('#js-create-btn').click(function() {
+        var company = $('#companyName').val().replace(/\s+/g, '');
+
+        let scopeBase = {
+            case: $('#caseNumber').val(),
+            company: company,
+            type: $('#scopeType').val(),
+            theme:  $('#themeName').val(),
+            version: $('#scopeVersion').val(),
+            website: $('#companyWebsite').val()
+        }
+
+        let fileName = `${scopeBase.company}-ProjectScope-${scopeBase.version}.md`;
+
+        console.log(scopeBase);
+        console.log(fileName);
+    });
+
     $('.js-colour').click(function() {
         var colour = $('#fn-2').val();
         $('#targetDiv h1').css('background-color', colour);
         $('#targetDiv h2, #targetDiv h3').css('border-color', colour);
     });
 
-    $('.js-times-toggle, .js-style, .js-comment').on('click', function() {
+    $('.js-times-toggle, .js-style, .js-comment, .js-create-scope').on('click', function() {
         if(!$(this).hasClass('mode-active')){
             if($(this).hasClass('js-times-toggle')){
                 const segmentArray = ace.edit('editor').getValue().split('---');
@@ -194,7 +220,7 @@ $(document).ready(function() {
 
     function saveEditor(scope) {
         console.log('save');
-        
+
         var editor = ace.edit(scope).getValue();
 
         if (scope === 'editor') {
