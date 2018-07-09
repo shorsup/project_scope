@@ -72,16 +72,18 @@ ipcMain.on('print-to-pdf', function (event) {
 })
 
 // Opening Files
-ipcMain.on('open-file-dialog', function (event) {
+ipcMain.on('open-file-dialog', function (event, args) {
+  let type = args;
+
   dialog.showOpenDialog({
     properties: [
       'openFile', 'multiSelections', (fileNames) => {
-        event.sender.send('selected-directory', fileNames)
+        event.sender.send('selected-directory', fileNames, args)
       }
     ]
   }, function (files) {
     if (files) {
-      event.sender.send('selected-directory', files)
+      event.sender.send('selected-directory', files, type)
     }
   })
 })

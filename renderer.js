@@ -25,18 +25,24 @@ exLinksBtn.addEventListener('click', function (event) {
 })
 
 // Opening Files
-const selectDirBtn = document.getElementById('js-open')
+const openScopeTrigger = document.getElementById('js-open-scope')
+const openNotesTrigger = document.getElementById('js-open-notes')
 
-selectDirBtn.addEventListener('click', function (event) {
-  ipcRenderer.send('open-file-dialog')
+openScopeTrigger.addEventListener('click', function (event) {
+  ipcRenderer.send('open-file-dialog', 'editor')
 })
 
-ipcRenderer.on('selected-directory', function (event, path, datas) {
+openNotesTrigger.addEventListener('click', function (event) {
+  ipcRenderer.send('open-file-dialog', 'notesEditor')
+})
+
+ipcRenderer.on('selected-directory', function (event, path, args) {
+  console.log(args);
   fs.readFile(path.toString(), (err, data) => {
     if(err){
       alert("An error ocurred reading the file :" + err.message);
       return;
     }
-    ace.edit('editor').setValue(data.toString());
+    ace.edit(args).setValue(data.toString());
   });
 })
