@@ -23,9 +23,9 @@ $(document).ready(function() {
         if(!$(this).hasClass('mode-active')){
             if($(this).hasClass('js-times-toggle')){
                 const segmentArray = ace.edit('editor').getValue().split('---');
-                var scopeObject = createScope(segmentArray);
-                console.log(scopeObject);
-                calculateTotalHours(scopeObject);
+                var scopeArray = createScope(segmentArray);
+                console.log(scopeArray);
+                calculateTotalHours(scopeArray);
             }
             menuItem.set(this);
             $(this).addClass('mode-active');
@@ -48,6 +48,25 @@ $(document).ready(function() {
     
     const editorValue = ace.edit('editor').getValue();
     const segmentArray = editorValue.split('---');
+    
+    function objectIsEmpty(object) {
+        for(var key in object) {
+            if(object.hasOwnProperty(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function arrayIsEmpty(array) {
+        for (i = 0; i < array.length; i++) {
+            if (objectIsEmpty(array[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     
     function returnTime(input) {
         var hourRegexOb = /(((\d+)(hr|hrs|hour|hours)\b)\s+((\d+)(m|min|mins|minutes)\b))|((\d+)(\s+|)(m|min|mins|minutes)\b)|((\d+)(\s+|)(hr|hrs|hour|hours)\b)|((\d+\.\d+)(hr|hrs|hour|hours))/gm;
@@ -147,13 +166,18 @@ $(document).ready(function() {
         return scope;
     }
 
-    let scopeObject = createScope(segmentArray);
+    let scopeArray = createScope(segmentArray);
+    console.log(scopeArray);
     
-    
-    console.log(scopeObject);
-    calculateTotalHours(scopeObject);
+    calculateTotalHours(scopeArray);
 
     function calculateTotalHours(input) {
+        console.log(input);
+        console.log(arrayIsEmpty(input));
+        if (arrayIsEmpty(input)) {
+            return;
+        }
+
         $('.js-segments').html('');
 
         var designTotal = 0;
@@ -169,6 +193,8 @@ $(document).ready(function() {
     }
 
     function saveEditor(scope) {
+        console.log('save');
+        
         var editor = ace.edit(scope).getValue();
 
         if (scope === 'editor') {
