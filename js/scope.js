@@ -76,23 +76,8 @@ $(document).ready(function() {
     const segmentArray = editorValue.split('---');
 
     function objectIsEmpty(object) {
-        for(var key in object) {
-            if(object.hasOwnProperty(key)) {
-                return false;
-            }
-        }
-        return true;
+        return Object.keys(object).length > 0;
     }
-
-    function arrayIsEmpty(array) {
-        for (i = 0; i < array.length; i++) {
-            if (objectIsEmpty(array[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     function returnTime(input) {
         var hourRegexOb = /(((\d+)(hr|hrs|hour|hours)\b)\s+((\d+)(m|min|mins|minutes)\b))|((\d+)(\s+|)(m|min|mins|minutes)\b)|((\d+)(\s+|)(hr|hrs|hour|hours)\b)|((\d+\.\d+)(hr|hrs|hour|hours))/gm;
@@ -193,27 +178,27 @@ $(document).ready(function() {
     }
 
     let scopeArray = createScope(segmentArray);
-    console.log(scopeArray);
 
     calculateTotalHours(scopeArray);
 
+    function testFilter(input) {
+        return Object.keys(input).length > 0;
+    }
+
     function calculateTotalHours(input) {
-        console.log(input);
-        console.log(arrayIsEmpty(input));
-        if (arrayIsEmpty(input)) {
-            return;
-        }
+        var inputArray = input.filter(testFilter);
+        console.log(inputArray);
 
         $('.js-segments').html('');
 
         var designTotal = 0;
         var codingTotal = 0;
 
-        for (var i = 0; i < input.length; i++) {
-            createSegment(input[i].hours.design, input[i].hours.coding, input[i].title);
+        for (var i = 0; i < inputArray.length; i++) {
+            createSegment(inputArray[i].hours.design, inputArray[i].hours.coding, inputArray[i].title);
 
-            designTotal += input[i].hours.design;
-            codingTotal += input[i].hours.coding;
+            designTotal += inputArray[i].hours.design;
+            codingTotal += inputArray[i].hours.coding;
         }
         createSegment(designTotal, codingTotal, 'Project');
     }
@@ -310,8 +295,6 @@ $(document).ready(function() {
     function createSegment(designSegment, codingSegment, segmentTitle) {
         var contents = $('.js-segments').html();
         let markup = '';
-
-        console.log(segmentTitle === 'Project');
 
         const segment = [
             { title: 'Design', colour: 'blue', icon: 'pencil', hours: designSegment },
