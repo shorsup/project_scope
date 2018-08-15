@@ -180,9 +180,37 @@ $(document).ready(function() {
     let scopeArray = createScope(segmentArray);
 
     calculateTotalHours(scopeArray);
+    calculateMilestones(scopeArray);
 
     function testFilter(input) {
         return Object.keys(input).length > 0;
+    }
+
+    function calculateMilestones(scopeArray) {
+        var inputArray = scopeArray.filter(testFilter);
+        var x = '';
+        var output = [];
+        var titleCounter = 1;
+        var mainCounter = 1;
+
+        for (var i = 0; i < inputArray.length; i++) {
+            if (inputArray[i].hours.design > 0) {
+                output.push({
+                    title: inputArray[i].title,
+                    hours: inputArray[i].hours.design
+                });
+
+                if (inputArray[i].title === 'Home Page') {
+                    x += `- ${titleCounter}.1 - ${inputArray[i].title} Design Deliverable (week ____)`;
+                    titleCounter++;
+                } else {
+                    x += `- ${titleCounter}.${mainCounter} - ${inputArray[i].title} Design Deliverable (week ____)`;
+                    mainCounter++;
+                }
+            }
+        }
+        console.log(x);
+        console.log(output);
     }
 
     function calculateTotalHours(input) {
@@ -193,13 +221,20 @@ $(document).ready(function() {
 
         var designTotal = 0;
         var codingTotal = 0;
+        var homepageCodingTotal = 0;
 
         for (var i = 0; i < inputArray.length; i++) {
             createSegment(inputArray[i].hours.design, inputArray[i].hours.coding, inputArray[i].title);
 
             designTotal += inputArray[i].hours.design;
             codingTotal += inputArray[i].hours.coding;
+
+            if (inputArray[i].title === 'General' || inputArray[i].title === 'Aesthetic' || inputArray[i].title === 'Header' || inputArray[i].title === 'Home Page' || inputArray[i].title === 'Footer' || inputArray[i].title === 'Product Thumbnails') {
+                homepageCodingTotal += inputArray[i].hours.coding;
+            }
+
         }
+        console.log(`Home Page Implementation: ${homepageCodingTotal} hr`);
         createSegment(designTotal, codingTotal, 'Project');
     }
 
