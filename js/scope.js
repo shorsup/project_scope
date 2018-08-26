@@ -119,7 +119,7 @@ $(document).ready(function() {
             var h2Pattern = new RegExp(/^#{2}\s+((.*)(\s+|\s+`)(\(.*\)))/, 'm');
             var bulletPattern = /^-\s.*/gm;
             var subBulletPattern = /^(\s{2}|\s{4}|\t{1})\-.*/gm;
-            var commentPattern = /^((Coding|coding)|(Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)).*/gm;
+            var commentPattern = /^((Coding|coding)|(Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)|(<!--(\s+|)((Coding|coding)|(Mockup|mockup)).*-->)).*/gm;
 
             if(h2Pattern.test(contents)) {
                 var validPattern = h2Pattern.exec(contents);
@@ -160,8 +160,8 @@ $(document).ready(function() {
             while ((commentMatch = commentPattern.exec(contents)) !== null) {
                 var type  = '';
 
-                if (commentMatch[2] !== undefined) type = 'coding';
-                if (commentMatch[3] !== undefined) type = 'design';
+                if (commentMatch[2] !== undefined || commentMatch[7] !== undefined) type = 'coding';
+                if (commentMatch[3] !== undefined || commentMatch[8] !== undefined ) type = 'design';
 
                 commentObject.push({
                     line: commentMatch[0],
