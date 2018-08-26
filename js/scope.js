@@ -52,6 +52,7 @@ $(document).ready(function() {
                 var scopeArray = createScope(segmentArray);
                 console.log(scopeArray);
                 calculateTotalHours(scopeArray);
+                calculateMilestones(scopeArray);
             }
             menuItem.set(this);
             $(this).addClass('mode-active');
@@ -188,7 +189,7 @@ $(document).ready(function() {
 
     function calculateMilestones(scopeArray) {
         var inputArray = scopeArray.filter(testFilter);
-        var x = '';
+        var x = [];
         var output = [];
         var titleCounter = 1;
         var mainCounter = 1;
@@ -196,21 +197,20 @@ $(document).ready(function() {
         for (var i = 0; i < inputArray.length; i++) {
             if (inputArray[i].hours.design > 0) {
                 output.push({
-                    title: inputArray[i].title,
+                    name: inputArray[i].title + ' Mockup',
                     hours: inputArray[i].hours.design
                 });
 
                 if (inputArray[i].title === 'Home Page') {
-                    x += `- ${titleCounter}.1 - ${inputArray[i].title} Design Deliverable (week ____)`;
+                    x.push(`- ${titleCounter}.1 - ${inputArray[i].title} Design Deliverable (week ____)`);
                     titleCounter++;
                 } else {
-                    x += `- ${titleCounter}.${mainCounter} - ${inputArray[i].title} Design Deliverable (week ____)`;
+                    x.push(`- ${titleCounter}.${mainCounter} - ${inputArray[i].title} Design Deliverable (week ____)`);
                     mainCounter++;
                 }
             }
+            console.log(x, output);
         }
-        console.log(x);
-        console.log(output);
     }
 
     function calculateTotalHours(input) {
@@ -234,7 +234,7 @@ $(document).ready(function() {
             }
 
         }
-        console.log(`Home Page Implementation: ${homepageCodingTotal} hr`);
+        createFooter(homepageCodingTotal);
         createSegment(designTotal, codingTotal, 'Project');
     }
 
@@ -339,31 +339,43 @@ $(document).ready(function() {
 
         function renderCost(hours) {
             return `
-            <div class="menu-row">
-                <p>Total</p>
-                <p><span class="green-colour">Cost</span> <span class="pull-right">${hours * 160}</span></p>
-            </div>
-            <hr>`;
+            <div class="menu-row mb-2">
+                <p><span class="green-colour">Cost</span> <span class="pull-right">$${hours * 160}</span></p>
+            </div>`;
         }
 
         function renderSegment(segment) {
             return segment.map(segment => segment.hours ? `
-                <div class="menu-row">
-                    <p>${segment.title}</p>
-                    <p><span class="${segment.colour}-colour">Hours</span> <span class="pull-right">${segment.hours}</span></p>
+                <div class="menu-row mb-2">
+                    <p><span class="${segment.colour}-colour">${segment.title}</span> <span class="pull-right">${segment.hours}</span></p>
                 </div>
-                <hr>
                 ${segmentTitle === 'Project' && segment.title === 'Total' ? renderCost(segment.hours) : ''}
             ` : '').join('');
         }
 
         markup += `
-            <div class="wrapper-segment">
+            <div class="wrapper-segment mb-4">
                 <h2 class="section-title">${segmentTitle}</h2>
                 ${renderSegment(segment)}
             </div>
         `;
 
         $('.js-segments').html(contents + markup);
+    }
+
+    function createFooter(hours) {
+        var contents = $('.js-footer').html();
+        var output = '';
+
+        output = `
+        <div class="wrapper-segment mb-4">
+            <h2 class="section-title">Tasks</h2>
+            <div class="menu-row mb-2">
+                <p><span class="yellow-colour">Home Page</span> <span class="pull-right">${hours}</span></p>
+            </div>
+        </div>
+        `;
+
+        $('.js-footer').html(output);
     }
 });

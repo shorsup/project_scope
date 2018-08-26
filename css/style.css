@@ -165,8 +165,6 @@ hr {
 
 .section-title {
     font-size: 18px;
-    margin-bottom: 10px;
-    margin-top: 40px;
     color: #fff;
 }
 
@@ -302,7 +300,7 @@ blockquote p {
     color: #fc487c;
 }
 
-#targetDiv h1, 
+#targetDiv h1,
 #targetDiv h2 {
     font-weight: 800;
     text-transform: uppercase;
