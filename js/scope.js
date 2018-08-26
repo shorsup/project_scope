@@ -76,10 +76,6 @@ $(document).ready(function() {
     const editorValue = ace.edit('editor').getValue();
     const segmentArray = editorValue.split('---');
 
-    function objectIsEmpty(object) {
-        return Object.keys(object).length > 0;
-    }
-
     function returnTime(input) {
         var hourRegexOb = /(((\d+)(hr|hrs|hour|hours)\b)\s+((\d+)(m|min|mins|minutes)\b))|((\d+)(\s+|)(m|min|mins|minutes)\b)|((\d+)(\s+|)(hr|hrs|hour|hours)\b)|((\d+\.\d+)(hr|hrs|hour|hours))/gm;
         var myArray;
@@ -117,6 +113,7 @@ $(document).ready(function() {
     function createScope(segmentArray) {
         scope = segmentArray.map(function(contents) {
             var h2Pattern = new RegExp(/^#{2}\s+((.*)(\s+|\s+`)(\(.*\)))/, 'm');
+            var h3Pattern =/^#{3}\s+(.*)/gm;
             var bulletPattern = /^-\s.*/gm;
             var subBulletPattern = /^(\s{2}|\s{4}|\t{1})\-.*/gm;
             var commentPattern = /^((Coding|coding)|(Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)|(<!--(\s+|)((Coding|coding)|(Mockup|mockup)).*-->)).*/gm;
@@ -131,13 +128,23 @@ $(document).ready(function() {
             let subBulletObject = {};
 
             if (subBulletMatch != null) {
-                // console.log(subBulletMatch);
                 subBulletObject = subBulletMatch.map(function(item) {
                     return ({
                         line: item,
                         hours: returnTime(item),
                         type: 'sub-bullet'
                     });
+                });
+            }
+
+            // Creating Sub-Headings Object
+            var subHeadingObject = [];
+            var subHeadingMatch;
+
+            while ((subHeadingMatch = h3Pattern.exec(contents)) !== null) {
+                subHeadingObject.push({
+                    line: subHeadingMatch[1],
+                    hours: returnTime(subHeadingMatch)
                 });
             }
 
@@ -182,6 +189,7 @@ $(document).ready(function() {
                         total: totalHours(commentObject).total + totalHours(lineObject).total,
                         errors: totalHours(subBulletObject)
                     },
+                    subHeadings: subHeadingObject,
                     comments: commentObject,
                     content: lineObject,
                     errors: subBulletObject
