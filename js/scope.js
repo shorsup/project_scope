@@ -50,7 +50,7 @@ $(document).ready(function() {
             if($(this).hasClass('js-times-toggle')){
                 const segmentArray = ace.edit('editor').getValue().split('---');
                 var scopeArray = createScope(segmentArray);
-                console.log(scopeArray);
+
                 calculateTotalHours(scopeArray);
                 calculateMilestones(scopeArray);
             }
@@ -118,12 +118,27 @@ $(document).ready(function() {
         scope = segmentArray.map(function(contents) {
             var h2Pattern = new RegExp(/^#{2}\s+((.*)(\s+|\s+`)(\(.*\)))/, 'm');
             var bulletPattern = /^-\s.*/gm;
-            var subBulletPattern = /^(?!\n)\s+-.*/gm;
+            var subBulletPattern = /^(\s{2}|\s{4}|\t{1})\-.*/gm;
             var commentPattern = /^((Coding|coding)|(Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)).*/gm;
 
             if(h2Pattern.test(contents)) {
                 var validPattern = h2Pattern.exec(contents);
                 var h2 = validPattern[2]; // Title
+            }
+
+            // Creating Sub-Bullet Object
+            var subBulletMatch = contents.match(subBulletPattern);
+            let subBulletObject = {};
+
+            if (subBulletMatch != null) {
+                // console.log(subBulletMatch);
+                subBulletObject = subBulletMatch.map(function(item) {
+                    return ({
+                        line: item,
+                        hours: returnTime(item),
+                        type: 'sub-bullet'
+                    });
+                });
             }
 
             // Creating Line Object
@@ -165,9 +180,11 @@ $(document).ready(function() {
                         coding: totalHours(commentObject).coding + totalHours(lineObject).coding,
                         design: totalHours(commentObject).design + totalHours(lineObject).design,
                         total: totalHours(commentObject).total + totalHours(lineObject).total,
+                        errors: totalHours(subBulletObject)
                     },
                     comments: commentObject,
                     content: lineObject,
+                    errors: subBulletObject
                 };
             }
         });
@@ -209,8 +226,8 @@ $(document).ready(function() {
                     mainCounter++;
                 }
             }
-            console.log(x, output);
         }
+        console.log(x, output);
     }
 
     function calculateTotalHours(input) {
@@ -221,13 +238,15 @@ $(document).ready(function() {
 
         var designTotal = 0;
         var codingTotal = 0;
+        var errorTotal = 0;
         var homepageCodingTotal = 0;
 
         for (var i = 0; i < inputArray.length; i++) {
-            createSegment(inputArray[i].hours.design, inputArray[i].hours.coding, inputArray[i].title);
+            createSegment(inputArray[i].hours.design, inputArray[i].hours.coding, inputArray[i].title, inputArray[i].hours.errors.total);
 
             designTotal += inputArray[i].hours.design;
             codingTotal += inputArray[i].hours.coding;
+            errorTotal += inputArray[i].hours.errors.total;
 
             if (inputArray[i].title === 'General' || inputArray[i].title === 'Aesthetic' || inputArray[i].title === 'Header' || inputArray[i].title === 'Home Page' || inputArray[i].title === 'Footer' || inputArray[i].title === 'Product Thumbnails') {
                 homepageCodingTotal += inputArray[i].hours.coding;
@@ -235,7 +254,7 @@ $(document).ready(function() {
 
         }
         createFooter(homepageCodingTotal);
-        createSegment(designTotal, codingTotal, 'Project');
+        createSegment(designTotal, codingTotal, 'Project', errorTotal);
     }
 
     function saveEditor(scope) {
@@ -327,14 +346,15 @@ $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })
 
-    function createSegment(designSegment, codingSegment, segmentTitle) {
+    function createSegment(designSegment, codingSegment, segmentTitle, errorSegment) {
         var contents = $('.js-segments').html();
         let markup = '';
 
         const segment = [
             { title: 'Design', colour: 'blue', icon: 'pencil', hours: designSegment },
             { title: 'Coding', colour: 'yellow', icon: 'code', hours: codingSegment },
-            { title: 'Total', colour: 'purple', icon: 'clock-o', hours: designSegment + codingSegment}
+            { title: 'Total', colour: 'purple', icon: 'clock-o', hours: designSegment + codingSegment},
+            { title: 'Errors', colour: 'pink', icon: 'error', hours: errorSegment }
         ];
 
         function renderCost(hours) {
