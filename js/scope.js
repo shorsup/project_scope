@@ -23,20 +23,22 @@ $(document).ready(function() {
 
     $('#js-create-btn').click(function() {
         var company = $('#companyName').val().replace(/\s+/g, '');
+        var version = $('#scopeVersion').val();
+        let fileName = `${company}-ProjectScope-${version}.md`;
+        const segmentArray = ace.edit('editor').getValue().split('---');
+        var scopeArray = createScope(segmentArray);
 
         let scopeBase = {
             case: $('#caseNumber').val(),
             company: company,
             type: $('#scopeType').val(),
             theme:  $('#themeName').val(),
-            version: $('#scopeVersion').val(),
-            website: $('#companyWebsite').val()
+            version: version,
+            website: $('#companyWebsite').val(),
+            fileName: fileName,
+            scope: calculateTotalHours(scopeArray)
         }
-
-        let fileName = `${scopeBase.company}-ProjectScope-${scopeBase.version}.md`;
-
         console.log(scopeBase);
-        console.log(fileName);
     });
 
     $('.js-colour').click(function() {
@@ -116,7 +118,7 @@ $(document).ready(function() {
             var h3Pattern =/^#{3}\s+(.*)/gm;
             var bulletPattern = /^-\s.*/gm;
             var subBulletPattern = /^(\s{2}|\s{4}|\t{1})\-.*/gm;
-            var commentPattern = /^((Coding|coding)|(Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)|(<!--(\s+|)((Coding|coding)|(Mockup|mockup)).*-->)).*/gm;
+            var commentPattern = /^((Coding|coding)|(Mockup|mockup|Wireframe|wireframe|Designs|designs|Design|design)|(<!--(\s+|)((Coding|coding)|(Mockup|mockup|Designs|designs|Design|design)).*-->)).*/gm;
 
             if(h2Pattern.test(contents)) {
                 var validPattern = h2Pattern.exec(contents);
